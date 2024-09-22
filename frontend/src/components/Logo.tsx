@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     width: 85,
     height: 30,
     flexDirection: 'row', // align logo image + text
+    alignItems: 'center',
   },
   logoImage: {
     width: 24,

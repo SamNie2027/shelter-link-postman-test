@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   mapContainer: {
-    width: '100%',
   },
 });
 
