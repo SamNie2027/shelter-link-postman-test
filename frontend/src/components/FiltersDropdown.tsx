@@ -1,81 +1,72 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import { StyleSheet, View } from 'react-native';
+import { MultiSelect } from 'react-native-element-dropdown';
 
-// test data for filters
 const data = [
   { label: 'Item 1', value: '1' },
   { label: 'Item 2', value: '2' },
   { label: 'Item 3', value: '3' },
   { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
 ];
 
-// dropdown style for now
-const FiltersDropdown = () => {
-  const [value, setValue] = useState(null);
+// created a multi-select component for filters
+// need to add some sort of indication of what is currently selected in dropdown list
+const DropdownComponent = () => {
+  const [selected, setSelected] = useState([]);
 
   return (
-    <TouchableOpacity style={styles.dropdownContainer}>
-      <Dropdown
-        style={styles.filtersDropdown}
-        placeholderStyle={styles.filtersText}
-        selectedTextStyle={styles.filtersText}
-        inputSearchStyle={styles.filtersText}
-        data={data}
+    <View>
+      <MultiSelect
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
         search
-        maxHeight={300}
+        data={data}
         labelField="label"
         valueField="value"
         placeholder="Filters"
-        searchPlaceholder="Search..."
-        value={value}
-        onChange={item => {
-          setValue(item.value);
+        searchPlaceholder="SEARCH"
+        value={selected}
+        onChange={(item) => {
+          // @ts-ignore
+          setSelected(item);
         }}
-        // replacing default dropdown image
-        // to do: see about changing image when filters is clicked
-        renderRightIcon={() => (
-          <Image
-            source={require('frontend/assets/dropdown.png')}
-            style={styles.customIcon}
-          />
-        )}
       />
-    </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  dropdownContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  filtersDropdown: {
-    width: 82,
+  dropdown: {
+    width: 87,
     height: 28,
+    paddingRight: 9,
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#000000',
   },
-  filtersText: {
+  placeholderStyle: {
     fontFamily: 'Inter',
     fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 15.73,
     color: '#000000',
     marginLeft: 16,
+  },
+  selectedTextStyle: {
+    fontFamily: 'Inter',
+    fontSize: 13,
+    color: '#000000',
+  },
+  inputSearchStyle: {
+    fontFamily: 'Inter',
+    fontSize: 13,
+    color: '#00000099',
   },
   customIcon: {
     width: 10,
     height: 5,
-    marginRight: 9,
   },
 });
 
-export default FiltersDropdown;
+export default DropdownComponent;
