@@ -26,6 +26,7 @@ const Map = () => {
       <MapView
         style={styles.map}
         initialRegion={{
+          // temp boston location
           latitude: 42.3601,
           longitude: -71.0589,
           latitudeDelta: 0.05,

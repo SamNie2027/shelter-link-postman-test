@@ -12,6 +12,8 @@ import Header from '../components/Header';
 import Logo from '../components/Logo';
 import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
+import ShelterInfoPanel from '../components/ShelterInfoPanel';
+// import SheltersBottomSheet from '../components/BottomPanel';
 
 export const App = () => {
   return (
@@ -31,10 +33,17 @@ export const App = () => {
           <View style={styles.filtersDropdownContainer}>
             <FiltersDropdown />
           </View>
-          <View style={styles.mapContainer}>
+          <View>
             <Map />
           </View>
+          <View style={styles.shelterInfoPanelContainer}>
+            {/*temp call for testing*/}
+            <ShelterInfoPanel />
+          </View>
         </ScrollView>
+        {/*<View style={styles.shelterInfoPanelContainer}>*/}
+        {/*  <SheltersBottomSheet />*/}
+        {/*</View>*/}
       </SafeAreaView>
     </>
   );
@@ -66,8 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingBottom: 12,
   },
-  mapContainer: {
-  },
+  shelterInfoPanelContainer: {},
 });
 
 export default App;
