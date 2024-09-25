@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="changed filters button to be a dropdown feature">
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="dropdown allows multiselect and displays selected filters values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/FiltersDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/FiltersDropdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +87,7 @@
       <workItem from="1726181084985" duration="14293000" />
       <workItem from="1726668374155" duration="25769000" />
       <workItem from="1726923197157" duration="6920000" />
-      <workItem from="1727117896585" duration="24869000" />
+      <workItem from="1727117896585" duration="25905000" />
     </task>
     <task id="LOCAL-00001" summary="created main map components + formatted for phone compatibility">
       <option name="closed" value="true" />
@@ -113,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727282522678</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="dropdown allows multiselect and displays selected filters values">
+      <option name="closed" value="true" />
+      <created>1727295918041</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727295918041</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +131,7 @@
     <MESSAGE value="created main map components + formatted for phone compatibility" />
     <MESSAGE value="added apple maps to app + basic markers from react native maps" />
     <MESSAGE value="changed filters button to be a dropdown feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed filters button to be a dropdown feature" />
+    <MESSAGE value="dropdown allows multiselect and displays selected filters values" />
+    <option name="LAST_COMMIT_MESSAGE" value="dropdown allows multiselect and displays selected filters values" />
   </component>
 </project>

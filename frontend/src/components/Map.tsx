@@ -1,32 +1,32 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const shelters = [
   {
-    //test shelter data for markers
     id: 1,
     title: 'Shelter One',
-    description: 'random description 1',
+    description: 'Sample description of Shelter One',
     latitude: 42.3611,
     longitude: -71.0579,
+    emoji: '🏳️‍🌈',
   },
   {
     id: 2,
     title: 'Shelter Two',
-    description: 'random description 2',
+    description: 'Sample description of Shelter Two',
     latitude: 42.3584,
-    longitude: -71.0590,
+    longitude: -71.0650,
+    emoji: '🏳️‍⚧️',
   },
 ];
 
 const Map = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
-          // temp boston location
           latitude: 42.3601,
           longitude: -71.0589,
           latitudeDelta: 0.05,
@@ -42,7 +42,10 @@ const Map = () => {
             }}
             title={shelter.title}
             description={shelter.description}
-          />
+          >
+            {/*styling if markers are gonna be custom emojis*/}
+            <Text style={styles.customMarker}>{shelter.emoji}</Text>
+          </Marker>
         ))}
       </MapView>
     </View>
@@ -50,10 +53,19 @@ const Map = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   map: {
     borderRadius: 10,
-    width: 395,
+    width: '100%',
     height: 562,
+  },
+  customMarker: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    fontSize: 30,
   },
 });
 
