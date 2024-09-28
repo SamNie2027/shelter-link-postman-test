@@ -6,7 +6,8 @@
     "@nestjs/core": "10.4.1",
     "@nestjs/platform-express": "10.4.1",
     "reflect-metadata": "0.1.14",
-    "rxjs": "7.8.1"
+    "rxjs": "7.8.1",
+    "typeorm": "0.3.20"
   },
   "main": "main.js"
 }
