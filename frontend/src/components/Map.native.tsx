@@ -2,7 +2,16 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-const shelters = [
+type Shelter = {
+  id: number;
+  title: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  emoji: string;
+};
+
+const shelters: Shelter[] = [
   {
     id: 1,
     title: 'Shelter One',
@@ -16,7 +25,7 @@ const shelters = [
     title: 'Shelter Two',
     description: 'Sample description of Shelter Two',
     latitude: 42.3584,
-    longitude: -71.0650,
+    longitude: -71.065,
     emoji: '🏳️‍⚧️',
   },
 ];
@@ -33,7 +42,7 @@ const Map = () => {
           longitudeDelta: 0.05,
         }}
       >
-        {shelters.map(shelter => (
+        {shelters.map((shelter) => (
           <Marker
             key={shelter.id}
             coordinate={{
@@ -43,7 +52,6 @@ const Map = () => {
             title={shelter.title}
             description={shelter.description}
           >
-            {/*styling if markers are gonna be custom emojis*/}
             <Text style={styles.customMarker}>{shelter.emoji}</Text>
           </Marker>
         ))}
