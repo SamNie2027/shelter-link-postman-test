@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="added custom emojis for markers">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Map.web.tsx" afterDir="false" />
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="fixed web compatibility issues (different map sources for web vs mobile)">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/BottomSheet.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.native.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/BottomPanel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.native.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.native.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.web.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.web.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShelterInfoPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShelterInfoPanel.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -25,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="1-frontend-create-map-view" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -33,12 +43,12 @@
     &quot;assignee&quot;: &quot;airman416&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Code-4-Community/bagly.git&quot;,
-    &quot;accountId&quot;: &quot;38f6836f-f4a5-496f-ab90-46ad2933b895&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Code-4-Community/bagly.git",
+    "accountId": "b2b1284a-b0b3-4f41-ad86-47264fb5cd42"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -47,22 +57,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;1-frontend-create-map-view&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "4-frontend-display-shelter-info",
+    "last_opened_file_path": "/Users/rjuvekar/Downloads/C4C/bagly",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/assets" />
@@ -91,7 +101,7 @@
       <workItem from="1726668374155" duration="25769000" />
       <workItem from="1726923197157" duration="6920000" />
       <workItem from="1727117896585" duration="25905000" />
-      <workItem from="1727488241053" duration="3360000" />
+      <workItem from="1727488241053" duration="17243000" />
     </task>
     <task id="LOCAL-00001" summary="created main map components + formatted for phone compatibility">
       <option name="closed" value="true" />
@@ -125,7 +135,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727295918041</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixed web compatibility issues (different map sources for web vs mobile)">
+      <option name="closed" value="true" />
+      <created>1727623710219</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727623710219</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +154,7 @@
     <MESSAGE value="added apple maps to app + basic markers from react native maps" />
     <MESSAGE value="changed filters button to be a dropdown feature" />
     <MESSAGE value="dropdown allows multiselect and displays selected filters values" />
-    <option name="LAST_COMMIT_MESSAGE" value="dropdown allows multiselect and displays selected filters values" />
+    <MESSAGE value="fixed web compatibility issues (different map sources for web vs mobile)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed web compatibility issues (different map sources for web vs mobile)" />
   </component>
 </project>

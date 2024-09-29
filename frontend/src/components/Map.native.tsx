@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import ShelterInfoPanel from './ShelterInfoPanel'; // Import your ShelterInfoPanel component
 
 type Shelter = {
   id: number;
@@ -31,6 +32,12 @@ const shelters: Shelter[] = [
 ];
 
 const Map = () => {
+  const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
+
+  const handleMarkerPress = (shelter: Shelter) => {
+    setSelectedShelter(shelter);
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -49,13 +56,20 @@ const Map = () => {
               latitude: shelter.latitude,
               longitude: shelter.longitude,
             }}
-            title={shelter.title}
-            description={shelter.description}
+            onPress={() => handleMarkerPress(shelter)}
           >
             <Text style={styles.customMarker}>{shelter.emoji}</Text>
           </Marker>
         ))}
       </MapView>
+
+      {selectedShelter && (
+        <ShelterInfoPanel
+          title={selectedShelter.title}
+          description={selectedShelter.description}
+          // to do: add other fields
+        />
+      )}
     </View>
   );
 };

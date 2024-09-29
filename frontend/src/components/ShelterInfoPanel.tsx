@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-const ShelterInfoPanel = () => {
+type ShelterInfoPanelProps = {
+  title: string;
+  description: string;
+};
+
+const ShelterInfoPanel = ({ title, description }: ShelterInfoPanelProps) => {
   return (
     <View style={styles.panel}>
       <View style={styles.images}>
         <View style={styles.shelterImage} />
       </View>
-      <Text style={styles.shelterName}>Non-Profit</Text>
-      <Text style={styles.shelterAddressDistance}>Address | Distance from you</Text>
-      <Text style={styles.shelterRatingDescription}>Rating | Description</Text>
+      <Text style={styles.shelterName}>{title}</Text>
+      <Text style={styles.shelterAddressDistance}>
+        Address | Distance from you
+      </Text>
+      <Text style={styles.shelterRatingDescription}>{description}</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.directionsButton}>
           <Text style={styles.buttonText}>Directions</Text>
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '##1E1E1E',
+    color: '#1E1E1E',
   },
   shelterRatingDescription: {
     paddingLeft: 15,
@@ -64,7 +71,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '##1E1E1E',
+    color: '#1E1E1E',
   },
   buttonsContainer: {
     paddingTop: 10, // might need to change
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#1E1E1E',
-  }
+  },
 });
 
 export default ShelterInfoPanel;
