@@ -29,7 +29,6 @@ const ShelterInfoPanel = ({ title, description, style }: ShelterInfoPanelProps &
   );
 };
 
-
 const styles = StyleSheet.create({
   panel: {
     width: 332,

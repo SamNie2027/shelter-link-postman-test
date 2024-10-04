@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
@@ -12,7 +12,13 @@ import { Shelter, shelters } from '../sheltersTest';
 
 export const App = () => {
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+  const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
+  const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
+
+  const handleMarkerPress = useCallback((shelter: Shelter) => {
+    setSelectedShelter(shelter);
+    sheetRef.current?.snapToIndex(1);
+  }, []);
 
   const renderItem = useCallback(
     ({ item }: { item: Shelter }) => (
@@ -39,20 +45,27 @@ export const App = () => {
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
       </View>
-      <GestureHandlerRootView>
-        <Map />
-        <View style={styles.bottomSheetContainer}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <Map onMarkerPress={handleMarkerPress} style={styles.map} />
           <BottomSheet
             ref={sheetRef}
             snapPoints={snapPoints}
-            enablePanDownToClose={true}
+            style={styles.bottomSheet}
           >
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-              contentContainerStyle={styles.contentContainer}
-            />
+            {selectedShelter ? (
+              <ShelterInfoPanel
+                title={selectedShelter.title}
+                description={selectedShelter.description}
+                style={styles.itemContainer}
+              />
+            ) : (
+              <BottomSheetFlatList
+                data={shelters}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderItem}
+              />
+            )}
           </BottomSheet>
         </View>
       </GestureHandlerRootView>
@@ -63,6 +76,10 @@ export const App = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+  },
+  container: {
+    flex: 1,
+    position: 'relative',
   },
   itemContainer: {
     marginHorizontal: 29,
@@ -89,14 +106,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingBottom: 12,
   },
-  bottomSheetContainer: {
-    flex: 1,
-    paddingTop: 200,
+  map: {
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    position: 'relative',
   },
-  contentContainer: {
-    // paddingHorizontal: 29,
-    // paddingBottom: 29,
-    // alignItems: 'center',
+  bottomSheet: {
+    position: 'absolute',
+    zIndex: 10,
+    borderTopLeftRadius: 33,
+    borderTopRightRadius: 33,
   },
 });
 
