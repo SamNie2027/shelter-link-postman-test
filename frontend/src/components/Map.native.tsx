@@ -1,35 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import ShelterInfoPanel from './ShelterInfoPanel'; // Import your ShelterInfoPanel component
-
-type Shelter = {
-  id: number;
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  emoji: string;
-};
-
-const shelters: Shelter[] = [
-  {
-    id: 1,
-    title: 'Shelter One',
-    description: 'Sample description of Shelter One',
-    latitude: 42.3611,
-    longitude: -71.0579,
-    emoji: '🏳️‍🌈',
-  },
-  {
-    id: 2,
-    title: 'Shelter Two',
-    description: 'Sample description of Shelter Two',
-    latitude: 42.3584,
-    longitude: -71.065,
-    emoji: '🏳️‍⚧️',
-  },
-];
+import ShelterInfoPanel from './ShelterInfoPanel';
+import { Shelter, shelters } from '../sheltersTest';
 
 const Map = () => {
   const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);

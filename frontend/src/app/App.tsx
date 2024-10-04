@@ -7,16 +7,20 @@ import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import ShelterInfoPanel from '../components/ShelterInfoPanel';
+import { Shelter, shelters } from '../sheltersTest';
 
 export const App = () => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
 
   const renderItem = useCallback(
-    ({ item }) => (
-      <View style={styles.itemContainer}>
-        <Text>{item}</Text>
-      </View>
+    ({ item }: { item: Shelter }) => (
+      <ShelterInfoPanel
+        title={item.title}
+        description={item.description}
+        style={styles.itemContainer}
+      />
     ),
     []
   );
@@ -44,10 +48,8 @@ export const App = () => {
             enablePanDownToClose={true}
           >
             <BottomSheetFlatList
-              data={Array(50)
-                .fill(0)
-                .map((_, index) => `index-${index}`)}
-              keyExtractor={(i) => i}
+              data={shelters}
+              keyExtractor={(item) => item.id.toString()}
               renderItem={renderItem}
               contentContainerStyle={styles.contentContainer}
             />
@@ -62,17 +64,9 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
-  contentContainer: {
-    backgroundColor: 'white',
-  },
-  bottomSheetContainer: {
-    flex: 1,
-    paddingTop: 200,
-  },
   itemContainer: {
-    padding: 6,
-    margin: 6,
-    backgroundColor: '#eee',
+    marginHorizontal: 29,
+    marginTop: 29,
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -94,6 +88,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: 13,
     paddingBottom: 12,
+  },
+  bottomSheetContainer: {
+    flex: 1,
+    paddingTop: 200,
+  },
+  contentContainer: {
+    // paddingHorizontal: 29,
+    // paddingBottom: 29,
+    // alignItems: 'center',
   },
 });
 
