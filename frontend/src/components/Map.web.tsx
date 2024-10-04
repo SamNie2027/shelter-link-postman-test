@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import ShelterInfoPanel from './ShelterInfoPanel';
 
 type Shelter = {
   id: number;
@@ -30,22 +29,33 @@ const shelters: Shelter[] = [
     longitude: -71.065,
     emoji: '🏳️‍⚧️',
   },
+  {
+    id: 3,
+    title: 'Shelter Three',
+    description: 'Sample description of Shelter Three',
+    latitude: 42.2995,
+    longitude: -71.0649,
+    emoji: '🔅',
+  },
+  {
+    id: 4,
+    title: 'Shelter Four',
+    description: 'Sample description of Shelter Four',
+    latitude: 42.3657,
+    longitude: -71.0824,
+    emoji: '🩵',
+  },
 ];
 
 const Map: React.FC = () => {
-  const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
 
-  const handleMarkerClick = (shelter: Shelter) => {
-    setSelectedShelter(shelter);
-  };
 
   return (
-    <div style={{ display: 'flex' }}>
-      {/* Map Section */}
+    <div style={{ position: 'relative', display: 'flex', height: '100vh' }}>
       <MapContainer
         center={[42.3601, -71.0589]}
         zoom={13}
-        style={{ height: '562px', width: '60%' }}
+        style={{ height: '100%', width: '100%' }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {shelters.map((shelter) => {
@@ -59,25 +69,13 @@ const Map: React.FC = () => {
               key={shelter.id}
               position={[shelter.latitude, shelter.longitude]}
               icon={customIcon}
-              eventHandlers={{
-                click: () => handleMarkerClick(shelter),
-              }}
+              // eventHandlers={{
+              //   click: () => handleMarkerClick(shelter),
+              // }}
             />
           );
         })}
       </MapContainer>
-
-      {/* Shelter Info Panel Section */}
-      <div style={{ width: '40%', padding: '10px' }}>
-        {selectedShelter ? (
-          <ShelterInfoPanel
-            title={selectedShelter.title}
-            description={selectedShelter.description}
-          />
-        ) : (
-          <div>Select a shelter to view details</div>
-        )}
-      </div>
     </div>
   );
 };

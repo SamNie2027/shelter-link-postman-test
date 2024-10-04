@@ -1,70 +1,78 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  StatusBar,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-
+import React, { useCallback, useMemo, useRef } from 'react';
+import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
-import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheet from '../components/BottomSheet';
+import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 
 export const App = () => {
+  const sheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+
+  const renderItem = useCallback(
+    ({ item }) => (
+      <View style={styles.itemContainer}>
+        <Text>{item}</Text>
+      </View>
+    ),
+    []
+  );
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.safeArea}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <View style={styles.container}>
-            <StatusBar />
-            <BottomSheet />
-          </View>
-        </GestureHandlerRootView>
-        {/*<ScrollView contentInsetAdjustmentBehavior="automatic">*/}
-        {/*  <View style={styles.logoContainer}>*/}
-        {/*    <Logo />*/}
-        {/*  </View>*/}
-        {/*  <View style={styles.searchBarContainer}>*/}
-        {/*    <SearchBar />*/}
-        {/*  </View>*/}
-        {/*  <View style={styles.headerContainer}>*/}
-        {/*    <Header />*/}
-        {/*  </View>*/}
-        {/*  <View style={styles.filtersDropdownContainer}>*/}
-        {/*    <FiltersDropdown />*/}
-        {/*  </View>*/}
-        {/*  <View>*/}
-        {/*    <Map />*/}
-        {/*  </View>*/}
-        {/*  <View>*/}
-        {/*    /!*temp call for testing*!/*/}
-        {/*    /!*<ShelterInfoPanel />*!/*/}
-        {/*  </View>*/}
-        {/*</ScrollView>*/}
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.logoContainer}>
+        <Logo />
+      </View>
+      <View style={styles.searchBarContainer}>
+        <SearchBar />
+      </View>
+      <View style={styles.headerContainer}>
+        <Header />
+      </View>
+      <View style={styles.filtersDropdownContainer}>
+        <FiltersDropdown />
+      </View>
+      <GestureHandlerRootView>
+        <Map />
+        <View style={styles.bottomSheetContainer}>
+          <BottomSheet
+            ref={sheetRef}
+            snapPoints={snapPoints}
+            enablePanDownToClose={true}
+          >
+            <BottomSheetFlatList
+              data={Array(50)
+                .fill(0)
+                .map((_, index) => `index-${index}`)}
+              keyExtractor={(i) => i}
+              renderItem={renderItem}
+              contentContainerStyle={styles.contentContainer}
+            />
+          </BottomSheet>
+        </View>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
-  container: {
+  contentContainer: {
+    backgroundColor: 'white',
+  },
+  bottomSheetContainer: {
     flex: 1,
-    backgroundColor: '#111',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 200,
+  },
+  itemContainer: {
+    padding: 6,
+    margin: 6,
+    backgroundColor: '#eee',
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -88,4 +96,5 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 });
+
 export default App;

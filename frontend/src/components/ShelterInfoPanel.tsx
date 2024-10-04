@@ -6,9 +6,9 @@ type ShelterInfoPanelProps = {
   description: string;
 };
 
-const ShelterInfoPanel = ({ title, description }: ShelterInfoPanelProps) => {
+const ShelterInfoPanel = ({ title, description, style }: ShelterInfoPanelProps & { style?: any }) => {
   return (
-    <View style={styles.panel}>
+    <View style={[styles.panel, style]}>
       <View style={styles.images}>
         <View style={styles.shelterImage} />
       </View>
@@ -28,6 +28,7 @@ const ShelterInfoPanel = ({ title, description }: ShelterInfoPanelProps) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   panel: {
