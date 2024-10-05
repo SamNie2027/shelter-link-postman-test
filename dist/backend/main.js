@@ -24,12 +24,24 @@ const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const app_controller_1 = __webpack_require__(5);
 const app_service_1 = __webpack_require__(6);
+const typeorm_1 = __webpack_require__(7);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'mysql',
+                host: 'localhost',
+                port: 3306,
+                username: 'root',
+                password: 'password',
+                database: 'bagly',
+                entities: [],
+                synchronize: process.env.NODE_ENV !== 'production',
+            }),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -93,6 +105,12 @@ exports.AppService = AppService = tslib_1.__decorate([
     (0, common_1.Injectable)()
 ], AppService);
 
+
+/***/ }),
+/* 7 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/typeorm");
 
 /***/ })
 /******/ 	]);
