@@ -1,6 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail} from 'class-validator';
 
+enum UserOptions {
+    NormalUser,
+    ShelterAdmin,
+    BaglyAdmin
+}
+
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -15,7 +21,7 @@ export class User {
 
     // role: unfinished
     @Column()
-
+    role: UserOptions;
 
     @Column()
     verified: boolean;
