@@ -46,28 +46,26 @@ export const App = () => {
         <FiltersDropdown />
       </View>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-          <BottomSheet
-            ref={sheetRef}
-            snapPoints={snapPoints}
-            style={styles.bottomSheet}
-          >
-            {selectedShelter ? (
-              <ShelterInfoPanel
-                title={selectedShelter.title}
-                description={selectedShelter.description}
-                style={styles.itemContainer}
-              />
-            ) : (
-              <BottomSheetFlatList
-                data={shelters}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderItem}
-              />
-            )}
-          </BottomSheet>
-        </View>
+        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={snapPoints}
+          style={styles.bottomSheet}
+        >
+          {selectedShelter ? (
+            <ShelterInfoPanel
+              title={selectedShelter.title}
+              description={selectedShelter.description}
+              style={styles.itemContainer}
+            />
+          ) : (
+            <BottomSheetFlatList
+              data={shelters}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={renderItem}
+            />
+          )}
+        </BottomSheet>
       </GestureHandlerRootView>
     </SafeAreaView>
   );
@@ -79,7 +77,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    position: 'relative',
   },
   itemContainer: {
     marginHorizontal: 29,
@@ -109,12 +106,8 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
-    zIndex: 1,
-    position: 'relative',
   },
   bottomSheet: {
-    position: 'absolute',
-    zIndex: 10,
     borderTopLeftRadius: 33,
     borderTopRightRadius: 33,
   },

@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { shelters } from '../sheltersTest';
+import { Shelter, shelters } from '../sheltersTest';
 
-const Map: React.FC = () => {
+const Map: React.FC = ({
+  onMarkerPress,
+}: {
+  onMarkerPress: (shelter: Shelter) => void;
+}) => {
   return (
     <MapContainer
       center={[42.3601, -71.0589]}
       zoom={13}
       style={{
-        height: 562,
+        height: '100%',
         width: '100%',
         borderRadius: 1,
+        zIndex: -1000,
       }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -27,6 +32,7 @@ const Map: React.FC = () => {
             key={shelter.id}
             position={[shelter.latitude, shelter.longitude]}
             icon={customIcon}
+            onPress={() => onMarkerPress(shelter)}
           />
         );
       })}
