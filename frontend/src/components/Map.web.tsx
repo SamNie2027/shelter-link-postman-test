@@ -32,7 +32,11 @@ const Map: React.FC = ({
             key={shelter.id}
             position={[shelter.latitude, shelter.longitude]}
             icon={customIcon}
-            onPress={() => onMarkerPress(shelter)}
+            eventHandlers={{
+              click: () => {
+                onMarkerPress(shelter);
+              },
+            }}
           />
         );
       })}
