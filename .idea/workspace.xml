@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="created blank bottom sheet">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/BottomSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/BottomSheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.native.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.native.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map.web.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map.web.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShelterInfoPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShelterInfoPanel.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="added click shelter functionality for map on bottom sheet" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,8 +13,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -39,12 +32,12 @@
     &quot;assignee&quot;: &quot;airman416&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Code-4-Community/bagly.git",
-    "accountId": "b2b1284a-b0b3-4f41-ad86-47264fb5cd42"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Code-4-Community/bagly.git&quot;,
+    &quot;accountId&quot;: &quot;b2b1284a-b0b3-4f41-ad86-47264fb5cd42&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -53,22 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "4-frontend-display-shelter-info",
-    "last_opened_file_path": "/Users/rjuvekar/Downloads/C4C/bagly",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;4-frontend-display-shelter-info&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/assets" />
@@ -98,6 +91,7 @@
       <workItem from="1726923197157" duration="6920000" />
       <workItem from="1727117896585" duration="25905000" />
       <workItem from="1727488241053" duration="40525000" />
+      <workItem from="1728046341585" duration="29038000" />
     </task>
     <task id="LOCAL-00001" summary="created main map components + formatted for phone compatibility">
       <option name="closed" value="true" />
@@ -147,7 +141,47 @@
       <option name="project" value="LOCAL" />
       <updated>1727649211930</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="imported bottom sheet component with random data to web/mobile">
+      <option name="closed" value="true" />
+      <created>1728052258701</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728052258701</updated>
+    </task>
+    <task id="LOCAL-00008" summary="created test file with random shelter data">
+      <option name="closed" value="true" />
+      <created>1728053987214</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728053987214</updated>
+    </task>
+    <task id="LOCAL-00009" summary="finished implementing bottom sheet for mobile">
+      <option name="closed" value="true" />
+      <created>1728075433424</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728075433424</updated>
+    </task>
+    <task id="LOCAL-00010" summary="finished implementing bottom sheet for web">
+      <option name="closed" value="true" />
+      <created>1728099035850</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728099035850</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added click shelter functionality for map on bottom sheet">
+      <option name="closed" value="true" />
+      <created>1728149111445</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728149111445</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +194,11 @@
     <MESSAGE value="dropdown allows multiselect and displays selected filters values" />
     <MESSAGE value="fixed web compatibility issues (different map sources for web vs mobile)" />
     <MESSAGE value="created blank bottom sheet" />
-    <option name="LAST_COMMIT_MESSAGE" value="created blank bottom sheet" />
+    <MESSAGE value="imported bottom sheet component with random data to web/mobile" />
+    <MESSAGE value="created test file with random shelter data" />
+    <MESSAGE value="finished implementing bottom sheet for mobile" />
+    <MESSAGE value="finished implementing bottom sheet for web" />
+    <MESSAGE value="added click shelter functionality for map on bottom sheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="added click shelter functionality for map on bottom sheet" />
   </component>
 </project>

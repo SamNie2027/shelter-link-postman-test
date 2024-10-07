@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   bottomSheet: {
     borderTopLeftRadius: 33,
     borderTopRightRadius: 33,
+    alignItems: 'center',
   },
 });
 

@@ -1,16 +1,32 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 
 type ShelterInfoPanelProps = {
   title: string;
   description: string;
 };
 
-const ShelterInfoPanel = ({ title, description, style }: ShelterInfoPanelProps & { style?: any }) => {
+const ShelterInfoPanel = ({
+  title,
+  description,
+  style,
+}: ShelterInfoPanelProps & {
+  style?: any;
+}) => {
   return (
     <View style={[styles.panel, style]}>
-      <View style={styles.images}>
-        <View style={styles.shelterImage} />
+      <View style={styles.topRowItems}>
+        <View style={styles.images}>
+          <View style={styles.shelterImage} />
+          <View style={styles.shelterImage} />
+          <View style={styles.shelterImage} />
+        </View>
+        <View>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('frontend/assets/bookmark.png')}
+          />
+        </View>
       </View>
       <Text style={styles.shelterName}>{title}</Text>
       <Text style={styles.shelterAddressDistance}>
@@ -38,17 +54,26 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     backgroundColor: 'white',
   },
+  topRowItems: {
+    flexDirection: 'row',
+  },
   images: {
     paddingTop: 8,
     paddingLeft: 15,
+    flexDirection: 'row',
   },
   shelterImage: {
     width: 84,
     height: 84,
     borderRadius: 10,
     borderWidth: 1,
+    marginRight: 9,
     borderColor: '#000000',
     backgroundColor: '#D9D9D9',
+  },
+  bookmarkIcon: {
+    marginTop: 8,
+    marginHorizontal: 5,
   },
   shelterName: {
     paddingLeft: 15,
