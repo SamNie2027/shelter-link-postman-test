@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="added click shelter functionality for map on bottom sheet" />
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +38,9 @@
     &quot;accountId&quot;: &quot;b2b1284a-b0b3-4f41-ad86-47264fb5cd42&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -92,6 +95,7 @@
       <workItem from="1727117896585" duration="25905000" />
       <workItem from="1727488241053" duration="40525000" />
       <workItem from="1728046341585" duration="29038000" />
+      <workItem from="1728151383479" duration="6405000" />
     </task>
     <task id="LOCAL-00001" summary="created main map components + formatted for phone compatibility">
       <option name="closed" value="true" />
@@ -181,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728149111445</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)">
+      <option name="closed" value="true" />
+      <created>1728262883381</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728262883381</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +211,7 @@
     <MESSAGE value="finished implementing bottom sheet for mobile" />
     <MESSAGE value="finished implementing bottom sheet for web" />
     <MESSAGE value="added click shelter functionality for map on bottom sheet" />
-    <option name="LAST_COMMIT_MESSAGE" value="added click shelter functionality for map on bottom sheet" />
+    <MESSAGE value="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
   </component>
 </project>

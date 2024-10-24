@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter, shelters } from '../sheltersTest';
+import SignUpModal from '../components/SignUpModal';
 
 export const App = () => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -36,37 +37,40 @@ export const App = () => {
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      <View style={styles.searchBarContainer}>
-        <SearchBar />
+      <View style={styles.centeredView}>
+        <SignUpModal />
       </View>
-      <View style={styles.headerContainer}>
-        <Header />
-      </View>
-      <View style={styles.filtersDropdownContainer}>
-        <FiltersDropdown />
-      </View>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={snapPoints}
-          style={styles.bottomSheet}
-        >
-          {selectedShelter ? (
-            <ShelterInfoPanel
-              title={selectedShelter.title}
-              description={selectedShelter.description}
-              style={styles.itemContainer}
-            />
-          ) : (
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-            />
-          )}
-        </BottomSheet>
-      </GestureHandlerRootView>
+      {/*<View style={styles.searchBarContainer}>*/}
+      {/*  <SearchBar />*/}
+      {/*</View>*/}
+      {/*<View style={styles.headerContainer}>*/}
+      {/*  <Header />*/}
+      {/*</View>*/}
+      {/*<View style={styles.filtersDropdownContainer}>*/}
+      {/*  <FiltersDropdown />*/}
+      {/*</View>*/}
+      {/*<GestureHandlerRootView style={{ flex: 1 }}>*/}
+      {/*  <Map onMarkerPress={handleMarkerPress} style={styles.map} />*/}
+      {/*  <BottomSheet*/}
+      {/*    ref={sheetRef}*/}
+      {/*    snapPoints={snapPoints}*/}
+      {/*    style={styles.bottomSheet}*/}
+      {/*  >*/}
+      {/*    {selectedShelter ? (*/}
+      {/*      <ShelterInfoPanel*/}
+      {/*        title={selectedShelter.title}*/}
+      {/*        description={selectedShelter.description}*/}
+      {/*        style={styles.itemContainer}*/}
+      {/*      />*/}
+      {/*    ) : (*/}
+      {/*      <BottomSheetFlatList*/}
+      {/*        data={shelters}*/}
+      {/*        keyExtractor={(item) => item.id.toString()}*/}
+      {/*        renderItem={renderItem}*/}
+      {/*      />*/}
+      {/*    )}*/}
+      {/*  </BottomSheet>*/}
+      {/*</GestureHandlerRootView>*/}
     </SafeAreaView>
   );
 };
@@ -110,6 +114,11 @@ const styles = StyleSheet.create({
   bottomSheet: {
     borderTopLeftRadius: 33,
     borderTopRightRadius: 33,
+    alignItems: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });
