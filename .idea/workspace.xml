@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/app/address.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/app/shelter.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/app/shelters.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/app/shelters.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/app/review.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/app/review.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/app/users.entity.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/backend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/backend/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +51,7 @@
     "Jest.UsersService.findByProximity.executor": "Run",
     "Jest.UsersService.findOne.should return a shelter by ID.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "MN.Shelter-Model",
+    "git-widget-placeholder": "9---review-model-and-CRUD-routes",
     "last_opened_file_path": "/Users/maxnorman/Documents/GitHub/bagly",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -68,7 +61,7 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/maxnorman/Documents/GitHub/bagly/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/Users/maxnorman/Documents/GitHub/bagly/node_modules/typescript/lib",
+    "ts.external.directory.path": "C:\\Users\\lyann\\Documents\\GitHub\\bagly\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -128,7 +121,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-WS-242.21829.149" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.22855.79" />
       </set>
     </attachedChunks>
   </component>
@@ -145,6 +138,7 @@
       <workItem from="1726692317931" duration="11223000" />
       <workItem from="1727035342629" duration="784000" />
       <workItem from="1727219373230" duration="1286000" />
+      <workItem from="1730576730077" duration="5183000" />
     </task>
     <servers />
   </component>
