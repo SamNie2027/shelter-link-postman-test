@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/app/review.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/app/review.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/app/users.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/app/rating.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/app/review.service.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/app/review.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app/review.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/app/shelter.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app/shelter.entity.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +48,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Jest.ReviewService.create.executor": "Run",
+    "Jest.ReviewService.executor": "Run",
+    "Jest.ReviewService.findAll.should return an array of shelters.executor": "Run",
+    "Jest.ReviewService.update.executor": "Run",
     "Jest.UsersService.executor": "Run",
     "Jest.UsersService.findByProximity.executor": "Run",
     "Jest.UsersService.findOne.should return a shelter by ID.executor": "Run",
@@ -61,7 +66,7 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/maxnorman/Documents/GitHub/bagly/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Users\\lyann\\Documents\\GitHub\\bagly\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "/Users/maxnorman/Documents/GitHub/bagly/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -70,7 +75,59 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.UsersService">
+  <component name="RunManager" selected="Jest.ReviewService">
+    <configuration name="ReviewService" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/backend/src/app/review.service.spec.ts" />
+      <test-names>
+        <test-name value="ReviewService" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReviewService.create" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/backend/src/app/review.service.spec.ts" />
+      <test-names>
+        <test-name value="ReviewService" />
+        <test-name value="create" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReviewService.findAll.should return an array of shelters" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/backend/src/app/review.service.spec.ts" />
+      <test-names>
+        <test-name value="ReviewService" />
+        <test-name value="findAll" />
+        <test-name value="should return an array of shelters" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReviewService.update" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/backend/src/app/review.service.spec.ts" />
+      <test-names>
+        <test-name value="ReviewService" />
+        <test-name value="update" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="UsersService" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -83,38 +140,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="UsersService.findByProximity" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/backend" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/backend/src/app/shelters.service.spec.ts" />
-      <test-names>
-        <test-name value="UsersService" />
-        <test-name value="findByProximity" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="UsersService.findOne.should return a shelter by ID" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/backend" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/backend/src/app/shelters.service.spec.ts" />
-      <test-names>
-        <test-name value="UsersService" />
-        <test-name value="findOne" />
-        <test-name value="should return a shelter by ID" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.ReviewService" />
+        <item itemvalue="Jest.ReviewService.update" />
+        <item itemvalue="Jest.ReviewService.create" />
+        <item itemvalue="Jest.ReviewService.findAll.should return an array of shelters" />
         <item itemvalue="Jest.UsersService" />
-        <item itemvalue="Jest.UsersService.findByProximity" />
-        <item itemvalue="Jest.UsersService.findOne.should return a shelter by ID" />
       </list>
     </recent_temporary>
   </component>

@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
 import { IsLatitude, IsLongitude, IsPhoneNumber, IsEmail} from 'class-validator';
+import { Rating } from './rating';
 
 @Entity()
 export class Shelter {
@@ -24,43 +25,8 @@ export class Shelter {
   @Column({length: 500})
   description: string;
 
-  private _overall_rating: number;
-  private _inclusivity_rating: number;
-  private _safety_rating: number;
-
   @Column()
-  set overall_rating(value: number) {
-    this.setRating('overall', value);
-  }
-
-  get overall_rating(): number {
-    return this._overall_rating;
-  }
-
-  @Column()
-  set inclusivity_rating(value: number) {
-    this.setRating('inclusivity', value);
-  }
-
-  get inclusivity_rating(): number {
-    return this._inclusivity_rating;
-  }
-
-  @Column()
-  set safety_rating(value: number) {
-    this.setRating('safety', value);
-  }
-
-  get safety_rating(): number {
-    return this._safety_rating;
-  }
-
-  private setRating(type: 'overall' | 'inclusivity' | 'safety', value: number): void {
-    if (value < 1 || value > 5) {
-      throw new Error(`${type.charAt(0).toUpperCase() + type.slice(1)} rating must be between 1 and 5.`);
-    }
-    this[`_${type}_rating`] = value;
-  }
+  rating: Rating;
 
   @Column()
   availability: string; // unknown
