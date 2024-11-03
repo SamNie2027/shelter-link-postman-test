@@ -40,37 +40,37 @@ export const App = () => {
       <View style={styles.centeredView}>
         <SignUpModal />
       </View>
-      {/*<View style={styles.searchBarContainer}>*/}
-      {/*  <SearchBar />*/}
-      {/*</View>*/}
-      {/*<View style={styles.headerContainer}>*/}
-      {/*  <Header />*/}
-      {/*</View>*/}
-      {/*<View style={styles.filtersDropdownContainer}>*/}
-      {/*  <FiltersDropdown />*/}
-      {/*</View>*/}
-      {/*<GestureHandlerRootView style={{ flex: 1 }}>*/}
-      {/*  <Map onMarkerPress={handleMarkerPress} style={styles.map} />*/}
-      {/*  <BottomSheet*/}
-      {/*    ref={sheetRef}*/}
-      {/*    snapPoints={snapPoints}*/}
-      {/*    style={styles.bottomSheet}*/}
-      {/*  >*/}
-      {/*    {selectedShelter ? (*/}
-      {/*      <ShelterInfoPanel*/}
-      {/*        title={selectedShelter.title}*/}
-      {/*        description={selectedShelter.description}*/}
-      {/*        style={styles.itemContainer}*/}
-      {/*      />*/}
-      {/*    ) : (*/}
-      {/*      <BottomSheetFlatList*/}
-      {/*        data={shelters}*/}
-      {/*        keyExtractor={(item) => item.id.toString()}*/}
-      {/*        renderItem={renderItem}*/}
-      {/*      />*/}
-      {/*    )}*/}
-      {/*  </BottomSheet>*/}
-      {/*</GestureHandlerRootView>*/}
+      <View style={styles.searchBarContainer}>
+        <SearchBar />
+      </View>
+      <View style={styles.headerContainer}>
+        <Header />
+      </View>
+      <View style={styles.filtersDropdownContainer}>
+        <FiltersDropdown />
+      </View>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={snapPoints}
+          style={styles.bottomSheet}
+        >
+          {selectedShelter ? (
+            <ShelterInfoPanel
+              title={selectedShelter.title}
+              description={selectedShelter.description}
+              style={styles.itemContainer}
+            />
+          ) : (
+            <BottomSheetFlatList
+              data={shelters}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={renderItem}
+            />
+          )}
+        </BottomSheet>
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 };
