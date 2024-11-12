@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="set up basic modal with sign up fields">
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SignUpModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SignUpModal.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="modal fields are formatted + field validation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,29 +49,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "8-frontend-create-signup-flow",
-    "last_opened_file_path": "/Users/rjuvekar/Downloads/C4C/bagly",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;8-frontend-create-signup-flow&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/assets" />
@@ -106,6 +104,7 @@
       <workItem from="1728046341585" duration="29038000" />
       <workItem from="1728151383479" duration="6405000" />
       <workItem from="1729797096134" duration="16511000" />
+      <workItem from="1730586728551" duration="2143000" />
     </task>
     <task id="LOCAL-00001" summary="created main map components + formatted for phone compatibility">
       <option name="closed" value="true" />
@@ -219,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729872353572</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="modal fields are formatted + field validation">
+      <option name="closed" value="true" />
+      <created>1730660684262</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1730660684262</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,6 +246,7 @@
     <MESSAGE value="added click shelter functionality for map on bottom sheet" />
     <MESSAGE value="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
     <MESSAGE value="set up basic modal with sign up fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="set up basic modal with sign up fields" />
+    <MESSAGE value="modal fields are formatted + field validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="modal fields are formatted + field validation" />
   </component>
 </project>

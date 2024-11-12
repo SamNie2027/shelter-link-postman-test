@@ -50,8 +50,8 @@ const SignUpWizard = () => {
     },
     {
       // can add more pages here; just filler rn
-      // title: "Contact Information",
-      // fields: ["email", "phoneNumber"],
+      title: 'Contact Information',
+      fields: ['email', 'phoneNumber'],
     },
   ];
 
@@ -299,44 +299,49 @@ const SignUpWizard = () => {
         <View style={styles.modalView}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
             <View style={styles.modalForm}>
+              {/* progress indicator for form */}
+              <View style={styles.progressContainer}>
+                {steps.map((_, index) => (
+                  <View
+                    key={index}
+                    style={[
+                      styles.progressDot,
+                      currentStep === index && styles.progressDotActive,
+                      currentStep > index && styles.progressDotCompleted,
+                    ]}
+                  />
+                ))}
+              </View>
+
               <Text style={styles.modalTitleText}>
                 {steps[currentStep].title}
               </Text>
 
-              {/*/!* Progress Indicator *!/*/}
-              {/*<View style={styles.progressContainer}>*/}
-              {/*  {steps.map((_, index) => (*/}
-              {/*    <View*/}
-              {/*      key={index}*/}
-              {/*      style={[*/}
-              {/*        styles.progressDot,*/}
-              {/*        currentStep === index && styles.progressDotActive,*/}
-              {/*        currentStep > index && styles.progressDotCompleted*/}
-              {/*      ]}*/}
-              {/*    />*/}
-              {/*  ))}*/}
-              {/*</View>*/}
-
               {renderFields()}
 
-              <View style={styles.buttonContainer}>
+              <View style={styles.navigationContainer}>
                 {currentStep > 0 && (
                   <TouchableOpacity
-                    style={[styles.button, styles.buttonSecondary]}
+                    style={styles.navigationButton}
                     onPress={handlePrev}
                   >
-                    <Text style={styles.buttonSecondaryText}>Previous</Text>
+                    <Text style={styles.navigationButtonText}>← Previous</Text>
                   </TouchableOpacity>
                 )}
 
                 <TouchableOpacity
-                  style={[styles.button, styles.buttonPrimary]}
+                  style={[
+                    styles.navigationButton,
+                    currentStep === 0 && styles.singleButton,
+                  ]}
                   onPress={
                     currentStep === steps.length - 1 ? handleSubmit : handleNext
                   }
                 >
-                  <Text style={styles.buttonPrimaryText}>
-                    {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
+                  <Text
+                    style={[styles.navigationButtonText, styles.nextButtonText]}
+                  >
+                    {currentStep === steps.length - 1 ? 'Submit' : 'Next →'}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -355,29 +360,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
-  modalView: {
-    width: 318,
-    height: 658,
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    paddingTop: 39,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   modalForm: {
-    marginBottom: 24,
+    marginBottom: 23,
   },
   modalTitleText: {
     fontSize: 30,
-    marginBottom: 24,
+    marginVertical: 23,
     textAlign: 'center',
     fontFamily: 'ProximaNova-Regular',
   },
@@ -386,7 +374,7 @@ const styles = StyleSheet.create({
   },
   modalFieldText: {
     fontSize: 16,
-    marginBottom: 15,
+    marginBottom: 12,
     fontFamily: 'ProximaNova-Regular',
   },
   input: {
@@ -416,57 +404,68 @@ const styles = StyleSheet.create({
   requirementMet: {
     color: '#4CAF50',
   },
-  // progressContainer: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  //   marginBottom: 16,  // Reduced from 24 to give better spacing with title
-  //   marginTop: 8,      // Added to give some space from the top
-  // },
-  // progressDot: {
-  //   width: 8,
-  //   height: 8,
-  //   borderRadius: 4,
-  //   backgroundColor: '#E8E8E8',
-  //   marginHorizontal: 4,
-  // },
-  // progressDotActive: {
-  //   backgroundColor: '#007AFF',
-  //   transform: [{ scale: 1.2 }],
-  // },
+  progressContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 12,
+  },
+  progressDot: {
+    width: 36,
+    height: 3,
+    borderRadius: 16,
+    backgroundColor: '#E8E8E8',
+    marginHorizontal: 3,
+  },
+  progressDotActive: {
+    backgroundColor: '#7E7D7D',
+  },
+  // can use this to add coloring to completed items
   // progressDotCompleted: {
   //   backgroundColor: '#4CAF50',
   // },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 24,
   },
-  button: {
+  navigationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  navigationButton: {
     flex: 1,
-    padding: 15,
-    borderRadius: 16,
-    marginHorizontal: 5,
   },
-  buttonPrimary: {
-    backgroundColor: '#007AFF',
-  },
-  buttonSecondary: {
-    backgroundColor: '#F5F5F5',
-  },
-  buttonPrimaryText: {
-    color: 'white',
-    textAlign: 'center',
+  navigationButtonText: {
     fontSize: 16,
-    fontWeight: '600',
+    color: '#000',
+    fontFamily: 'ProximaNova-Regular',
   },
-  buttonSecondaryText: {
-    color: '#007AFF',
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '600',
+  nextButtonText: {
+    textAlign: 'right',
+  },
+  singleButton: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
   fieldsContainer: {
     width: '100%',
+  },
+  modalView: {
+    width: 318,
+    height: 658,
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 
