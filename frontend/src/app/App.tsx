@@ -37,9 +37,9 @@ export const App = () => {
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      <View style={styles.centeredView}>
-        <SignUpModal />
-      </View>
+      {/*<View style={styles.centeredView}>*/}
+      {/*  <SignUpModal />*/}
+      {/*</View>*/}
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
@@ -78,6 +78,7 @@ export const App = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   container: {
     flex: 1,
