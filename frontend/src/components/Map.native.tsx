@@ -1,36 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { Shelter, shelters } from '../sheltersTest';
 
-type Shelter = {
-  id: number;
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  emoji: string;
-};
-
-const shelters: Shelter[] = [
-  {
-    id: 1,
-    title: 'Shelter One',
-    description: 'Sample description of Shelter One',
-    latitude: 42.3611,
-    longitude: -71.0579,
-    emoji: '🏳️‍🌈',
-  },
-  {
-    id: 2,
-    title: 'Shelter Two',
-    description: 'Sample description of Shelter Two',
-    latitude: 42.3584,
-    longitude: -71.065,
-    emoji: '🏳️‍⚧️',
-  },
-];
-
-const Map = () => {
+const Map = ({
+  onMarkerPress,
+}: {
+  onMarkerPress: (shelter: Shelter) => void;
+}) => {
   return (
     <View style={styles.container}>
       <MapView
@@ -49,8 +26,7 @@ const Map = () => {
               latitude: shelter.latitude,
               longitude: shelter.longitude,
             }}
-            title={shelter.title}
-            description={shelter.description}
+            onPress={() => onMarkerPress(shelter)}
           >
             <Text style={styles.customMarker}>{shelter.emoji}</Text>
           </Marker>
@@ -65,9 +41,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    borderRadius: 10,
+    borderRadius: 1,
     width: '100%',
-    height: 562,
+    height: '100%',
   },
   customMarker: {
     alignItems: 'center',
