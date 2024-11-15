@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 
-const ShelterInfoPanel = () => {
+type ShelterInfoPanelProps = {
+  title: string;
+  description: string;
+};
+
+const ShelterInfoPanel = ({
+  title,
+  description,
+  style,
+}: ShelterInfoPanelProps & {
+  style?: any;
+}) => {
   return (
-    <View style={styles.panel}>
-      <View style={styles.images}>
-        <View style={styles.shelterImage} />
+    <View style={[styles.panel, style]}>
+      <View style={styles.topRowItems}>
+        <View style={styles.images}>
+          <View style={styles.shelterImage} />
+          <View style={styles.shelterImage} />
+          <View style={styles.shelterImage} />
+        </View>
+        <View>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('frontend/assets/bookmark.png')}
+          />
+        </View>
       </View>
-      <Text style={styles.shelterName}>Non-Profit</Text>
-      <Text style={styles.shelterAddressDistance}>Address | Distance from you</Text>
-      <Text style={styles.shelterRatingDescription}>Rating | Description</Text>
+      <Text style={styles.shelterName}>{title}</Text>
+      <Text style={styles.shelterAddressDistance}>
+        Address | Distance from you
+      </Text>
+      <Text style={styles.shelterRatingDescription}>{description}</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.directionsButton}>
           <Text style={styles.buttonText}>Directions</Text>
@@ -29,18 +52,28 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     borderColor: '#000000',
+    backgroundColor: 'white',
+  },
+  topRowItems: {
+    flexDirection: 'row',
   },
   images: {
     paddingTop: 8,
     paddingLeft: 15,
+    flexDirection: 'row',
   },
   shelterImage: {
     width: 84,
     height: 84,
     borderRadius: 10,
     borderWidth: 1,
+    marginRight: 9,
     borderColor: '#000000',
     backgroundColor: '#D9D9D9',
+  },
+  bookmarkIcon: {
+    marginTop: 8,
+    marginHorizontal: 5,
   },
   shelterName: {
     paddingLeft: 15,
@@ -56,7 +89,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '##1E1E1E',
+    color: '#1E1E1E',
   },
   shelterRatingDescription: {
     paddingLeft: 15,
@@ -64,7 +97,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '##1E1E1E',
+    color: '#1E1E1E',
   },
   buttonsContainer: {
     paddingTop: 10, // might need to change
@@ -96,7 +129,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#1E1E1E',
-  }
+  },
 });
 
 export default ShelterInfoPanel;
