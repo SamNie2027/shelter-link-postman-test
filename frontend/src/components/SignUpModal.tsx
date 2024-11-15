@@ -19,6 +19,7 @@ const SignUpWizard = () => {
     email: '',
     phoneNumber: '',
     password: '',
+    question: '',
   });
 
   // error states
@@ -28,6 +29,7 @@ const SignUpWizard = () => {
     email: '',
     phoneNumber: '',
     password: '',
+    question: '',
   });
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -50,8 +52,8 @@ const SignUpWizard = () => {
     },
     {
       // can add more pages here; just filler rn
-      title: 'Contact Information',
-      fields: ['email', 'phoneNumber'],
+      title: 'Verification',
+      fields: ['question'],
     },
   ];
 
@@ -284,6 +286,19 @@ const SignUpWizard = () => {
             {errors.password ? (
               <Text style={styles.errorText}>{errors.password}</Text>
             ) : null}
+          </View>
+        )}
+        {currentFields.includes('question') && (
+          <View style={styles.formFields}>
+            <Text style={styles.modalFieldText}>Question</Text>
+            <TextInput
+              style={[styles.input, errors.question && styles.inputError]}
+              value={formData.question}
+              placeholder="Enter text here..."
+              onChangeText={(text) => handleChange('question', text)}
+              placeholderTextColor="#9C9A9A"
+            />
+            {errors.question && <Text style={styles.errorText}>{errors.question}</Text>}
           </View>
         )}
       </Animated.View>

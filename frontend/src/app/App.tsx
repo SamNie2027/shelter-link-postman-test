@@ -37,9 +37,9 @@ export const App = () => {
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      {/*<View style={styles.centeredView}>*/}
-      {/*  <SignUpModal />*/}
-      {/*</View>*/}
+      <View style={styles.centeredView}>
+        <SignUpModal />
+      </View>
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
