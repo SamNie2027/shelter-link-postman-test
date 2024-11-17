@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { ReviewsService } from './review.service';
 import { Review } from './review.entity';
-import { Rating } from './rating';
+import { Rating } from '../utils/rating';
 
 const mockReviewRepository = () => ({
   find: jest.fn(),
@@ -49,8 +49,8 @@ describe('ReviewService', () => {
   });
 
   describe('create', () => {
-    it('should successfully create a review', async () => {
-      const reviewData = { reviewText: 'Good shelter!' };
+    it('should successfully create a reviews', async () => {
+      const reviewData = { reviewText: 'Good shelters!' };
       const review = new Review();
       jest.spyOn(reviewRepository, 'create').mockReturnValue(review);
       jest.spyOn(reviewRepository, 'save').mockResolvedValue(review);
@@ -62,7 +62,7 @@ describe('ReviewService', () => {
   });
 
   describe('findOne', () => {
-    it('should return a shelter by ID', async () => {
+    it('should return a shelters by ID', async () => {
       const shelter = new Review();
       jest.spyOn(reviewRepository, 'findOneBy').mockResolvedValue(shelter);
 
@@ -72,14 +72,14 @@ describe('ReviewService', () => {
   });
 
   describe('update', () => {
-    it('should update and return the updated shelter', async () => {
+    it('should update and return the updated shelters', async () => {
       const originalRating = new Rating(5, 4, 3);
       const newRating = new Rating(5, 5, 5);
-      const reviewData = { rating: originalRating, reviewText: 'Pretty, pretty good shelter' };
-      const reviewData1 = { rating: newRating, reviewText: 'Pretty, pretty good shelter' };
+      const reviewData = { rating: originalRating, reviewText: 'Pretty, pretty good shelters' };
+      const reviewData1 = { rating: newRating, reviewText: 'Pretty, pretty good shelters' };
       const newReview = new Review();
       newReview.rating = originalRating;
-      newReview.reviewText = 'Pretty, pretty good shelter'
+      newReview.reviewText = 'Pretty, pretty good shelters'
       jest.spyOn(reviewRepository, 'update').mockResolvedValue(undefined);
       jest.spyOn(service, 'findOne').mockResolvedValue(newReview);
 
@@ -89,7 +89,7 @@ describe('ReviewService', () => {
   });
 
   describe('remove', () => {
-    it('should delete a shelter by ID', async () => {
+    it('should delete a shelters by ID', async () => {
       jest.spyOn(reviewRepository, 'delete').mockResolvedValue(undefined);
 
       await service.remove(1);

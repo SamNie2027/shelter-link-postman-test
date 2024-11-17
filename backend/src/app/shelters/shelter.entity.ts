@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
 import { IsLatitude, IsLongitude, IsPhoneNumber, IsEmail} from 'class-validator';
-import { Rating } from './rating';
+import { Rating } from '../utils/rating';
 
 @Entity()
 export class Shelter {

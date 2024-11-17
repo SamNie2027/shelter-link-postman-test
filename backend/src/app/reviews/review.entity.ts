@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './users.entity';
-import { Shelter } from './shelter.entity';
-import { Rating } from './rating';
+import { User } from '../users/users.entity';
+import { Shelter } from '../shelters/shelter.entity';
+import { Rating } from '../utils/rating';
 
 @Entity()
 export class Review {
