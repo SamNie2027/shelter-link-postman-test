@@ -58,6 +58,7 @@
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/typeorm": "^10.0.2",
+    "@react-native-community/cli-server-api": "^15.1.2",
     "axios": "^1.6.0",
     "expo": "^52.0.7",
     "expo-splash-screen": "~0.29.10",

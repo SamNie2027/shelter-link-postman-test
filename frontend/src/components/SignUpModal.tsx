@@ -11,6 +11,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
+import modalStyle from '../../assets/homeStyle';
 
 const SignUpWizard = () => {
   const [formData, setFormData] = useState({
@@ -164,7 +165,7 @@ const SignUpWizard = () => {
     return (
       <Animated.View
         style={[
-          styles.fieldsContainer,
+          modalStyle.fieldsContainer,
           {
             transform: [
               {
@@ -175,10 +176,10 @@ const SignUpWizard = () => {
         ]}
       >
         {currentFields.includes('firstName') && (
-          <View style={styles.formFields}>
-            <Text style={styles.modalFieldText}>First Name*</Text>
+          <View style={modalStyle.formFields}>
+            <Text style={modalStyle.modalFieldText}>First Name*</Text>
             <TextInput
-              style={[styles.input, errors.firstName && styles.inputError]}
+              style={[modalStyle.input, errors.firstName && modalStyle.inputError]}
               value={formData.firstName}
               placeholder="Enter text here..."
               onChangeText={(text) => handleChange('firstName', text)}
@@ -186,16 +187,16 @@ const SignUpWizard = () => {
               placeholderTextColor="#9C9A9A"
             />
             {errors.firstName ? (
-              <Text style={styles.errorText}>{errors.firstName}</Text>
+              <Text style={modalStyle.errorText}>{errors.firstName}</Text>
             ) : null}
           </View>
         )}
 
         {currentFields.includes('lastName') && (
-          <View style={styles.formFields}>
-            <Text style={styles.modalFieldText}>Last Name*</Text>
+          <View style={modalStyle.formFields}>
+            <Text style={modalStyle.modalFieldText}>Last Name*</Text>
             <TextInput
-              style={[styles.input, errors.lastName && styles.inputError]}
+              style={[modalStyle.input, errors.lastName && modalStyle.inputError]}
               value={formData.lastName}
               placeholder="Enter text here..."
               onChangeText={(text) => handleChange('lastName', text)}
@@ -203,16 +204,16 @@ const SignUpWizard = () => {
               placeholderTextColor="#9C9A9A"
             />
             {errors.lastName ? (
-              <Text style={styles.errorText}>{errors.lastName}</Text>
+              <Text style={modalStyle.errorText}>{errors.lastName}</Text>
             ) : null}
           </View>
         )}
 
         {currentFields.includes('email') && (
-          <View style={styles.formFields}>
-            <Text style={styles.modalFieldText}>Email*</Text>
+          <View style={modalStyle.formFields}>
+            <Text style={modalStyle.modalFieldText}>Email*</Text>
             <TextInput
-              style={[styles.input, errors.email && styles.inputError]}
+              style={[modalStyle.input, errors.email && modalStyle.inputError]}
               value={formData.email}
               placeholder="Enter text here..."
               onChangeText={(text) => handleChange('email', text)}
@@ -221,16 +222,16 @@ const SignUpWizard = () => {
               placeholderTextColor="#9C9A9A"
             />
             {errors.email ? (
-              <Text style={styles.errorText}>{errors.email}</Text>
+              <Text style={modalStyle.errorText}>{errors.email}</Text>
             ) : null}
           </View>
         )}
 
         {currentFields.includes('phoneNumber') && (
-          <View style={styles.formFields}>
-            <Text style={styles.modalFieldText}>Phone Number</Text>
+          <View style={modalStyle.formFields}>
+            <Text style={modalStyle.modalFieldText}>Phone Number</Text>
             <TextInput
-              style={[styles.input, errors.phoneNumber && styles.inputError]}
+              style={[modalStyle.input, errors.phoneNumber && modalStyle.inputError]}
               value={formData.phoneNumber}
               placeholder="Enter text here..."
               onChangeText={(text) => handleChange('phoneNumber', text)}
@@ -238,19 +239,19 @@ const SignUpWizard = () => {
               placeholderTextColor="#9C9A9A"
             />
             {errors.phoneNumber ? (
-              <Text style={styles.errorText}>{errors.phoneNumber}</Text>
+              <Text style={modalStyle.errorText}>{errors.phoneNumber}</Text>
             ) : null}
           </View>
         )}
 
         {currentFields.includes('password') && (
-          <View style={styles.formFields}>
-            <Text style={styles.modalFieldText}>Password*</Text>
-            <View style={styles.passwordRequirements}>
+          <View style={modalStyle.formFields}>
+            <Text style={modalStyle.modalFieldText}>Password*</Text>
+            <View style={modalStyle.passwordRequirements}>
               <Text
                 style={[
-                  styles.requirementText,
-                  passwordStrength.hasMinLength ? styles.requirementMet : null,
+                  modalStyle.requirementText,
+                  passwordStrength.hasMinLength ? modalStyle.requirementMet : null,
                 ]}
               >
                 Password Requirements
@@ -274,7 +275,7 @@ const SignUpWizard = () => {
               {/*]}>• At least one special character</Text>*/}
             </View>
             <TextInput
-              style={[styles.input, errors.password && styles.inputError]}
+              style={[modalStyle.input, errors.password && modalStyle.inputError]}
               value={formData.password}
               placeholder="Enter text here..."
               secureTextEntry
@@ -282,7 +283,7 @@ const SignUpWizard = () => {
               placeholderTextColor="#9C9A9A"
             />
             {errors.password ? (
-              <Text style={styles.errorText}>{errors.password}</Text>
+              <Text style={modalStyle.errorText}>{errors.password}</Text>
             ) : null}
           </View>
         )}
@@ -294,52 +295,52 @@ const SignUpWizard = () => {
     <Modal animationType="slide" transparent={true}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.centeredView}
+        style={modalStyle.centeredView}
       >
-        <View style={styles.modalView}>
+        <View style={modalStyle.modalView}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-            <View style={styles.modalForm}>
+            <View style={modalStyle.modalForm}>
               {/* progress indicator for form */}
-              <View style={styles.progressContainer}>
+              <View style={modalStyle.progressContainer}>
                 {steps.map((_, index) => (
                   <View
                     key={index}
                     style={[
-                      styles.progressDot,
-                      currentStep === index && styles.progressDotActive,
-                      currentStep > index && styles.progressDotCompleted,
+                      modalStyle.progressDot,
+                      currentStep === index && modalStyle.progressDotActive,
+                      currentStep > index && modalStyle.progressDotCompleted,
                     ]}
                   />
                 ))}
               </View>
 
-              <Text style={styles.modalTitleText}>
+              <Text style={modalStyle.modalTitleText}>
                 {steps[currentStep].title}
               </Text>
 
               {renderFields()}
 
-              <View style={styles.navigationContainer}>
+              <View style={modalStyle.navigationContainer}>
                 {currentStep > 0 && (
                   <TouchableOpacity
-                    style={styles.navigationButton}
+                    style={modalStyle.navigationButton}
                     onPress={handlePrev}
                   >
-                    <Text style={styles.navigationButtonText}>← Previous</Text>
+                    <Text style={modalStyle.navigationButtonText}>← Previous</Text>
                   </TouchableOpacity>
                 )}
 
                 <TouchableOpacity
                   style={[
-                    styles.navigationButton,
-                    currentStep === 0 && styles.singleButton,
+                    modalStyle.navigationButton,
+                    currentStep === 0 && modalStyle.singleButton,
                   ]}
                   onPress={
                     currentStep === steps.length - 1 ? handleSubmit : handleNext
                   }
                 >
                   <Text
-                    style={[styles.navigationButtonText, styles.nextButtonText]}
+                    style={[modalStyle.navigationButtonText, modalStyle.nextButtonText]}
                   >
                     {currentStep === steps.length - 1 ? 'Submit' : 'Next →'}
                   </Text>
@@ -352,7 +353,7 @@ const SignUpWizard = () => {
     </Modal>
   );
 };
-
+/*
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
@@ -468,5 +469,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
+*/
 
 export default SignUpWizard;

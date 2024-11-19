@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import Map from '../components/Map';
+import Home from '../components/Home';
 import FiltersDropdown from '../components/FiltersDropdown';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
@@ -15,6 +16,7 @@ export const App = () => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
   const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
+  const [authenticated, setAuthenticated] = useState(false)
 
   const handleMarkerPress = useCallback((shelter: Shelter) => {
     setSelectedShelter(shelter);
@@ -37,40 +39,40 @@ export const App = () => {
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      <View style={styles.centeredView}>
-        <SignUpModal />
-      </View>
-      <View style={styles.searchBarContainer}>
-        <SearchBar />
-      </View>
-      <View style={styles.headerContainer}>
-        <Header />
-      </View>
-      <View style={styles.filtersDropdownContainer}>
-        <FiltersDropdown />
-      </View>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={snapPoints}
-          style={styles.bottomSheet}
-        >
-          {selectedShelter ? (
-            <ShelterInfoPanel
-              title={selectedShelter.title}
-              description={selectedShelter.description}
-              style={styles.itemContainer}
-            />
-          ) : (
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-            />
-          )}
-        </BottomSheet>
-      </GestureHandlerRootView>
+      {/*<View style={styles.centeredView}>*/}
+      {/*  <SignUpModal />*/}
+      {/*</View>*/}
+      { authenticated ? (
+        <><View style={styles.searchBarContainer}>
+          <SearchBar />
+        </View><View style={styles.headerContainer}>
+          <Header />
+        </View><View style={styles.filtersDropdownContainer}>
+          <FiltersDropdown />
+        </View><GestureHandlerRootView style={{ flex: 1 }}>
+          <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+          <BottomSheet
+            ref={sheetRef}
+            snapPoints={snapPoints}
+            style={styles.bottomSheet}
+          >
+            {selectedShelter ? (
+              <ShelterInfoPanel
+                title={selectedShelter.title}
+                description={selectedShelter.description}
+                style={styles.itemContainer} />
+            ) : (
+              <BottomSheetFlatList
+                data={shelters}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderItem} />
+            )}
+          </BottomSheet>
+        </GestureHandlerRootView></>
+
+      ) : (
+        <Home/>
+      ) }
     </SafeAreaView>
   );
 };
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 11,
     paddingBottom: 18,
+    backgroundColor: '#C4C4C4'
   },
   searchBarContainer: {
     alignItems: 'center',
