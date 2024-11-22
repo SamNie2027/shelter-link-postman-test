@@ -2,11 +2,13 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import CompleteMap from '../components/CompleteMap';
 import SignUpModal from '../components/SignUpModal';
+import { DetailedShelterView } from '../components/DetailedShelterView';
 
 export const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <CompleteMap />
+      {/*<CompleteMap />*/}
+      <DetailedShelterView />
       {/*<View style={styles.centeredView}>*/}
       {/*  <SignUpModal />*/}
       {/*</View>*/}
