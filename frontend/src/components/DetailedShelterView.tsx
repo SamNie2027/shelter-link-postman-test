@@ -35,6 +35,7 @@ export const DetailedShelterView = () => {
         <View style={styles.shelterImage} />
         <View style={styles.shelterImage} />
       </View>
+      <Text style={styles.shelterDescription}>Longer description, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
     </SafeAreaView>
   );
 };
@@ -125,4 +126,14 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     backgroundColor: '#D9D9D9',
   },
+  shelterDescription: {
+    width: 340,
+    height: 180,
+    marginLeft: 13,
+    marginTop: 19,
+    fontSize: 13,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 18.15
+  }
 });
