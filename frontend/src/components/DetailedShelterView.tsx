@@ -31,6 +31,10 @@ export const DetailedShelterView = () => {
           <Text style={styles.buttonText}>Contact</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.images}>
+        <View style={styles.shelterImage} />
+        <View style={styles.shelterImage} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   buttonsContainer: {
-    paddingTop: 10, // might need to change
+    paddingTop: 10,
     paddingLeft: 15,
     flexDirection: 'row',
   },
@@ -106,5 +110,19 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#1E1E1E',
+  },
+  images: {
+    marginTop: 30,
+    marginLeft: 12,
+    flexDirection: 'row',
+  },
+  shelterImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    borderWidth: 1,
+    marginRight: 22,
+    borderColor: '#000000',
+    backgroundColor: '#D9D9D9',
   },
 });
