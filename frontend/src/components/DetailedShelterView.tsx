@@ -1,5 +1,6 @@
 import Logo from '../components/Logo';
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -35,7 +36,38 @@ export const DetailedShelterView = () => {
         <View style={styles.shelterImage} />
         <View style={styles.shelterImage} />
       </View>
-      <Text style={styles.shelterDescription}>Longer description, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+      <Text style={styles.shelterDescription}>
+        Longer description, Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+        qui officia deserunt mollit anim id est laborum.
+      </Text>
+      <View style={styles.fullReview}>
+        <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
+        <View style={styles.reviews}>
+          <View>
+            <Text style={styles.traitText}>Trait 1</Text>
+            <Text style={styles.traitText}>Trait 2</Text>
+            <Text style={styles.traitText}>Trait 3</Text>
+            <Text style={styles.traitText}>Trait 4</Text>
+            <Text style={styles.traitText}>Trait 5</Text>
+          </View>
+          <Image
+            style={styles.allOfThisIcon}
+            source={require('frontend/assets/AllOfThisIcon.png')}
+          />
+          <View style={styles.sumRating}>
+            <Text style={styles.sumRatingText}>4.8</Text>
+            <Image
+              style={styles.sumStarIcon}
+              source={require('frontend/assets/teenyicons_star-solid.png')}
+            />
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -48,8 +80,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'flex-start',
     paddingLeft: 12,
-    paddingTop: 11,
-    paddingBottom: 18,
+    paddingBottom: 11,
   },
   text: {
     marginLeft: 12,
@@ -113,7 +144,7 @@ const styles = StyleSheet.create({
     color: '#1E1E1E',
   },
   images: {
-    marginTop: 30,
+    marginTop: 20,
     marginLeft: 12,
     flexDirection: 'row',
   },
@@ -134,6 +165,52 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: 'Inter',
     fontWeight: '400',
-    lineHeight: 18.15
+    lineHeight: 18.15,
+    color: '#1E1E1E',
+  },
+  fullReview: {
+    marginTop: 10,
+    marginLeft: 12,
+  },
+  fullReviewTitle: {
+    width: 247,
+    height: 43,
+    fontSize: 24,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 29.05,
+    color: '#1E1E1E',
+  },
+  reviews: {
+    flexDirection: 'row',
+  },
+  traitText: {
+    marginLeft: 2,
+    width: 57,
+    height: 28,
+    fontSize: 15,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 18.15,
+    color: '#1E1E1E',
+  },
+  allOfThisIcon: {
+    marginLeft: 24,
+  },
+  sumRating: {
+    marginTop: 39,
+    flexDirection: 'row',
+    marginLeft: 19,
+  },
+  sumRatingText: {
+    width: 84,
+    height: 82,
+    fontSize: 48,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 58.09,
+  },
+  sumStarIcon: {
+    marginTop: 14
   }
 });
