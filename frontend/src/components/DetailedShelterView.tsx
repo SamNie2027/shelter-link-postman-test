@@ -1,6 +1,7 @@
 import Logo from '../components/Logo';
 import {
   Image,
+  Linking,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -9,48 +10,95 @@ import {
 } from 'react-native';
 import React from 'react';
 
-export const DetailedShelterView = () => {
+interface Shelter {
+  id: number;
+  name: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
+  latitude: number;
+  longitude: number;
+  description: string;
+  overall_rating: number;
+  inclusivity_rating: number;
+  safety_rating: number;
+  availability: string;
+  phone_number: string;
+  email_address: string;
+  opening_time: string;
+  closing_time: string;
+  picture: string[];
+}
+
+interface Props {
+  shelter: Shelter;
+}
+
+export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
+  const handleDirections = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
+    Linking.openURL(url);
+  };
+
+  const handleContact = () => {
+    Linking.openURL(`tel:${shelter.phone_number}`);
+  };
+
+  const formatTime = (time: string) => {
+    return new Date(`1970-01-01T${time}`).toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      <Text style={styles.text}>Non-Profit</Text>
+      <Text style={styles.text}>{shelter.name}</Text>
       <View style={styles.quickInfoContainer}>
-        <Text style={styles.quickInfoText}>4.8 stars rating | X min walk</Text>
-        <Text style={styles.quickInfoText}>Address | Business Hours</Text>
-        <Text style={styles.quickInfoText}>Short Description</Text>
+        <Text style={styles.quickInfoText}>
+          {shelter.overall_rating.toFixed(1)} stars rating | {shelter.availability}
+        </Text>
+        <Text style={styles.quickInfoText}>
+          {shelter.address.street}, {shelter.address.city} |
+          {formatTime(shelter.opening_time)} - {formatTime(shelter.closing_time)}
+        </Text>
+        <Text style={styles.quickInfoText}>{shelter.availability}</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.directionsButton}>
+        <TouchableOpacity style={styles.directionsButton} onPress={handleDirections}>
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.websiteButton}>
           <Text style={styles.buttonText}>Website</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.contactButton}>
+        <TouchableOpacity style={styles.contactButton} onPress={handleContact}>
           <Text style={styles.buttonText}>Contact</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.images}>
-        <View style={styles.shelterImage} />
-        <View style={styles.shelterImage} />
+        {shelter.picture.slice(0, 2).map((url, index) => (
+          <Image
+            key={index}
+            source={{ uri: url }}
+            style={styles.shelterImage}
+          />
+        ))}
       </View>
       <Text style={styles.shelterDescription}>
-        Longer description, Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum.
+        {shelter.description}
       </Text>
       <View style={styles.fullReview}>
         <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
         <View style={styles.reviews}>
-          <View>
-            <Text style={styles.traitText}>Trait 1</Text>
-            <Text style={styles.traitText}>Trait 2</Text>
+          <View style={styles.traits}>
+            <Text style={styles.traitText}>Safety: {shelter.safety_rating}/5</Text>
+            <Text style={styles.traitText}>Inclusivity: {shelter.inclusivity_rating}/5</Text>
             <Text style={styles.traitText}>Trait 3</Text>
             <Text style={styles.traitText}>Trait 4</Text>
             <Text style={styles.traitText}>Trait 5</Text>
@@ -60,7 +108,7 @@ export const DetailedShelterView = () => {
             source={require('frontend/assets/AllOfThisIcon.png')}
           />
           <View style={styles.sumRating}>
-            <Text style={styles.sumRatingText}>4.8</Text>
+            <Text style={styles.sumRatingText}>{shelter.overall_rating.toFixed(1)}</Text>
             <Image
               style={styles.sumStarIcon}
               source={require('frontend/assets/teenyicons_star-solid.png')}
@@ -91,7 +139,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   quickInfoContainer: {
-    width: 253,
+    width: '100%',
     height: 75.14,
     marginTop: 12,
     marginLeft: 12,
@@ -181,12 +229,14 @@ const styles = StyleSheet.create({
     lineHeight: 29.05,
     color: '#1E1E1E',
   },
+  traits: {
+    width: 150,
+  },
   reviews: {
     flexDirection: 'row',
   },
   traitText: {
     marginLeft: 2,
-    width: 57,
     height: 28,
     fontSize: 15,
     fontFamily: 'Inter',
@@ -211,6 +261,6 @@ const styles = StyleSheet.create({
     lineHeight: 58.09,
   },
   sumStarIcon: {
-    marginTop: 14
-  }
+    marginTop: 14,
+  },
 });

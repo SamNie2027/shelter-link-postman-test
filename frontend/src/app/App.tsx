@@ -1,17 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import CompleteMap from '../components/CompleteMap';
-import SignUpModal from '../components/SignUpModal';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { DetailedShelterView } from '../components/DetailedShelterView';
+import { shelters } from '../sheltersTest';
 
 export const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/*<CompleteMap />*/}
-      <DetailedShelterView />
-      {/*<View style={styles.centeredView}>*/}
-      {/*  <SignUpModal />*/}
-      {/*</View>*/}
+      <DetailedShelterView shelter={shelters[0]} />
     </SafeAreaView>
   );
 };
@@ -20,11 +15,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
