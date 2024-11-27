@@ -38,11 +38,16 @@ interface Props {
 }
 
 export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
+  // to do: change directions button func
+  // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
     Linking.openURL(url);
   };
 
+  // to do: change contact button func
+  // for now, this gives the option to confirm if you want to call the shelter number
+  // figure out how number/email maybe should be displayed?
   const handleContact = () => {
     Linking.openURL(`tel:${shelter.phone_number}`);
   };
@@ -59,15 +64,18 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
       <View style={styles.logoContainer}>
         <Logo />
       </View>
-      <Text style={styles.text}>{shelter.name}</Text>
+      <View style={styles.shelterNameContainer}>
+      <Text style={styles.shelterNameText}>{shelter.name}</Text>
+      </View>
       <View style={styles.quickInfoContainer}>
         <Text style={styles.quickInfoText}>
+          {/* added availability here instead of minutes away based on shelter.entity.ts */}
           {shelter.overall_rating.toFixed(1)} stars rating | {shelter.availability}
         </Text>
         <Text style={styles.quickInfoText}>
-          {shelter.address.street}, {shelter.address.city} |
-          {formatTime(shelter.opening_time)} - {formatTime(shelter.closing_time)}
+          {shelter.address.street}, {shelter.address.city} | {formatTime(shelter.opening_time)} - {formatTime(shelter.closing_time)}
         </Text>
+        {/* added availability here instead of short description on shelter.entity.ts */}
         <Text style={styles.quickInfoText}>{shelter.availability}</Text>
       </View>
       <View style={styles.buttonsContainer}>
@@ -75,6 +83,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.websiteButton}>
+          {/* no website field in shelter.entity.ts so no behavior yet */}
           <Text style={styles.buttonText}>Website</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.contactButton} onPress={handleContact}>
@@ -94,14 +103,17 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
         {shelter.description}
       </Text>
       <View style={styles.fullReview}>
+        <View style={styles.fullReviewTitleContainer}>
         <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
+        </View>
         <View style={styles.reviews}>
           <View style={styles.traits}>
             <Text style={styles.traitText}>Safety: {shelter.safety_rating}/5</Text>
             <Text style={styles.traitText}>Inclusivity: {shelter.inclusivity_rating}/5</Text>
-            <Text style={styles.traitText}>Trait 3</Text>
-            <Text style={styles.traitText}>Trait 4</Text>
-            <Text style={styles.traitText}>Trait 5</Text>
+            {/* add other traits here */}
+            {/*<Text style={styles.traitText}>Trait 3</Text>*/}
+            {/*<Text style={styles.traitText}>Trait 4</Text>*/}
+            {/*<Text style={styles.traitText}>Trait 5</Text>*/}
           </View>
           <Image
             style={styles.allOfThisIcon}
@@ -128,10 +140,15 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'flex-start',
     paddingLeft: 12,
-    paddingBottom: 11,
+    paddingTop: 9,
   },
-  text: {
+  shelterNameContainer: {
+    height: 44,
+    width: '100%',
     marginLeft: 12,
+    marginTop: 10,
+  },
+  shelterNameText: {
     fontFamily: 'Inter',
     fontSize: 32,
     fontWeight: '400',
@@ -141,7 +158,6 @@ const styles = StyleSheet.create({
   quickInfoContainer: {
     width: '100%',
     height: 75.14,
-    marginTop: 12,
     marginLeft: 12,
   },
   quickInfoText: {
@@ -149,11 +165,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
+    lineHeight: 18.15,
   },
   buttonsContainer: {
-    paddingTop: 10,
-    paddingLeft: 15,
+    marginTop: 8.86,
+    marginLeft: 15,
     flexDirection: 'row',
+    width: '100%',
+    height: 35.61,
   },
   directionsButton: {
     width: 106,
@@ -192,7 +211,9 @@ const styles = StyleSheet.create({
     color: '#1E1E1E',
   },
   images: {
-    marginTop: 20,
+    width: 322,
+    height: 150,
+    marginTop: 30.39,
     marginLeft: 12,
     flexDirection: 'row',
   },
@@ -207,7 +228,6 @@ const styles = StyleSheet.create({
   },
   shelterDescription: {
     width: 340,
-    height: 180,
     marginLeft: 13,
     marginTop: 19,
     fontSize: 13,
@@ -217,12 +237,16 @@ const styles = StyleSheet.create({
     color: '#1E1E1E',
   },
   fullReview: {
-    marginTop: 10,
-    marginLeft: 12,
+    marginTop: 40,
+    marginLeft: 13,
+    width: 330,
+    height: 176,
+  },
+  fullReviewTitleContainer: {
+    width: 247,
+    height: 40,
   },
   fullReviewTitle: {
-    width: 247,
-    height: 43,
     fontSize: 24,
     fontFamily: 'Inter',
     fontWeight: '400',
@@ -230,27 +254,29 @@ const styles = StyleSheet.create({
     color: '#1E1E1E',
   },
   traits: {
-    width: 150,
+    width: 142,
   },
   reviews: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   traitText: {
-    marginLeft: 2,
     height: 28,
     fontSize: 15,
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
+    width: '100%',
   },
   allOfThisIcon: {
     marginLeft: 24,
   },
   sumRating: {
-    marginTop: 39,
     flexDirection: 'row',
     marginLeft: 19,
+    marginTop: 20,
   },
   sumRatingText: {
     width: 84,

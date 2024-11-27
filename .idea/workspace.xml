@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
+    <list default="true" id="83296db7-3949-4046-a57a-1d7cdf1c1566" name="Changes" comment="reorganized sheltertest + linked shelter.entity to shelter view">
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/DetailedShelterView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DetailedShelterView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/sheltersTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/sheltersTest.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,22 +52,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;4-frontend-display-shelter-info&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "7-frontend-create-individual-shelter-info",
+    "last_opened_file_path": "/Users/rjuvekar/Downloads/C4C/bagly",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "/Users/rjuvekar/Downloads/C4C/bagly/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/assets" />
@@ -193,7 +196,55 @@
       <option name="project" value="LOCAL" />
       <updated>1728262883381</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="sign up modal and map fixing">
+      <option name="closed" value="true" />
+      <created>1732244640075</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732244640075</updated>
+    </task>
+    <task id="LOCAL-00014" summary="created header for detailed shelter view + buttons">
+      <option name="closed" value="true" />
+      <created>1732305814324</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732305814325</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added placeholders for images">
+      <option name="closed" value="true" />
+      <created>1732305971124</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732305971124</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added placeholders for shelter description">
+      <option name="closed" value="true" />
+      <created>1732306112658</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732306112658</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added placeholders for bagly full review">
+      <option name="closed" value="true" />
+      <created>1732307384891</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732307384891</updated>
+    </task>
+    <task id="LOCAL-00018" summary="reorganized sheltertest + linked shelter.entity to shelter view">
+      <option name="closed" value="true" />
+      <created>1732325431052</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732325431052</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +263,13 @@
     <MESSAGE value="finished implementing bottom sheet for web" />
     <MESSAGE value="added click shelter functionality for map on bottom sheet" />
     <MESSAGE value="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some more styling to shelter panels (bookmark icon, additional blank image placeholders)" />
+    <MESSAGE value="fixed some sign up modal issues" />
+    <MESSAGE value="sign up modal and map fixing" />
+    <MESSAGE value="created header for detailed shelter view + buttons" />
+    <MESSAGE value="added placeholders for images" />
+    <MESSAGE value="added placeholders for shelter description" />
+    <MESSAGE value="added placeholders for bagly full review" />
+    <MESSAGE value="reorganized sheltertest + linked shelter.entity to shelter view" />
+    <option name="LAST_COMMIT_MESSAGE" value="reorganized sheltertest + linked shelter.entity to shelter view" />
   </component>
 </project>
