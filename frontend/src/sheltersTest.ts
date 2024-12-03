@@ -29,7 +29,7 @@ export const shelters: Shelter[] = [
     id: 1,
     name: 'Shelter One',
     description:
-      'Longer description, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'Description.',
     latitude: 42.3611,
     longitude: -71.0579,
     emoji: '🏳️‍🌈',
@@ -48,8 +48,8 @@ export const shelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://media.istockphoto.com/id/155666671/vector/vector-illustration-of-red-house-icon.jpg?s=612x612&w=0&k=20&c=tBqaabvmjFOBVUibZxbd8oWJqrFR5dy-l2bEDJMtZ40=',
-      'https://media.istockphoto.com/id/155666671/vector/vector-illustration-of-red-house-icon.jpg?s=612x612&w=0&k=20&c=tBqaabvmjFOBVUibZxbd8oWJqrFR5dy-l2bEDJMtZ40=',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },
   {
@@ -74,7 +74,8 @@ export const shelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://media.istockphoto.com/id/155666671/vector/vector-illustration-of-red-house-icon.jpg?s=612x612&w=0&k=20&c=tBqaabvmjFOBVUibZxbd8oWJqrFR5dy-l2bEDJMtZ40=',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },
   {
@@ -99,7 +100,8 @@ export const shelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://media.istockphoto.com/id/155666671/vector/vector-illustration-of-red-house-icon.jpg?s=612x612&w=0&k=20&c=tBqaabvmjFOBVUibZxbd8oWJqrFR5dy-l2bEDJMtZ40=',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },
   {
@@ -124,7 +126,8 @@ export const shelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://media.istockphoto.com/id/155666671/vector/vector-illustration-of-red-house-icon.jpg?s=612x612&w=0&k=20&c=tBqaabvmjFOBVUibZxbd8oWJqrFR5dy-l2bEDJMtZ40=',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },
 ];

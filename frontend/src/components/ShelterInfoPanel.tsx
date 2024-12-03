@@ -1,38 +1,42 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { Shelter } from '../sheltersTest';
 
 type ShelterInfoPanelProps = {
-  title: string;
-  description: string;
+  shelter: Shelter;
+  style?: any;
 };
 
-const ShelterInfoPanel = ({
-  title,
-  description,
-  style,
-}: ShelterInfoPanelProps & {
-  style?: any;
-}) => {
+const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
+  const formatAddress = (address: any) => {
+    return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
+  };
+
   return (
     <View style={[styles.panel, style]}>
       <View style={styles.topRowItems}>
         <View style={styles.images}>
-          <View style={styles.shelterImage} />
-          <View style={styles.shelterImage} />
-          <View style={styles.shelterImage} />
-        </View>
-        <View>
-          <Image
-            style={styles.bookmarkIcon}
-            source={require('frontend/assets/bookmark.png')}
-          />
+          {shelter.picture.slice(0, 3).map((url, index) => (
+            <Image
+              key={index}
+              source={{ uri: url }}
+              style={styles.shelterImage}
+            />
+          ))}
         </View>
       </View>
-      <Text style={styles.shelterName}>{title}</Text>
+      <View style={styles.bookmarkContainer}>
+        <Image
+          source={require('frontend/assets/bookmark.png')}
+        />
+      </View>
+      <Text style={styles.shelterName}>{shelter.name}</Text>
       <Text style={styles.shelterAddressDistance}>
-        Address | Distance from you
+        {formatAddress(shelter.address)} | Distance
       </Text>
-      <Text style={styles.shelterRatingDescription}>{description}</Text>
+      <Text style={styles.shelterRatingDescription}>
+        {shelter.overall_rating} | {shelter.description}
+      </Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.directionsButton}>
           <Text style={styles.buttonText}>Directions</Text>
@@ -71,9 +75,10 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     backgroundColor: '#D9D9D9',
   },
-  bookmarkIcon: {
-    marginTop: 8,
-    marginHorizontal: 5,
+  bookmarkContainer: {
+    position: 'absolute',
+    top: 8,
+    right: 11,
   },
   shelterName: {
     paddingLeft: 15,
