@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Logo from '../components/Logo';
 import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter, shelters } from '../sheltersTest';
@@ -23,8 +22,7 @@ export const CompleteMap = () => {
   const renderItem = useCallback(
     ({ item }: { item: Shelter }) => (
       <ShelterInfoPanel
-        title={item.title}
-        description={item.description}
+        shelter={item}
         style={styles.itemContainer}
       />
     ),
@@ -45,7 +43,6 @@ export const CompleteMap = () => {
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
       </View>
-      <GestureHandlerRootView style={{ flex: 1 }}>
         <Map onMarkerPress={handleMarkerPress} style={styles.map} />
         <BottomSheet
           ref={sheetRef}
@@ -54,8 +51,7 @@ export const CompleteMap = () => {
         >
           {selectedShelter ? (
             <ShelterInfoPanel
-              title={selectedShelter.title}
-              description={selectedShelter.description}
+              shelter={selectedShelter}
               style={styles.itemContainer}
             />
           ) : (
@@ -66,7 +62,6 @@ export const CompleteMap = () => {
             />
           )}
         </BottomSheet>
-      </GestureHandlerRootView>
     </SafeAreaView>
   );
 };

@@ -1,74 +1,19 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { DetailedShelterView } from '../components/DetailedShelterView';
-import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
-import Logo from '../components/Logo';
-import Map from '../components/Map';
-import SearchBar from '../components/SearchBar';
-import Header from '../components/Header';
-import FiltersDropdown from '../components/FiltersDropdown';
-import ShelterInfoPanel from '../components/ShelterInfoPanel';
-import { Shelter, shelters } from '../sheltersTest';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SignUpModal from '../components/SignUpModal';
+import { CompleteMap } from '../components/CompleteMap';
 
 export const App = () => {
-  const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
-  const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
-
-  const handleMarkerPress = useCallback((shelter: Shelter) => {
-    setSelectedShelter(shelter);
-    sheetRef.current?.snapToIndex(1);
-  }, []);
-
-  const renderItem = useCallback(
-    ({ item }: { item: Shelter }) => (
-      <ShelterInfoPanel
-        shelter={item}
-        style={styles.itemContainer}
-      />
-    ),
-    []
-  );
-
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
+      {/*<View style={styles.logoContainer}>*/}
+      {/*  <Logo />*/}
+      {/*</View>*/}
       {/*<View style={styles.centeredView}>*/}
       {/*  <SignUpModal />*/}
       {/*</View>*/}
-      <View style={styles.searchBarContainer}>
-        <SearchBar />
-      </View>
-      <View style={styles.headerContainer}>
-        <Header />
-      </View>
-      <View style={styles.filtersDropdownContainer}>
-        <FiltersDropdown />
-      </View>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={snapPoints}
-          style={styles.bottomSheet}
-        >
-          {selectedShelter ? (
-            <ShelterInfoPanel
-              shelter={selectedShelter}
-              style={styles.itemContainer}
-            />
-          ) : (
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-            />
-          )}
-        </BottomSheet>
+        <CompleteMap />
       </GestureHandlerRootView>
 
       {/*<DetailedShelterView shelter={shelters[0]} />*/}
