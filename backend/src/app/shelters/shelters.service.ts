@@ -28,7 +28,7 @@ export class SheltersService {
 
     const shelters = await this.sheltersRepository
       .createQueryBuilder('shelter')
-      .select('shelter.*')
+      .select('shelters.*')
       .addSelect(`${haversine}`, 'distance')
       .setParameter('lat', lat)
       .setParameter('lon', lon)

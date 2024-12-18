@@ -77,7 +77,7 @@ describe('UsersService', () => {
   });
 
   describe('create', () => {
-    it('should successfully create a shelter', async () => {
+    it('should successfully create a shelters', async () => {
       const shelterData = { name: 'Test Shelter' };
       const shelter = new Shelter();
       jest.spyOn(shelterRepository, 'create').mockReturnValue(shelter);
@@ -90,7 +90,7 @@ describe('UsersService', () => {
   });
 
   describe('findOne', () => {
-    it('should return a shelter by ID', async () => {
+    it('should return a shelters by ID', async () => {
       const shelter = new Shelter();
       jest.spyOn(shelterRepository, 'findOneBy').mockResolvedValue(shelter);
 
@@ -100,7 +100,7 @@ describe('UsersService', () => {
   });
 
   describe('update', () => {
-    it('should update and return the updated shelter', async () => {
+    it('should update and return the updated shelters', async () => {
       const shelterData = { name: 'Updated Shelter' };
       const shelter = new Shelter();
       jest.spyOn(shelterRepository, 'update').mockResolvedValue(undefined);
@@ -112,7 +112,7 @@ describe('UsersService', () => {
   });
 
   describe('remove', () => {
-    it('should delete a shelter by ID', async () => {
+    it('should delete a shelters by ID', async () => {
       jest.spyOn(shelterRepository, 'delete').mockResolvedValue(undefined);
 
       await service.remove(1);

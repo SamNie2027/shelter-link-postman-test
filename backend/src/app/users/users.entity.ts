@@ -44,5 +44,4 @@ export class User {
 
     @Column({type: 'time'})
     joined_at: string;
-
 }
