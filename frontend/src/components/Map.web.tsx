@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Shelter, shelters } from '../sheltersTest';
 
-const Map: React.FC = ({
+const Map = ({
   onMarkerPress,
 }: {
   onMarkerPress: (shelter: Shelter) => void;

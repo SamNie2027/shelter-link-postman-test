@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Logo from '../components/Logo';
 import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter, shelters } from '../sheltersTest';
@@ -22,11 +21,7 @@ export const CompleteMap = () => {
 
   const renderItem = useCallback(
     ({ item }: { item: Shelter }) => (
-      <ShelterInfoPanel
-        title={item.title}
-        description={item.description}
-        style={styles.itemContainer}
-      />
+      <ShelterInfoPanel shelter={item} style={styles.itemContainer} />
     ),
     []
   );
@@ -45,28 +40,25 @@ export const CompleteMap = () => {
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
       </View>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={snapPoints}
-          style={styles.bottomSheet}
-        >
-          {selectedShelter ? (
-            <ShelterInfoPanel
-              title={selectedShelter.title}
-              description={selectedShelter.description}
-              style={styles.itemContainer}
-            />
-          ) : (
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-            />
-          )}
-        </BottomSheet>
-      </GestureHandlerRootView>
+      <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+      >
+        {selectedShelter ? (
+          <ShelterInfoPanel
+            shelter={selectedShelter}
+            style={styles.itemContainer}
+          />
+        ) : (
+          <BottomSheetFlatList
+            data={shelters}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+          />
+        )}
+      </BottomSheet>
     </SafeAreaView>
   );
 };

@@ -20,6 +20,7 @@ const SignUpWizard = () => {
     phoneNumber: '',
     password: '',
     question: '',
+    question: '',
   });
 
   // error states
@@ -29,6 +30,7 @@ const SignUpWizard = () => {
     email: '',
     phoneNumber: '',
     password: '',
+    question: '',
     question: '',
   });
 
@@ -52,6 +54,8 @@ const SignUpWizard = () => {
     },
     {
       // can add more pages here; just filler rn
+      title: 'Verification',
+      fields: ['question'],
       title: 'Verification',
       fields: ['question'],
     },
@@ -288,7 +292,6 @@ const SignUpWizard = () => {
             ) : null}
           </View>
         )}
-
         {currentFields.includes('question') && (
           <View style={styles.formFields}>
             <Text style={styles.modalFieldText}>Question</Text>

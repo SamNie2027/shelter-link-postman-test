@@ -1,19 +1,22 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import SearchBar from '../components/SearchBar';
-import Header from '../components/Header';
-import Logo from '../components/Logo';
-import FiltersDropdown from '../components/FiltersDropdown';
-import SignUpModal from '../components/SignUpModal';
-import CompleteMap from '../components/CompleteMap';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { CompleteMap } from '../components/CompleteMap';
 
 export const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <CompleteMap />
-      <View style={styles.centeredView}>
-        <SignUpModal />
-      </View>
+      {/*<View style={styles.logoContainer}>*/}
+      {/*  <Logo />*/}
+      {/*</View>*/}
+      {/*<View style={styles.centeredView}>*/}
+      {/*  <SignUpModal />*/}
+      {/*</View>*/}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <CompleteMap />
+      </GestureHandlerRootView>
+
+      {/*<DetailedShelterView shelter={shelters[0]} />*/}
     </SafeAreaView>
   );
 };
@@ -21,6 +24,7 @@ export const App = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
     backgroundColor: '#FFFFFF',
   },
   centeredView: {

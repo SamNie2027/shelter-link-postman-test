@@ -21,6 +21,7 @@ const DropdownComponent = () => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle} // Add this
         search
         data={data}
         labelField="label"
@@ -66,6 +67,10 @@ const styles = StyleSheet.create({
   customIcon: {
     width: 10,
     height: 5,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
   },
 });
 
