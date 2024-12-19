@@ -25,48 +25,24 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  container: {
-    flex: 1,
-  },
-  itemContainer: {
-    marginHorizontal: 29,
-    marginTop: 29,
-  },
-  logoContainer: {
-    alignItems: 'flex-start',
-    paddingHorizontal: 20,
-    paddingTop: 11,
-    paddingBottom: 18,
-  },
-  searchBarContainer: {
-    alignItems: 'center',
-    paddingHorizontal: 13,
-    paddingBottom: 22,
-  },
-  headerContainer: {
-    alignItems: 'center',
-    paddingHorizontal: 25,
-    paddingBottom: 30,
-  },
-  filtersDropdownContainer: {
-    alignItems: 'flex-start',
-    paddingHorizontal: 13,
-    paddingBottom: 12,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
-  bottomSheet: {
-    borderTopLeftRadius: 33,
-    borderTopRightRadius: 33,
-    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  logoContainer: {
+    marginBottom: 20,
+  },
+  searchBarContainer: {
+    marginVertical: 10,
+  },
+  headerContainer: {
+    marginTop: 20,
+  },
+  filtersDropdownContainer: {
+    marginVertical: 10,
   },
 });
 

@@ -21,10 +21,7 @@ export const CompleteMap = () => {
 
   const renderItem = useCallback(
     ({ item }: { item: Shelter }) => (
-      <ShelterInfoPanel
-        shelter={item}
-        style={styles.itemContainer}
-      />
+      <ShelterInfoPanel shelter={item} style={styles.itemContainer} />
     ),
     []
   );
@@ -43,25 +40,25 @@ export const CompleteMap = () => {
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
       </View>
-        <Map onMarkerPress={handleMarkerPress} style={styles.map} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={snapPoints}
-          style={styles.bottomSheet}
-        >
-          {selectedShelter ? (
-            <ShelterInfoPanel
-              shelter={selectedShelter}
-              style={styles.itemContainer}
-            />
-          ) : (
-            <BottomSheetFlatList
-              data={shelters}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderItem}
-            />
-          )}
-        </BottomSheet>
+      <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+      >
+        {selectedShelter ? (
+          <ShelterInfoPanel
+            shelter={selectedShelter}
+            style={styles.itemContainer}
+          />
+        ) : (
+          <BottomSheetFlatList
+            data={shelters}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+          />
+        )}
+      </BottomSheet>
     </SafeAreaView>
   );
 };

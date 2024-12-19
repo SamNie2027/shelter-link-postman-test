@@ -20,6 +20,7 @@ const SignUpWizard = () => {
     phoneNumber: '',
     password: '',
     question: '',
+    question: '',
   });
 
   // error states
@@ -29,6 +30,7 @@ const SignUpWizard = () => {
     email: '',
     phoneNumber: '',
     password: '',
+    question: '',
     question: '',
   });
 
@@ -52,6 +54,8 @@ const SignUpWizard = () => {
     },
     {
       // can add more pages here; just filler rn
+      title: 'Verification',
+      fields: ['question'],
       title: 'Verification',
       fields: ['question'],
     },
@@ -298,7 +302,9 @@ const SignUpWizard = () => {
               onChangeText={(text) => handleChange('question', text)}
               placeholderTextColor="#9C9A9A"
             />
-            {errors.question && <Text style={styles.errorText}>{errors.question}</Text>}
+            {errors.question && (
+              <Text style={styles.errorText}>{errors.question}</Text>
+            )}
           </View>
         )}
       </Animated.View>
