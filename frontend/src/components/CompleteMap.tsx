@@ -40,7 +40,7 @@ export const CompleteMap = () => {
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
       </View>
-      <Map onMarkerPress={handleMarkerPress} style={styles.map} />
+      <Map onMarkerPress={handleMarkerPress} />
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
