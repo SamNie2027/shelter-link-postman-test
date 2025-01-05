@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../users/users.entity';
-import { Shelter } from '../shelters/shelter.entity';
+import { Shelter } from '../../shelters/shelter.entity';
 import { Rating } from '../utils/rating';
 
 @Entity()
@@ -17,10 +17,10 @@ export class Review {
   @Column()
   rating: Rating;
 
-  @Column({length: 1000})
+  @Column({ length: 1000 })
   reviewText: string;
 
-  @Column({type: 'date'})
+  @Column({ type: 'date' })
   reviewDate: string;
 
   @Column()
@@ -47,6 +47,6 @@ export class Review {
   }
 
   removeTag(tag: string): void {
-    this._tags = this._tags.filter(t => t !== tag);
+    this._tags = this._tags.filter((t) => t !== tag);
   }
 }

@@ -1,14 +1,19 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
-import { IsLatitude, IsLongitude, IsPhoneNumber, IsEmail} from 'class-validator';
-import { Rating } from '../utils/rating';
+import {
+  IsLatitude,
+  IsLongitude,
+  IsPhoneNumber,
+  IsEmail,
+} from 'class-validator';
+import { Rating } from '../app/utils/rating';
 
 @Entity()
 export class Shelter {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({length: 255})
+  @Column({ length: 255 })
   name: string;
 
   @Column()
@@ -22,7 +27,7 @@ export class Shelter {
   @IsLongitude()
   longitude: number;
 
-  @Column({length: 500})
+  @Column({ length: 500 })
   description: string;
 
   @Column()
@@ -39,10 +44,10 @@ export class Shelter {
   @IsEmail()
   email_address: string;
 
-  @Column({type: 'time'})
+  @Column({ type: 'time' })
   opening_time: string;
 
-  @Column({type: 'time'})
+  @Column({ type: 'time' })
   closing_time: string;
 
   @Column()
