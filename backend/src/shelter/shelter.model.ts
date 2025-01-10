@@ -1,24 +1,19 @@
 import { Rating } from '../app/utils/rating';
 import { DayOfWeek } from '../types';
-/**
- * Represents the model schema of an address
- */
-export type AddressModel = {
-  id: number;
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  country?: string;
-};
 
 /**
  * Represents the model schema of a shelter.
  */
 export type ShelterModel = {
-  id: number;
+  shelterId: string;
   name: string;
-  address: AddressModel;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country?: string;
+  };
   latitude: number;
   longitude: number;
   description: string;
@@ -36,20 +31,29 @@ export type ShelterModel = {
 };
 
 export type ShelterInputModel = {
-  id: { N: number };
+  shelterId: { S: string };
   name: { S: string };
-  address: { M: AddressModel };
-  latitude: { N: number };
-  longitude: { N: number };
+  address: {
+    M: {
+      street: { S: string };
+      city: { S: string };
+      state: { S: string };
+      zipCode: { S: string };
+      country?: { S: string };
+    };
+  };
+  latitude: { N: string };
+  longitude: { N: string };
   description: { S: string };
   rating?: { S: Rating };
   availability: { S: string };
   phone_number: { S: string };
   email_address: { S: string };
   hours: {
-    [day in DayOfWeek]: {
-      opening_time: { S: string };
-      closing_time: { S: string };
+    M: {
+      [day in DayOfWeek]: {
+        M: { opening_time: { S: string }; closing_time: { S: string } };
+      };
     };
   };
   picture?: { S: string };

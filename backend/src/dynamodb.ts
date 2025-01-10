@@ -24,12 +24,14 @@ export class DynamoDbService {
   ): Promise<number | undefined> {
     const params: any = {
       TableName: tableName,
-      ProjectionExpression: 'id', // Project only the id attribute
+      ProjectionExpression: 'shelterId', // Project only the id attribute
     };
 
     try {
       const data = await this.dynamoDbClient.send(new ScanCommand(params));
-      const shelterIds = data.Items.map((item) => parseInt(item.id.N, 10)); // Convert to numbers
+      const shelterIds = data.Items.map((item) =>
+        parseInt(item.shelterId.N, 10)
+      ); // Convert to numbers
 
       // Handle potential parsing errors
       const validShelterIds = shelterIds.filter((id) => !isNaN(id));
@@ -54,7 +56,8 @@ export class DynamoDbService {
       Item: item,
     });
 
-    console.log(command);
+    console.log(item.name);
+
     try {
       const result = await this.dynamoDbClient.send(command);
       return result;

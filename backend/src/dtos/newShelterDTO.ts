@@ -1,11 +1,16 @@
 import { Rating } from '../app/utils/rating';
-import { AddressModel } from '../shelter/shelter.model';
 import { DayOfWeek } from '../types';
 
 export type NewShelterInput = {
-  // id: number; // auto generated
+  // shelterId: string; // auto generated
   name: string;
-  address: AddressModel;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country?: string;
+  };
   latitude: number;
   longitude: number;
   description: string;
