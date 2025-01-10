@@ -2,3 +2,4 @@
 /.nx/
 /.idea
 /dist/
+*.env
