@@ -19,6 +19,26 @@ export class DynamoDbService {
     });
   }
 
+  public async scanTable(
+    tableName: string,
+    filterExpression?: string,
+    expressionAttributeValues?: { [key: string]: any },
+    expressionAttributeNames?: { [key: string]: any }
+  ): Promise<any[]> {
+    // By default, scan the entire table
+    const params: any = {
+      TableName: tableName,
+    };
+
+    try {
+      const data = await this.dynamoDbClient.send(new ScanCommand(params));
+      return data.Items || [];
+    } catch (error) {
+      console.error('DynamoDB Scan Error:', error);
+      throw new Error(`Unable to scan table ${tableName}`);
+    }
+  }
+
   public async getHighestShelterId(
     tableName: string
   ): Promise<number | undefined> {
