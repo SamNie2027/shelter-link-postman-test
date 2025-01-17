@@ -1,4 +1,4 @@
-import { Controller, Post, Put, Body, Param, Query } from '@nestjs/common';
+import { Controller, Post, Put, Body, Param, Query, Get } from '@nestjs/common';
 import { NewShelterInput } from '../dtos/newShelterDTO';
 import { ShelterService } from './shelter.service';
 
@@ -9,5 +9,10 @@ export class ShelterController {
   @Post()
   public async postShelter(@Body() shelterData: NewShelterInput) {
     return this.shelterService.postShelter(shelterData);
+  }
+
+  @Get()
+  public async getShelters() {
+    return this.shelterService.getShelters();
   }
 }

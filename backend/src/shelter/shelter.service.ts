@@ -8,6 +8,12 @@ export class ShelterService {
   private readonly tableName = 'shelterlinkShelters';
   constructor(private readonly dynamoDbService: DynamoDbService) {}
 
+  /**
+   * Add a new shelter to the database.
+   * @param shelterData The data for the new shelter.
+   * @returns The new shelter's ID.
+   * @throws Error if the shelter cannot be added.
+   */
   public async postShelter(shelterData: NewShelterInput) {
     const shelterModel = this.postInputToShelterModel(shelterData);
     const newId =
@@ -25,10 +31,27 @@ export class ShelterService {
     } catch (e) {
       throw new Error('Unable to post new shelter: ' + e);
     }
-
-    // return this.dynamoDbService.putItem(this.tableName, shelterData);
   }
 
+  /**
+   * Retrieve all shelters from the database.
+   * @returns The list of shelters.
+   * @throws Error if the shelters cannot be retrieved.
+   */
+  public async getShelters(): Promise<ShelterModel[]> {
+    try {
+      const data = await this.dynamoDbService.scanTable(this.tableName);
+      return data.map((item) => this.shelterModelToOutput(item));
+    } catch (e) {
+      throw new Error('Unable to get shelters: ' + e);
+    }
+  }
+
+  /**
+   * Converts the input data to a shelter model suitable for DynamoDB.
+   * @param input The input data for the new shelter.
+   * @returns The shelter model.
+   */
   private postInputToShelterModel = (
     input: NewShelterInput
   ): ShelterInputModel => {
@@ -99,68 +122,57 @@ export class ShelterService {
         },
       },
     };
+  };
 
-    //   constructor(
-    //     @InjectRepository(Shelter)
-    //     private sheltersRepository: Repository<Shelter>,
-    //   ) {}
-
-    //   // get all shelters
-    //   findAll(): Promise<Shelter[]> {
-    //     return this.sheltersRepository.find();
-    //   }
-
-    //   // get shelters, order by distance
-    //   async findByProximity(lat: number, lon: number, limit = 10): Promise<Shelter[]> {
-    //     // Haversine formula for distance
-    //     const haversine = `
-    //       6371 * acos(
-    //         cos(radians(:lat)) * cos(radians(latitude))
-    //         * cos(radians(longitude) - radians(:lon))
-    //         + sin(radians(:lat)) * sin(radians(latitude))
-    //       )
-    //     `;
-
-    //     const shelters = await this.sheltersRepository
-    //       .createQueryBuilder('shelter')
-    //       .select('shelters.*')
-    //       .addSelect(`${haversine}`, 'distance')
-    //       .setParameter('lat', lat)
-    //       .setParameter('lon', lon)
-    //       .orderBy('distance', 'ASC')
-    //       .limit(limit)
-    //       .getRawMany();
-
-    //     return shelters.map(shelter => {
-    //       const { distance, ...shelterData } = shelter;
-    //       return {
-    //         ...shelterData,
-    //         distance: parseFloat(distance).toFixed(2)
-    //       };
-    //     });
-    //   }
-
-    //   // create
-    //   async create(shelterData: Partial<Shelter>): Promise<Shelter> {
-    //     const shelter = this.sheltersRepository.create(shelterData);
-    //     return await this.sheltersRepository.save(shelter);
-    //   }
-
-    //   // read
-    //   findOne(id: number): Promise<Shelter | null> {
-    //     return this.sheltersRepository.findOneBy({ id });
-    //   }
-
-    //   // update
-    //   async update(id: number, shelterData: Partial<Shelter>): Promise<Shelter> {
-    //     await this.sheltersRepository.update(id, shelterData);
-    //     return this.findOne(id);
-    //   }
-
-    //   // delete
-    //   async remove(id: number): Promise<void> {
-    //     await this.sheltersRepository.delete(id);
-    //   }
-    // }
+  private shelterModelToOutput = (input: ShelterInputModel): ShelterModel => {
+    return {
+      shelterId: input.shelterId.S,
+      name: input.name.S,
+      address: {
+        street: input.address.M.street.S,
+        city: input.address.M.city.S,
+        state: input.address.M.state.S,
+        zipCode: input.address.M.zipCode.S,
+        country: input.address.M.country.S,
+      },
+      latitude: parseFloat(input.latitude.N),
+      longitude: parseFloat(input.longitude.N),
+      description: input.description.S,
+      // rating: model.rating.S,
+      availability: input.availability.S,
+      phone_number: input.phone_number.S,
+      email_address: input.email_address.S,
+      hours: {
+        Monday: {
+          opening_time: input.hours.M.Monday.M.opening_time.S,
+          closing_time: input.hours.M.Monday.M.closing_time.S,
+        },
+        Tuesday: {
+          opening_time: input.hours.M.Tuesday.M.opening_time.S,
+          closing_time: input.hours.M.Tuesday.M.closing_time.S,
+        },
+        Wednesday: {
+          opening_time: input.hours.M.Wednesday.M.opening_time.S,
+          closing_time: input.hours.M.Wednesday.M.closing_time.S,
+        },
+        Thursday: {
+          opening_time: input.hours.M.Thursday.M.opening_time.S,
+          closing_time: input.hours.M.Thursday.M.closing_time.S,
+        },
+        Friday: {
+          opening_time: input.hours.M.Friday.M.opening_time.S,
+          closing_time: input.hours.M.Friday.M.closing_time.S,
+        },
+        Saturday: {
+          opening_time: input.hours.M.Saturday.M.opening_time.S,
+          closing_time: input.hours.M.Saturday.M.closing_time.S,
+        },
+        Sunday: {
+          opening_time: input.hours.M.Sunday.M.opening_time.S,
+          closing_time: input.hours.M.Sunday.M.closing_time.S,
+        },
+        // picture: model.picture.S
+      },
+    };
   };
 }
