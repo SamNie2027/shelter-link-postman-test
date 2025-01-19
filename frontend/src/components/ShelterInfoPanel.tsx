@@ -6,17 +6,19 @@ type ShelterInfoPanelProps = {
   shelter: Shelter;
   style?: any;
 };
+const outLineColor = '#DB474A'
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const formatAddress = (address: any) => {
     return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
   };
 
+
   return (
     <View style={[styles.panel, style]}>
       <View style={styles.topRowItems}>
         <View style={styles.images}>
-          {shelter.picture.slice(0, 3).map((url, index) => (
+          {shelter.picture.slice(0, 2).map((url, index) => (
             <Image
               key={index}
               source={{ uri: url }}
@@ -27,6 +29,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       </View>
       <View style={styles.bookmarkContainer}>
         <Image
+          style={{ tintColor: outLineColor }}
           source={require('frontend/assets/bookmark.png')}
         />
       </View>
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     height: 214,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#000000',
+    borderColor: outLineColor,
     backgroundColor: 'white',
   },
   topRowItems: {
@@ -65,6 +68,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingLeft: 15,
     flexDirection: 'row',
+
   },
   shelterImage: {
     width: 84,
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     marginRight: 9,
-    borderColor: '#000000',
+    borderColor: outLineColor,
     backgroundColor: '#D9D9D9',
   },
   bookmarkContainer: {
@@ -87,6 +91,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 24.2,
+    color: outLineColor
   },
   shelterAddressDistance: {
     paddingLeft: 15,
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '#1E1E1E',
+    color: outLineColor,
   },
   shelterRatingDescription: {
     paddingLeft: 15,
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '#1E1E1E',
+    color: outLineColor,
   },
   buttonsContainer: {
     paddingTop: 10, // might need to change
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: outLineColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: outLineColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 15.73,
-    color: '#1E1E1E',
+    color: outLineColor,
   },
 });
 
