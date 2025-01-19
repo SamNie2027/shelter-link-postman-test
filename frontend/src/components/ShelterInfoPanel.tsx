@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Shelter } from '../sheltersTest';
 
+
 type ShelterInfoPanelProps = {
   shelter: Shelter;
   style?: any;
 };
-const outLineColor = '#DB474A'
+const outlineColor = 'red'
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const formatAddress = (address: any) => {
@@ -14,11 +15,12 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   };
 
 
+
   return (
     <View style={[styles.panel, style]}>
       <View style={styles.topRowItems}>
         <View style={styles.images}>
-          {shelter.picture.slice(0, 2).map((url, index) => (
+          {shelter.picture.slice(0, 3).map((url, index) => (
             <Image
               key={index}
               source={{ uri: url }}
