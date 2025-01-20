@@ -95,18 +95,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 13,
     paddingBottom: 22,
-    paddingTop: 40, //ToRecoverIcon: Remove this line if you want the icon back
+    paddingTop: 45, //ToRecoverIcon: Remove this line if you want the icon back
   },
   headerContainer: {
     alignItems: 'center',
     paddingHorizontal: 25,
-    paddingBottom: 30,
+    paddingBottom: 25,
     paddingTop: 10,
   },
   filtersDropdownContainer: {
     alignItems: 'flex-start',
     paddingHorizontal: 13,
     paddingBottom: 12,
+    borderStyle: 'solid',
+    borderBottomWidth: 4,
   },
   map: {
     width: '100%',
