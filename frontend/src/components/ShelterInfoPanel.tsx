@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Shelter } from '../sheltersTest';
+import { Shelter } from '../types';
 
 type ShelterInfoPanelProps = {
   shelter: Shelter;

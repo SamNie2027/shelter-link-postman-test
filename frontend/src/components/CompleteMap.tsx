@@ -7,7 +7,8 @@ import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
-import { Shelter, shelters } from '../sheltersTest';
+import { Shelter } from '../types';
+import { ExampleShelters } from '../sheltersTest';
 import { useFonts } from 'expo-font';
 
 /*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
@@ -62,7 +63,7 @@ export const CompleteMap = () => {
           />
         ) : (
           <BottomSheetFlatList
-            data={shelters}
+            data={ExampleShelters}
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
           />

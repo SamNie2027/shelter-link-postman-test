@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { Shelter, shelters } from '../sheltersTest';
+import { Shelter } from '../types';
+import { ExampleShelters } from '../sheltersTest';
 
 const Map = ({
   onMarkerPress,
@@ -19,7 +20,7 @@ const Map = ({
           longitudeDelta: 0.05,
         }}
       >
-        {shelters.map((shelter) => (
+        {ExampleShelters.map((shelter) => (
           <Marker
             key={shelter.id}
             coordinate={{
