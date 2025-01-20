@@ -18,7 +18,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
     <View style={[styles.panel, style]}>
       <View style={styles.topRowItems}>
         <View style={styles.images}>
-          {shelter.picture.slice(0, 2).map((url, index) => (
+          {shelter.picture.slice(0, 3).map((url, index) => (
             <Image
               key={index}
               source={{ uri: url }}
@@ -86,9 +86,9 @@ const styles = StyleSheet.create({
   },
   shelterName: {
     paddingLeft: 15,
-    paddingTop: 4,
+    paddingTop: 6,
     fontSize: 20,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 24.2,
     color: outLineColor
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   shelterAddressDistance: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 18.15,
     color: outLineColor,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   shelterRatingDescription: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 18.15,
     color: outLineColor,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 15.73,
     color: outLineColor,

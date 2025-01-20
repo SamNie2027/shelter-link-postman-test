@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 8,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 16,
     fontWeight: '500',
     lineHeight: 30,

@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerText: {
-    fontFamily: 'Inter',
-    fontSize: 36,
+    fontFamily: 'JomhuriaRegular',
+    fontSize: 84,
     fontWeight: '400',
     lineHeight: 43.57,
     textAlign: 'center',
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   headerDescription: {
-    fontFamily: 'Inter',
-    fontSize: 15,
+    fontFamily: 'IstokWebRegular',
+    fontSize: 17,
     fontWeight: '400',
     lineHeight: 18.15,
     textAlign: 'center',

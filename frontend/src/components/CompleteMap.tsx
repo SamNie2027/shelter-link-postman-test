@@ -1,18 +1,24 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
-import Logo from '../components/Logo';
+//import Logo from '../components/Logo'; ToRecoverIcon: uncomment this line
 import Map from '../components/Map';
 import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter, shelters } from '../sheltersTest';
+import { useFonts } from 'expo-font';
 
+/*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
 export const CompleteMap = () => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
   const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
+  const [fonts] = useFonts({
+    'IstokWebRegular': require('../../assets/fonts/IstokWebRegular.ttf'),
+    'JomhuriaRegular': require('../../assets/fonts/JomhuriaRegular.ttf')
+  });
 
   const handleMarkerPress = useCallback((shelter: Shelter) => {
     setSelectedShelter(shelter);
@@ -26,11 +32,14 @@ export const CompleteMap = () => {
     []
   );
 
+  /*Note: The logo may be brought back later replaced with c4c or something, 
+  but I (sam) am removing it for now since it's not in the figma 
+  ToRecoverIcon: as the first child of SafeAreaView component, add:
+  <View style={styles.logoContainer}>
+    <Logo />
+  <View> */
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
@@ -85,11 +94,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 13,
     paddingBottom: 22,
+    paddingTop: 40, //ToRecoverIcon: Remove this line if you want the icon back
   },
   headerContainer: {
     alignItems: 'center',
     paddingHorizontal: 25,
     paddingBottom: 30,
+    paddingTop: 10,
   },
   filtersDropdownContainer: {
     alignItems: 'flex-start',
