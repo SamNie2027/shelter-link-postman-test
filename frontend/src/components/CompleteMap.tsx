@@ -77,7 +77,7 @@ export const CompleteMap = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#E2E2F0',
   },
   container: {
     flex: 1,
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 33,
     borderTopRightRadius: 33,
     alignItems: 'center',
+    backgroundColor: '#FFFFF',
   },
 });
 
