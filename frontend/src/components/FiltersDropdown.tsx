@@ -49,18 +49,18 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
   },
   placeholderStyle: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 13,
     color: '#000000',
     marginLeft: 16,
   },
   selectedTextStyle: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 13,
     color: '#000000',
   },
   inputSearchStyle: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 13,
     color: '#00000099',
   },

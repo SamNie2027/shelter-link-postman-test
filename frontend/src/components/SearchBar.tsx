@@ -19,7 +19,7 @@ const SearchBar = () => {
 const styles = StyleSheet.create({
   searchBar: {
     width: 360,
-    height: 41,
+    height: 36,
     borderRadius: 11,
     borderWidth: 1,
     borderColor: '#000000',
@@ -27,12 +27,13 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontFamily: 'Inter',
-    fontSize: 16,
+    fontFamily: 'IstokWebRegular',
+    fontSize: 14,
     fontWeight: '500',
     color: '#00000099',
     paddingLeft: 17,
     paddingRight: 17,
+    paddingTop: 2,
     lineHeight: 19.36,
     opacity: 0.6,
   },

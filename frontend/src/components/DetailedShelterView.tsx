@@ -91,7 +91,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.images}>
-        {shelter.picture.slice(0, 2).map((url, index) => (
+        {shelter.picture.slice(0, 3).map((url, index) => (
           <Image
             key={index}
             source={{ uri: url }}
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   shelterNameText: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 32,
     fontWeight: '400',
     lineHeight: 38.73,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   quickInfoText: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#1E1E1E',
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     marginTop: 19,
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   fullReviewTitle: {
     fontSize: 24,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 29.05,
     color: '#1E1E1E',
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   traitText: {
     height: 28,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     width: 84,
     height: 82,
     fontSize: 48,
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontWeight: '400',
     lineHeight: 58.09,
   },

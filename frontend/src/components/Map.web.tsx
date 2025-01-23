@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Shelter, shelters } from '../sheltersTest';
+import { Shelter } from '../types';
+import { ExampleShelters } from '../sheltersTest';
 
 const Map = ({
   onMarkerPress,
@@ -20,7 +21,7 @@ const Map = ({
       }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {shelters.map((shelter) => {
+      {ExampleShelters.map((shelter) => {
         const customIcon = L.divIcon({
           className: 'custom-marker',
           html: `<div style="font-size: 30px;">${shelter.emoji}</div>`,
