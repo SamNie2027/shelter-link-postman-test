@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
+import { mainColor } from '../../constants'
 
 const SearchBar = () => {
   const [isTyping, setIsTyping] = useState(false);
@@ -7,11 +8,18 @@ const SearchBar = () => {
   return (
     <View style={styles.searchBar}>
       <TextInput
-        style={[styles.searchInput, { opacity: isTyping ? 1 : 0.6 }]}
+        style={[
+          styles.searchInput,
+          {
+            opacity: isTyping ? 1 : 0.6,
+            color: mainColor,
+          }
+        ]}
         placeholder="SEARCH"
-        placeholderTextColor='#00000099'
+        placeholderTextColor={mainColor} // Use mainColor for placeholder text
         onChangeText={(text) => setIsTyping(text.length > 0)}
       />
+
     </View>
   );
 };
@@ -22,7 +30,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 11,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: mainColor,
     backgroundColor: '#FFFFFF',
   },
   searchInput: {
@@ -30,7 +38,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IstokWebRegular',
     fontSize: 14,
     fontWeight: '500',
-    color: '#00000099',
+    color: mainColor,
     paddingLeft: 17,
     paddingRight: 17,
     paddingTop: 2,

@@ -10,6 +10,7 @@ import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
 import { ExampleShelters } from '../sheltersTest';
 import { useFonts } from 'expo-font';
+import { darkMainColor } from 'frontend/constants';
 
 /*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
 export const CompleteMap = () => {
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderStyle: 'solid',
     borderBottomWidth: 4,
+    borderColor: darkMainColor
   },
   map: {
     width: '100%',

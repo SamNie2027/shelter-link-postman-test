@@ -1,3 +1,4 @@
+import { darkMainColor } from 'frontend/constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -46,23 +47,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: darkMainColor,
   },
   placeholderStyle: {
     fontFamily: 'IstokWebRegular',
     fontSize: 13,
-    color: '#000000',
+    color: darkMainColor,
     marginLeft: 16,
   },
   selectedTextStyle: {
     fontFamily: 'IstokWebRegular',
     fontSize: 13,
-    color: '#000000',
+    color: darkMainColor,
   },
   inputSearchStyle: {
     fontFamily: 'IstokWebRegular',
     fontSize: 13,
-    color: '#00000099',
+    color: darkMainColor,
   },
   customIcon: {
     width: 10,
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+    tintColor: darkMainColor
   },
 });
 

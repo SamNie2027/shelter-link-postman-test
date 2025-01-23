@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Shelter } from '../types';
+import { Shelter } from '../sheltersTest';
+import { darkMainColor } from 'frontend/constants';
 
 
 type ShelterInfoPanelProps = {
@@ -31,7 +32,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       </View>
       <View style={styles.bookmarkContainer}>
         <Image
-          style={{ tintColor: outLineColor }}
+          style={{ tintColor: darkMainColor }}
           source={require('frontend/assets/bookmark.png')}
         />
       </View>
@@ -39,9 +40,16 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       <Text style={styles.shelterAddressDistance}>
         {formatAddress(shelter.address)} | Distance
       </Text>
-      <Text style={styles.shelterRatingDescription}>
-        {shelter.overall_rating} | {shelter.description}
+
+      <Text style={{ ...styles.shelterRatingDescription, alignItems: 'center', }}>
+        {shelter.overall_rating} <Image style={{
+          marginTop: 'auto', marginBottom: 'auto', width: 10,
+          height: 10,
+          tintColor: darkMainColor
+        }} source={require('frontend/assets/teenyicons_star-solid.png')}></Image> | {shelter.description}
       </Text>
+
+
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.directionsButton}>
           <Text style={styles.buttonText}>Directions</Text>
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     height: 214,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: outLineColor,
+    borderColor: darkMainColor,
     backgroundColor: 'white',
   },
   topRowItems: {
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     marginRight: 9,
-    borderColor: outLineColor,
+    borderColor: darkMainColor,
     backgroundColor: '#D9D9D9',
   },
   bookmarkContainer: {
@@ -88,28 +96,28 @@ const styles = StyleSheet.create({
   },
   shelterName: {
     paddingLeft: 15,
-    paddingTop: 6,
+    paddingTop: 4,
     fontSize: 20,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 24.2,
-    color: outLineColor
+    color: darkMainColor
   },
   shelterAddressDistance: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: outLineColor,
+    color: darkMainColor,
   },
   shelterRatingDescription: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 18.15,
-    color: outLineColor,
+    color: darkMainColor,
   },
   buttonsContainer: {
     paddingTop: 10, // might need to change
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: outLineColor,
+    borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -130,17 +138,17 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: outLineColor,
+    borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 15.73,
-    color: outLineColor,
+    color: darkMainColor,
   },
 });
 

@@ -1,3 +1,4 @@
+import { darkMainColor } from 'frontend/constants';
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 43.57,
     textAlign: 'center',
-    color: '#1E1E1E',
+    color: darkMainColor,
     marginBottom: 9,
   },
   headerDescription: {
