@@ -29,7 +29,7 @@ export const shelters: Shelter[] = [
     id: 1,
     name: 'Shelter One',
     description:
-      'Description.',
+      'The world can be a scary place for LGBTQ+ youth, no matter where they live. If you are facing homelessness, trying to find a reason to hang on one more day, or just looking to make some new friends - BAGLY is here for you. We are a youth-led and adult-supported organization thats been on your side for over 40 years and we welcome you.',
     latitude: 42.3611,
     longitude: -71.0579,
     emoji: '🏳️‍🌈',

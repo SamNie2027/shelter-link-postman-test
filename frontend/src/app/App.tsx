@@ -2,6 +2,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CompleteMap } from '../components/CompleteMap';
+import { DetailedShelterView } from '../components/DetailedShelterView';
+import { shelters } from '../sheltersTest';
 
 export const App = () => {
   return (
@@ -12,11 +14,11 @@ export const App = () => {
       {/*<View style={styles.centeredView}>*/}
       {/*  <SignUpModal />*/}
       {/*</View>*/}
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <CompleteMap />
-      </GestureHandlerRootView>
+      {/*<GestureHandlerRootView style={{ flex: 1 }}>*/}
+      {/*  <CompleteMap />*/}
+      {/*</GestureHandlerRootView>*/}
 
-      {/*<DetailedShelterView shelter={shelters[0]} />*/}
+      <DetailedShelterView shelter={shelters[0]} />
     </SafeAreaView>
   );
 };

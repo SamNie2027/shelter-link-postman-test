@@ -1,4 +1,3 @@
-import Logo from '../components/Logo';
 import {
   Image,
   Linking,
@@ -61,25 +60,28 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
       <View style={styles.shelterNameContainer}>
-      <Text style={styles.shelterNameText}>{shelter.name}</Text>
+        <Text style={styles.shelterNameText}>{shelter.name}</Text>
       </View>
       <View style={styles.quickInfoContainer}>
         <Text style={styles.quickInfoText}>
           {/* added availability here instead of minutes away based on shelter.entity.ts */}
-          {shelter.overall_rating.toFixed(1)} stars rating | {shelter.availability}
+          {shelter.overall_rating.toFixed(1)} stars rating{' '}
+          {/*{shelter.availability}*/}
         </Text>
         <Text style={styles.quickInfoText}>
-          {shelter.address.street}, {shelter.address.city} | {formatTime(shelter.opening_time)} - {formatTime(shelter.closing_time)}
+          {shelter.address.street}, {shelter.address.city}{' '}
+          {/*{formatTime(shelter.opening_time)} -{' '}*/}
+          {/*{formatTime(shelter.closing_time)}*/}
         </Text>
         {/* added availability here instead of short description on shelter.entity.ts */}
         <Text style={styles.quickInfoText}>{shelter.availability}</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.directionsButton} onPress={handleDirections}>
+        <TouchableOpacity
+          style={styles.directionsButton}
+          onPress={handleDirections}
+        >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.websiteButton}>
@@ -99,17 +101,19 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
           />
         ))}
       </View>
-      <Text style={styles.shelterDescription}>
-        {shelter.description}
-      </Text>
+      <Text style={styles.shelterDescription}>{shelter.description}</Text>
       <View style={styles.fullReview}>
         <View style={styles.fullReviewTitleContainer}>
-        <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
+          <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
         </View>
         <View style={styles.reviews}>
           <View style={styles.traits}>
-            <Text style={styles.traitText}>Safety: {shelter.safety_rating}/5</Text>
-            <Text style={styles.traitText}>Inclusivity: {shelter.inclusivity_rating}/5</Text>
+            <Text style={styles.traitText}>
+              Safety: {shelter.safety_rating}/5
+            </Text>
+            <Text style={styles.traitText}>
+              Inclusivity: {shelter.inclusivity_rating}/5
+            </Text>
             {/* add other traits here */}
             {/*<Text style={styles.traitText}>Trait 3</Text>*/}
             {/*<Text style={styles.traitText}>Trait 4</Text>*/}
@@ -120,7 +124,9 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
             source={require('frontend/assets/AllOfThisIcon.png')}
           />
           <View style={styles.sumRating}>
-            <Text style={styles.sumRatingText}>{shelter.overall_rating.toFixed(1)}</Text>
+            <Text style={styles.sumRatingText}>
+              {shelter.overall_rating.toFixed(1)}
+            </Text>
             <Image
               style={styles.sumStarIcon}
               source={require('frontend/assets/teenyicons_star-solid.png')}
