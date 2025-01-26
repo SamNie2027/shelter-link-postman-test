@@ -25,5 +25,5 @@ export type NewShelterInput = {
       closing_time: string;
     };
   };
-  picture: [string];
+  picture: string[];
 };

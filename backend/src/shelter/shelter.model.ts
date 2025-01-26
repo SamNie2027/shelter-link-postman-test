@@ -41,7 +41,7 @@ export type ShelterModel = {
       closing_time: string;
     };
   };
-  picture: [string];
+  picture: string[]; // Array of S3 URLs
 };
 
 export type ShelterInputModel = {
@@ -70,5 +70,5 @@ export type ShelterInputModel = {
       };
     };
   };
-  picture: { S: [string] };
+  picture: { S: string[] };
 };
