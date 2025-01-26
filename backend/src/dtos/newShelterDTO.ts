@@ -14,15 +14,16 @@ export type NewShelterInput = {
   latitude: number;
   longitude: number;
   description: string;
-  //rating: Rating; // not including for now
+  rating?: string;
   availability: string;
   phone_number: string;
   email_address: string;
+  website?: string;
   hours: {
     [day in DayOfWeek]: {
       opening_time: string;
       closing_time: string;
     };
   };
-  // picture: string; // not including for now
+  picture: [string];
 };

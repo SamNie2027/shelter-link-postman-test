@@ -55,7 +55,7 @@ export class ShelterService {
   private postInputToShelterModel = (
     input: NewShelterInput
   ): ShelterInputModel => {
-    return {
+    const newShelterModel: ShelterInputModel = {
       shelterId: { S: '0' },
       name: { S: input.name },
       address: {
@@ -70,8 +70,6 @@ export class ShelterService {
       latitude: { N: input.latitude.toString() },
       longitude: { N: input.longitude.toString() },
       description: { S: input.description },
-      // rating: { S: input.rating },
-      availability: { S: input.availability },
       phone_number: { S: input.phone_number },
       email_address: { S: input.email_address },
       hours: {
@@ -118,14 +116,29 @@ export class ShelterService {
               closing_time: { S: input.hours.Sunday.closing_time },
             },
           },
-          // picture: { S: input.picture}
         },
       },
+      picture: { S: input.picture },
     };
+
+    if (input.rating !== undefined) {
+      newShelterModel.rating = { N: input.rating.toString() };
+    }
+
+    if (input.website !== undefined) {
+      newShelterModel.website = { S: input.website };
+    }
+
+    return newShelterModel;
   };
 
+  /**
+   * Converts a shelter model from DynamoDB to a ShelterModel.
+   * @param input The input shelter model from DynamoDB.
+   * @returns The ShelterModel.
+   */
   private shelterModelToOutput = (input: ShelterInputModel): ShelterModel => {
-    return {
+    const newShelterModel: ShelterModel = {
       shelterId: input.shelterId.S,
       name: input.name.S,
       address: {
@@ -138,8 +151,6 @@ export class ShelterService {
       latitude: parseFloat(input.latitude.N),
       longitude: parseFloat(input.longitude.N),
       description: input.description.S,
-      // rating: model.rating.S,
-      availability: input.availability.S,
       phone_number: input.phone_number.S,
       email_address: input.email_address.S,
       hours: {
@@ -171,8 +182,18 @@ export class ShelterService {
           opening_time: input.hours.M.Sunday.M.opening_time.S,
           closing_time: input.hours.M.Sunday.M.closing_time.S,
         },
-        // picture: model.picture.S
       },
+      picture: input.picture.S,
     };
+
+    if (input.rating !== undefined) {
+      newShelterModel.rating = parseFloat(input.rating.N);
+    }
+
+    if (input.website !== undefined) {
+      newShelterModel.website = input.website.S;
+    }
+
+    return newShelterModel;
   };
 }
