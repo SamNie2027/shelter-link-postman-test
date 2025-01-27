@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Shelter } from '../sheltersTest';
-import { darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from 'frontend/constants';
 
 
 type ShelterInfoPanelProps = {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 4,
     fontSize: 20,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 24.2,
     color: darkMainColor
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   shelterAddressDistance: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: darkMainColor,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   shelterRatingDescription: {
     paddingLeft: 15,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: darkMainColor,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 15.73,
     color: darkMainColor,

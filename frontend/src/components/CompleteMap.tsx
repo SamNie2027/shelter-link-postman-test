@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';

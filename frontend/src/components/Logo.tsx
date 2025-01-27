@@ -1,3 +1,4 @@
+import { bodyFont } from 'frontend/constants';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 8,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 16,
     fontWeight: '500',
     lineHeight: 30,

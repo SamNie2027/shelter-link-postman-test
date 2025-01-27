@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
-import { mainColor } from '../../constants'
+import { bodyFont, mainColor } from '../../constants'
 
 const SearchBar = () => {
   const [isTyping, setIsTyping] = useState(false);
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 14,
     fontWeight: '500',
     color: mainColor,

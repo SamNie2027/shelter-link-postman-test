@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
+import { backgroundColor, bodyFont } from 'frontend/constants';
 
 interface Shelter {
   id: number;
@@ -135,7 +136,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: backgroundColor,
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   shelterNameText: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 32,
     fontWeight: '400',
     lineHeight: 38.73,
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   quickInfoText: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#1E1E1E',
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     marginTop: 19,
     fontSize: 13,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
   },
   fullReviewTitle: {
     fontSize: 24,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 29.05,
     color: '#1E1E1E',
@@ -264,7 +265,7 @@ const styles = StyleSheet.create({
   traitText: {
     height: 28,
     fontSize: 15,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     width: 84,
     height: 82,
     fontSize: 48,
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 58.09,
   },

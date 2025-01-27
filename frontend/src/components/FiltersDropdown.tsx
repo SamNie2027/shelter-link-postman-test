@@ -1,4 +1,4 @@
-import { darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from 'frontend/constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -40,6 +40,10 @@ const DropdownComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  body: {
+    fontFamily: bodyFont,
+    fontWeight: '400',
+  },
   dropdown: {
     width: 87,
     height: 28,
@@ -50,18 +54,18 @@ const styles = StyleSheet.create({
     borderColor: darkMainColor,
   },
   placeholderStyle: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 13,
     color: darkMainColor,
     marginLeft: 16,
   },
   selectedTextStyle: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 13,
     color: darkMainColor,
   },
   inputSearchStyle: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 13,
     color: darkMainColor,
   },

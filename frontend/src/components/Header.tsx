@@ -1,4 +1,4 @@
-import { darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor, headerFont } from 'frontend/constants';
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerText: {
-    fontFamily: 'JomhuriaRegular',
+    fontFamily: headerFont,
     fontSize: 84,
     fontWeight: '400',
     lineHeight: 43.57,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   headerDescription: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 17,
     fontWeight: '400',
     lineHeight: 18.15,
