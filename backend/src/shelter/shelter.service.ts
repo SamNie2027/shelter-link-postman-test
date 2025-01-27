@@ -23,6 +23,13 @@ export class ShelterService {
     console.log('Using new ID:' + shelterModel.shelterId.S);
     console.log(shelterModel);
     try {
+      // If there is a rating, check that it's a number in the range (0, 5]
+      if (shelterData.rating !== undefined) {
+        const rating = shelterData.rating;
+        if (rating <= 0 || rating > 5) {
+          throw new Error('Rating must be a number in the range (0, 5]');
+        }
+      }
       const result = await this.dynamoDbService.postItem(
         this.tableName,
         shelterModel
@@ -76,49 +83,49 @@ export class ShelterService {
         M: {
           Monday: {
             M: {
-              opening_time: { S: input.hours.Monday.opening_time },
-              closing_time: { S: input.hours.Monday.closing_time },
+              opening_time: { S: input.hours.Monday.opening_time ?? '' },
+              closing_time: { S: input.hours.Monday.closing_time ?? '' },
             },
           },
           Tuesday: {
             M: {
-              opening_time: { S: input.hours.Tuesday.opening_time },
-              closing_time: { S: input.hours.Tuesday.closing_time },
+              opening_time: { S: input.hours.Tuesday.opening_time ?? '' },
+              closing_time: { S: input.hours.Tuesday.closing_time ?? '' },
             },
           },
           Wednesday: {
             M: {
-              opening_time: { S: input.hours.Wednesday.opening_time },
-              closing_time: { S: input.hours.Wednesday.closing_time },
+              opening_time: { S: input.hours.Wednesday.opening_time ?? '' },
+              closing_time: { S: input.hours.Wednesday.closing_time ?? '' },
             },
           },
           Thursday: {
             M: {
-              opening_time: { S: input.hours.Thursday.opening_time },
-              closing_time: { S: input.hours.Thursday.closing_time },
+              opening_time: { S: input.hours.Thursday.opening_time ?? '' },
+              closing_time: { S: input.hours.Thursday.closing_time ?? '' },
             },
           },
           Friday: {
             M: {
-              opening_time: { S: input.hours.Friday.opening_time },
-              closing_time: { S: input.hours.Friday.closing_time },
+              opening_time: { S: input.hours.Friday.opening_time ?? '' },
+              closing_time: { S: input.hours.Friday.closing_time ?? '' },
             },
           },
           Saturday: {
             M: {
-              opening_time: { S: input.hours.Saturday.opening_time },
-              closing_time: { S: input.hours.Saturday.closing_time },
+              opening_time: { S: input.hours.Saturday.opening_time ?? '' },
+              closing_time: { S: input.hours.Saturday.closing_time ?? '' },
             },
           },
           Sunday: {
             M: {
-              opening_time: { S: input.hours.Sunday.opening_time },
-              closing_time: { S: input.hours.Sunday.closing_time },
+              opening_time: { S: input.hours.Sunday.opening_time ?? '' },
+              closing_time: { S: input.hours.Sunday.closing_time ?? '' },
             },
           },
         },
       },
-      picture: { S: input.picture },
+      picture: { L: input.picture.map((url) => ({ S: url })) }, // Convert list of URLs to DynamoDB format
     };
 
     if (input.rating !== undefined) {
@@ -155,35 +162,35 @@ export class ShelterService {
       email_address: input.email_address.S,
       hours: {
         Monday: {
-          opening_time: input.hours.M.Monday.M.opening_time.S,
-          closing_time: input.hours.M.Monday.M.closing_time.S,
+          opening_time: input.hours.M.Monday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Monday.M.closing_time.S ?? null,
         },
         Tuesday: {
-          opening_time: input.hours.M.Tuesday.M.opening_time.S,
-          closing_time: input.hours.M.Tuesday.M.closing_time.S,
+          opening_time: input.hours.M.Tuesday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Tuesday.M.closing_time.S ?? null,
         },
         Wednesday: {
-          opening_time: input.hours.M.Wednesday.M.opening_time.S,
-          closing_time: input.hours.M.Wednesday.M.closing_time.S,
+          opening_time: input.hours.M.Wednesday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Wednesday.M.closing_time.S ?? null,
         },
         Thursday: {
-          opening_time: input.hours.M.Thursday.M.opening_time.S,
-          closing_time: input.hours.M.Thursday.M.closing_time.S,
+          opening_time: input.hours.M.Thursday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Thursday.M.closing_time.S ?? null,
         },
         Friday: {
-          opening_time: input.hours.M.Friday.M.opening_time.S,
-          closing_time: input.hours.M.Friday.M.closing_time.S,
+          opening_time: input.hours.M.Friday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Friday.M.closing_time.S ?? null,
         },
         Saturday: {
-          opening_time: input.hours.M.Saturday.M.opening_time.S,
-          closing_time: input.hours.M.Saturday.M.closing_time.S,
+          opening_time: input.hours.M.Saturday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Saturday.M.closing_time.S ?? null,
         },
         Sunday: {
-          opening_time: input.hours.M.Sunday.M.opening_time.S,
-          closing_time: input.hours.M.Sunday.M.closing_time.S,
+          opening_time: input.hours.M.Sunday.M.opening_time.S ?? null,
+          closing_time: input.hours.M.Sunday.M.closing_time.S ?? null,
         },
       },
-      picture: input.picture.S,
+      picture: input.picture.L.map((url: { S: string }) => url.S),
     };
 
     if (input.rating !== undefined) {

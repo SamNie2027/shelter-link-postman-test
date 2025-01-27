@@ -37,8 +37,8 @@ export type ShelterModel = {
   website?: string;
   hours: {
     [day in DayOfWeek]: {
-      opening_time: string;
-      closing_time: string;
+      opening_time: string | null;
+      closing_time: string | null;
     };
   };
   picture: string[]; // Array of S3 URLs
@@ -66,9 +66,12 @@ export type ShelterInputModel = {
   hours: {
     M: {
       [day in DayOfWeek]: {
-        M: { opening_time: { S: string }; closing_time: { S: string } };
+        M: {
+          opening_time: { S: string | null };
+          closing_time: { S: string | null };
+        };
       };
     };
   };
-  picture: { S: string[] };
+  picture: { L: { S: string }[] };
 };
