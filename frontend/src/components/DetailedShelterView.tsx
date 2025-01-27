@@ -141,7 +141,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#E2E2F0',
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '400',
     lineHeight: 38.73,
-    color: '#000000',
+    color: '#BD2B34',
   },
   quickInfoContainer: {
     width: '100%',
@@ -185,7 +185,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: '#BD2B34',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -194,7 +195,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: '#BD2B34',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -204,7 +206,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: '#BD2B34',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -214,7 +217,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '400',
     lineHeight: 15.73,
-    color: '#1E1E1E',
+    color: '#BD2B34',
   },
   images: {
     width: 322,
