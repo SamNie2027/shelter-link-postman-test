@@ -1,30 +1,6 @@
-export type Address = {
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
-};
+import { Shelter } from "./types";
 
-export type Shelter = {
-  id: number;
-  name: string;
-  address: Address;
-  latitude: number;
-  longitude: number;
-  description: string;
-  overall_rating: number;
-  inclusivity_rating: number;
-  safety_rating: number;
-  availability: string;
-  phone_number: string;
-  email_address: string;
-  opening_time: string;
-  closing_time: string;
-  picture: string[];
-  emoji: string;
-};
-
-export const shelters: Shelter[] = [
+export const ExampleShelters: Shelter[] = [
   {
     id: 1,
     name: 'Shelter One',
@@ -131,3 +107,5 @@ export const shelters: Shelter[] = [
     ],
   },
 ];
+export { Shelter };
+

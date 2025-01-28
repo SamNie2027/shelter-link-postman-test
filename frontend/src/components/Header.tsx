@@ -1,3 +1,4 @@
+import { bodyFont, darkMainColor, headerFont } from 'frontend/constants';
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
@@ -16,17 +17,17 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerText: {
-    fontFamily: 'Inter',
-    fontSize: 36,
+    fontFamily: headerFont,
+    fontSize: 84,
     fontWeight: '400',
     lineHeight: 43.57,
     textAlign: 'center',
-    color: '#1E1E1E',
+    color: darkMainColor,
     marginBottom: 9,
   },
   headerDescription: {
-    fontFamily: 'Inter',
-    fontSize: 15,
+    fontFamily: bodyFont,
+    fontSize: 17,
     fontWeight: '400',
     lineHeight: 18.15,
     textAlign: 'center',
