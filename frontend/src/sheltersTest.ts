@@ -4,8 +4,7 @@ export const ExampleShelters: Shelter[] = [
   {
     id: 1,
     name: 'Shelter One',
-    description:
-      'Description.',
+    description: 'Description.',
     latitude: 42.3611,
     longitude: -71.0579,
     emoji: '🏳️‍🌈',
@@ -24,7 +23,7 @@ export const ExampleShelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp',
       'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },

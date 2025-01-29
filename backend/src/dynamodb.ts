@@ -50,7 +50,7 @@ export class DynamoDbService {
     try {
       const data = await this.dynamoDbClient.send(new ScanCommand(params));
       const shelterIds = data.Items.map((item) =>
-        parseInt(item.shelterId.N, 10)
+        parseInt(item.shelterId.S, 10)
       ); // Convert to numbers
 
       // Handle potential parsing errors
