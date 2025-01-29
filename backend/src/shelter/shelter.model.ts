@@ -1,4 +1,3 @@
-import { Rating } from '../app/utils/rating';
 import { DayOfWeek } from '../types';
 
 /**
@@ -37,8 +36,8 @@ export type ShelterModel = {
   website?: string;
   hours: {
     [day in DayOfWeek]: {
-      opening_time: string;
-      closing_time: string;
+      opening_time: string; // Format: HH:MM:SS. If the shelter is closed, the value is "CLOSED".
+      closing_time: string; // Format: HH:MM:SS. If the shelter is closed, the value is "CLOSED".
     };
   };
   picture: string[]; // Array of S3 URLs
