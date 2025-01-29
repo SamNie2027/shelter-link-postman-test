@@ -13,7 +13,14 @@ import {
 } from 'react-native';
 
 const SignUpWizard = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    question: string;
+  }>({
     firstName: '',
     lastName: '',
     email: '',
@@ -24,7 +31,14 @@ const SignUpWizard = () => {
   });
 
   // error states
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    question: string;
+  }>({
     firstName: '',
     lastName: '',
     email: '',
@@ -62,7 +76,7 @@ const SignUpWizard = () => {
   ];
 
   // slide animation
-  const animateSlide = (direction) => {
+  const animateSlide = (direction: string) => {
     Animated.sequence([
       Animated.timing(slideAnim, {
         toValue: direction === 'right' ? 100 : -100,
@@ -78,17 +92,17 @@ const SignUpWizard = () => {
   };
 
   // validations
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const validatePhoneNumber = (phone) => {
+  const validatePhoneNumber = (phone: string) => {
     const phoneRegex = /^\+?[\d\s-]{10,}$/;
     return phoneRegex.test(phone);
   };
 
-  const validatePassword = (password) => {
+  const validatePassword = (password: string) => {
     const strength = {
       hasMinLength: password.length >= 8,
       hasUpperCase: /[A-Z]/.test(password),
@@ -100,13 +114,13 @@ const SignUpWizard = () => {
     return Object.values(strength).every(Boolean);
   };
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: '' }));
   };
 
   // validation error messages for sign up sheet
-  const validateField = (field, value) => {
+  const validateField = (field: string, value: string) => {
     switch (field) {
       case 'firstName':
         return value.trim() ? '' : 'First name is required';
@@ -127,13 +141,16 @@ const SignUpWizard = () => {
     }
   };
 
-  const validateStep = (stepIndex) => {
+  const validateStep = (stepIndex: number) => {
     const currentFields = steps[stepIndex].fields;
-    const stepErrors = {};
+    const stepErrors: { [key: string]: string } = {};
     let isValid = true;
 
-    currentFields.forEach((field) => {
-      const error = validateField(field, formData[field]);
+    currentFields.forEach((field: string) => {
+      const error = validateField(
+        field,
+        formData[field as keyof typeof formData]
+      );
       if (error) {
         stepErrors[field] = error;
         isValid = false;
@@ -440,10 +457,9 @@ const styles = StyleSheet.create({
   progressDotActive: {
     backgroundColor: '#7E7D7D',
   },
-  // can use this to add coloring to completed items
-  // progressDotCompleted: {
-  //   backgroundColor: '#4CAF50',
-  // },
+  progressDotCompleted: {
+    backgroundColor: '#4CAF50',
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

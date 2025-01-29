@@ -1,3 +1,4 @@
+import { bodyFont, darkMainColor } from 'frontend/constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -39,6 +40,10 @@ const DropdownComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  body: {
+    fontFamily: bodyFont,
+    fontWeight: '400',
+  },
   dropdown: {
     width: 87,
     height: 28,
@@ -46,23 +51,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: darkMainColor,
   },
   placeholderStyle: {
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontSize: 13,
-    color: '#000000',
+    color: darkMainColor,
     marginLeft: 16,
   },
   selectedTextStyle: {
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontSize: 13,
-    color: '#000000',
+    color: darkMainColor,
   },
   inputSearchStyle: {
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontSize: 13,
-    color: '#00000099',
+    color: darkMainColor,
   },
   customIcon: {
     width: 10,
@@ -71,6 +76,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+    tintColor: darkMainColor
   },
 });
 

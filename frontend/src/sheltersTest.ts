@@ -1,35 +1,10 @@
-export type Address = {
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
-};
+import { Shelter } from "./types";
 
-export type Shelter = {
-  id: number;
-  name: string;
-  address: Address;
-  latitude: number;
-  longitude: number;
-  description: string;
-  overall_rating: number;
-  inclusivity_rating: number;
-  safety_rating: number;
-  availability: string;
-  phone_number: string;
-  email_address: string;
-  opening_time: string;
-  closing_time: string;
-  picture: string[];
-  emoji: string;
-};
-
-export const shelters: Shelter[] = [
+export const ExampleShelters: Shelter[] = [
   {
     id: 1,
     name: 'Shelter One',
-    description:
-      'The world can be a scary place for LGBTQ+ youth, no matter where they live. If you are facing homelessness, trying to find a reason to hang on one more day, or just looking to make some new friends - BAGLY is here for you. We are a youth-led and adult-supported organization thats been on your side for over 40 years and we welcome you.',
+    description: 'Description.',
     latitude: 42.3611,
     longitude: -71.0579,
     emoji: '🏳️‍🌈',
@@ -48,7 +23,7 @@ export const shelters: Shelter[] = [
     opening_time: '09:00:00',
     closing_time: '21:00:00',
     picture: [
-      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp',
       'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },
@@ -131,3 +106,5 @@ export const shelters: Shelter[] = [
     ],
   },
 ];
+export { Shelter };
+
