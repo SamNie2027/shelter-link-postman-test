@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
+import { backgroundColor, headerFont, darkMainColor } from 'frontend/constants';
+import { useFonts } from 'expo-font';
 
 interface Shelter {
   id: number;
@@ -43,6 +45,11 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
     Linking.openURL(url);
   };
+
+  const [fonts] = useFonts({
+    IstokWebRegular: require('../../assets/fonts/IstokWebRegular.ttf'),
+    JomhuriaRegular: require('../../assets/fonts/JomhuriaRegular.ttf'),
+  });
 
   // to do: change contact button func
   // for now, this gives the option to confirm if you want to call the shelter number
@@ -141,7 +148,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#E2E2F0',
+    backgroundColor: backgroundColor,
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -155,16 +162,17 @@ const styles = StyleSheet.create({
     marginTop: 13,
   },
   shelterNameText: {
-    fontFamily: 'Inter',
-    fontSize: 32,
+    fontFamily: headerFont,
+    fontSize: 64,
     fontWeight: '400',
-    lineHeight: 38.73,
-    color: '#BD2B34',
+    lineHeight: 64,
+    color: darkMainColor,
   },
   quickInfoContainer: {
     width: '100%',
     height: 116,
     marginLeft: 12,
+    marginRight: 6,
   },
   quickInfoText: {
     fontFamily: 'IstokWebRegular',
