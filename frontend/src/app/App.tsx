@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
-import { shelters } from '../sheltersTest';
+import { ExampleShelters } from '../sheltersTest';
 
 export const App = () => {
   return (
@@ -18,7 +18,7 @@ export const App = () => {
       {/*  <CompleteMap />*/}
       {/*</GestureHandlerRootView>*/}
 
-      <DetailedShelterView shelter={shelters[0]} />
+      <DetailedShelterView shelter={ExampleShelters[0]} />
     </SafeAreaView>
   );
 };
@@ -26,7 +26,6 @@ export const App = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
     backgroundColor: '#FFFFFF',
   },
   centeredView: {
