@@ -21,8 +21,8 @@ export type NewShelterInput = {
   website?: string;
   hours: {
     [day in DayOfWeek]: {
-      opening_time: string | null;
-      closing_time: string | null;
+      opening_time: string;
+      closing_time: string;
     };
   };
   picture: string[];
