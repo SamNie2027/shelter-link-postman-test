@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   quickInfoText: {
-    fontFamily: 'Inter',
+    fontFamily: 'IstokWebRegular',
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
