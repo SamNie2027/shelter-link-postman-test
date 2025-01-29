@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
   shelterNameContainer: {
     height: 44,
     width: '100%',
-    marginLeft: 12,
-    marginTop: 10,
+    marginLeft: 14,
+    marginTop: 13,
   },
   shelterNameText: {
     fontFamily: 'Inter',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   quickInfoContainer: {
     width: '100%',
-    height: 75.14,
+    height: 116,
     marginLeft: 12,
   },
   quickInfoText: {
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
-    lineHeight: 18.15,
+    lineHeight: 21.59,
   },
   buttonsContainer: {
     marginTop: 8.86,
