@@ -96,7 +96,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
       <Text style={styles.shelterDescription}>{shelter.description}</Text>
       <View style={styles.fullReview}>
         <View style={styles.fullReviewTitleContainer}>
-          <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
+          <Text style={styles.fullReviewTitle}>BAGLY REVIEW</Text>
         </View>
         <View style={styles.reviews}>
           <View style={styles.traits}>
@@ -246,15 +246,15 @@ const styles = StyleSheet.create({
     height: 176,
   },
   fullReviewTitleContainer: {
-    width: 247,
+    width: '100%',
     height: 40,
   },
   fullReviewTitle: {
-    fontSize: 24,
-    fontFamily: bodyFont,
+    fontSize: 64,
+    fontFamily: headerFont,
     fontWeight: '400',
-    lineHeight: 29.05,
-    color: '#1E1E1E',
+    lineHeight: 64,
+    color: darkMainColor,
   },
   traits: {
     width: 142,
