@@ -14,6 +14,7 @@ import {
   darkMainColor,
   bodyFont,
   mainColor,
+  buttonBackgroundColor,
 } from 'frontend/constants';
 import { useFonts } from 'expo-font';
 import { Shelter } from '../types';
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: mainColor,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: buttonBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -187,8 +188,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#BD2B34',
-    backgroundColor: '#FFFFFF',
+    borderColor: darkMainColor,
+    backgroundColor: buttonBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -198,8 +199,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#BD2B34',
-    backgroundColor: '#FFFFFF',
+    borderColor: darkMainColor,
+    backgroundColor: buttonBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 15.73,
-    color: '#BD2B34',
+    color: darkMainColor,
   },
   images: {
     width: 322,
