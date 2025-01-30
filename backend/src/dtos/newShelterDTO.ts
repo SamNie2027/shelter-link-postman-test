@@ -23,7 +23,7 @@ export type NewShelterInput = {
     [day in DayOfWeek]: {
       opening_time: string;
       closing_time: string;
-    };
+    } | null;
   };
   picture: string[];
 };

@@ -13,7 +13,9 @@ import { DayOfWeek } from '../types';
  * @property phone_number The phone number of the shelter.
  * @property email_address The email address of the shelter.
  * @property website The website of the shelter.
- * @property hours The hours of operation of the shelter.
+ * @property hours The hours of operation of the shelter. The key is the day of the week,
+ * which maps to the opening and closing times. If the shelter is closed on a particular
+ * day, the value is null.
  * @property picture Picture(s) of the shelter.
  *
  */
@@ -36,9 +38,9 @@ export type ShelterModel = {
   website?: string;
   hours: {
     [day in DayOfWeek]: {
-      opening_time: string; // Format: HH:MM:SS. If the shelter is closed, the value is "CLOSED".
-      closing_time: string; // Format: HH:MM:SS. If the shelter is closed, the value is "CLOSED".
-    };
+      opening_time: string; // Format: HH:MM.
+      closing_time: string; // Format: HH:MM.
+    } | null;
   };
   picture: string[]; // Array of S3 URLs
 };
@@ -68,7 +70,7 @@ export type ShelterInputModel = {
         M: {
           opening_time: { S: string };
           closing_time: { S: string };
-        };
+        } | null;
       };
     };
   };
