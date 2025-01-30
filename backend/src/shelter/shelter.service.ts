@@ -15,7 +15,6 @@ export class ShelterService {
    * @throws Error if the shelter cannot be added.
    */
   public async postShelter(shelterData: NewShelterInput) {
-    console.log('DATA', shelterData);
     const shelterModel = this.postInputToShelterModel(shelterData);
     const newId =
       ((await this.dynamoDbService.getHighestShelterId(this.tableName)) ?? 0) +
