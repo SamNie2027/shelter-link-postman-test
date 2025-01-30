@@ -15,6 +15,7 @@ import {
   bodyFont,
   mainColor,
   buttonBackgroundColor,
+  descriptionFontColor,
 } from 'frontend/constants';
 import { useFonts } from 'expo-font';
 import { Shelter } from '../types';
@@ -161,6 +162,7 @@ const styles = StyleSheet.create({
   },
   quickInfoText: {
     fontFamily: bodyFont,
+    color: descriptionFontColor,
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
@@ -235,11 +237,11 @@ const styles = StyleSheet.create({
     width: 340,
     marginLeft: 13,
     marginTop: 19,
-    fontSize: 13,
+    fontSize: 15,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 18.15,
-    color: '#1E1E1E',
+    lineHeight: 21.59,
+    color: descriptionFontColor,
   },
   fullReview: {
     marginTop: 40,
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
     fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
-    color: '#1E1E1E',
+    color: descriptionFontColor,
     width: '100%',
   },
   allOfThisIcon: {
