@@ -58,11 +58,11 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
       <View style={styles.quickInfoContainer}>
         <Text style={styles.quickInfoText}>
           {/* added availability here instead of minutes away based on shelter.entity.ts */}
-          {shelter.overall_rating.toFixed(1)} stars rating{' '}
-          {/*{shelter.availability}*/}
+          {shelter.overall_rating.toFixed(1)} STARS {/*{shelter.availability}*/}
         </Text>
         <Text style={styles.quickInfoText}>
-          {shelter.address.street}, {shelter.address.city}{' '}
+          {shelter.address.street}, {shelter.address.city},{' '}
+          {shelter.address.state}{' '}
           {/*{formatTime(shelter.opening_time)} -{' '}*/}
           {/*{formatTime(shelter.closing_time)}*/}
         </Text>
