@@ -214,11 +214,13 @@ const styles = StyleSheet.create({
     color: darkMainColor,
   },
   images: {
-    width: 322,
+    width: '90%',
     height: 150,
     marginTop: 30.39,
-    marginLeft: 12,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   shelterImage: {
     width: 150,
@@ -260,6 +262,7 @@ const styles = StyleSheet.create({
     width: 142,
   },
   reviews: {
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
