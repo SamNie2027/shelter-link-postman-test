@@ -8,31 +8,15 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { backgroundColor, headerFont, darkMainColor } from 'frontend/constants';
+import {
+  backgroundColor,
+  headerFont,
+  darkMainColor,
+  bodyFont,
+  mainColor,
+} from 'frontend/constants';
 import { useFonts } from 'expo-font';
-
-interface Shelter {
-  id: number;
-  name: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-  };
-  latitude: number;
-  longitude: number;
-  description: string;
-  overall_rating: number;
-  inclusivity_rating: number;
-  safety_rating: number;
-  availability: string;
-  phone_number: string;
-  email_address: string;
-  opening_time: string;
-  closing_time: string;
-  picture: string[];
-}
+import { Shelter } from '../types';
 
 interface Props {
   shelter: Shelter;
@@ -159,7 +143,7 @@ const styles = StyleSheet.create({
     height: 44,
     width: '100%',
     marginLeft: 14,
-    marginTop: 13,
+    marginTop: 23,
   },
   shelterNameText: {
     fontFamily: headerFont,
@@ -175,14 +159,14 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   quickInfoText: {
-    fontFamily: 'IstokWebRegular',
+    fontFamily: bodyFont,
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
     lineHeight: 21.59,
   },
   buttonsContainer: {
-    marginTop: 8.86,
+    marginTop: 19,
     marginLeft: 15,
     flexDirection: 'row',
     width: '100%',
@@ -193,7 +177,7 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#BD2B34',
+    borderColor: mainColor,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
@@ -222,7 +206,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 15.73,
     color: '#BD2B34',
@@ -248,7 +232,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     marginTop: 19,
     fontSize: 13,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -265,7 +249,7 @@ const styles = StyleSheet.create({
   },
   fullReviewTitle: {
     fontSize: 24,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 29.05,
     color: '#1E1E1E',
@@ -281,7 +265,7 @@ const styles = StyleSheet.create({
   traitText: {
     height: 28,
     fontSize: 15,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 18.15,
     color: '#1E1E1E',
@@ -299,7 +283,7 @@ const styles = StyleSheet.create({
     width: 84,
     height: 82,
     fontSize: 48,
-    fontFamily: 'Inter',
+    fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 58.09,
   },
