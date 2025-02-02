@@ -16,12 +16,12 @@ import {
   mainColor,
   buttonBackgroundColor,
   descriptionFontColor,
-} from 'frontend/constants';
+} from '../../constants';
 import { useFonts } from 'expo-font';
-import { Shelter } from '../types';
+import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 
 interface Props {
-  shelter: Shelter;
+  shelter: NewShelterInput;
 }
 
 export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
@@ -30,6 +30,13 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
     Linking.openURL(url);
+  };
+
+  // website will pop up if there is one
+  const handleWebsite = () => {
+    if (shelter.website) {
+      Linking.openURL(shelter.website);
+    }
   };
 
   const [fonts] = useFonts({
@@ -77,10 +84,14 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
         >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.websiteButton}>
-          {/* no website field in shelter.entity.ts so no behavior yet */}
-          <Text style={styles.buttonText}>Website</Text>
-        </TouchableOpacity>
+        {shelter.website && (
+          <TouchableOpacity
+            style={styles.websiteButton}
+            onPress={handleWebsite}
+          >
+            <Text style={styles.buttonText}>Website</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.contactButton} onPress={handleContact}>
           <Text style={styles.buttonText}>Contact</Text>
         </TouchableOpacity>
