@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ShelterInputModel, ShelterModel } from './shelter.model';
+import { ShelterInputModel, ShelterModel, ShelterUpdateModel } from './shelter.model';
 import { DynamoDbService } from '../dynamodb';
 import { NewShelterInput } from '../dtos/newShelterDTO';
 
@@ -7,6 +7,15 @@ import { NewShelterInput } from '../dtos/newShelterDTO';
 export class ShelterService {
   private readonly tableName = 'shelterlinkShelters';
   constructor(private readonly dynamoDbService: DynamoDbService) {}
+
+  /**
+   * Update desired fields in the shelter of the id in the database
+   * @param shelterId The id of the shelter to update
+   * @param desiredUpdates Object containing the desired fields and values to update
+   */
+  public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
+    //TODO: write this
+  }
 
   /**
    * Add a new shelter to the database.

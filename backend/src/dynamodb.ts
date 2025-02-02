@@ -2,6 +2,7 @@ import {
   DynamoDBClient,
   PutItemCommand,
   ScanCommand,
+  UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
 
@@ -83,6 +84,25 @@ export class DynamoDbService {
       return result;
     } catch (error) {
       console.log(`Error posting item to table ${tableName}`);
+      throw new Error(error);
+    }
+  }
+
+  public async updateField(tableName: string, shelterId: string, fieldName: string, fieldValue: string) {
+    const command = new UpdateItemCommand({
+      TableName : tableName,
+      ReturnValues: "UPDATED_NEW",
+      Key: {
+        shelterId: shelterId,
+      },
+      UpdateExpression: //TODO: Determine update expression
+    });
+
+    try {
+      const result = await this.dynamoDbClient.send(command);
+      return result;
+    } catch (error) {
+      console.log(`Error updating ${fieldName} to ${fieldValue} to table ${tableName}`);
       throw new Error(error);
     }
   }
