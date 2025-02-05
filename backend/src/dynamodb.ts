@@ -120,7 +120,9 @@ export class DynamoDbService {
       TableName : tableName,
       ReturnValues: "UPDATED_NEW",
       Key: {
-        shelterId: shelterId,
+        "<keys>": {
+          S: shelterId
+        }
       },
       UpdateExpression,
       ExpressionAttributeNames,

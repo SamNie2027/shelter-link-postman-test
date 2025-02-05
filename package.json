@@ -52,6 +52,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.741.0",
     "@expo/metro-config": "~0.19.0",
     "@expo/metro-runtime": "~4.0.0",
     "@gorhom/bottom-sheet": "^5.0.0-alpha.11",
