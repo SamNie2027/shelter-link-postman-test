@@ -88,21 +88,50 @@ export class DynamoDbService {
     }
   }
 
-  public async updateField(tableName: string, shelterId: string, fieldName: string, fieldValue: string) {
+  /**
+   * Updates the attribute of the specified name to the specified value
+   * within the table
+   * @param tableName Name of the table
+   * @param shelterId id of the shelter (key of the shelter)
+   * @param attributeName The name of the attribute:
+   *                      Must be given with its parent separated by periods, 
+   *                      e.g. "address.zipCode", "hours.Sunday.closing_time".
+   *                      For lists, must also include index, e.g. "picture[0]"
+   * @param attributeValue The desired new value of the attribute
+   */
+  public async updateAttribute(tableName: string, shelterId: string, attributeNames: string[], attributeValues: string[]) {
+    if (attributeNames.length !== attributeValues.length) {
+      const err = `Error updating attributes of shelter ${shelterId} to table ${tableName}: 
+        attributeNames and attributeValues must be the same length`;
+      console.log(err);
+      throw new Error (err)
+    }
+
+    // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
+    let UpdateExpression = "SET ";
+    let ExpressionAttributeNames = {};
+    let ExpressionAttributeValues = {};
+    for(let i = 0; i<attributeNames.length; i++) {
+      UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;
+      ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
+      ExpressionAttributeValues[`:${attributeNames[i]}`] = attributeValues[i];
+    }
     const command = new UpdateItemCommand({
       TableName : tableName,
       ReturnValues: "UPDATED_NEW",
       Key: {
         shelterId: shelterId,
       },
-      UpdateExpression: //TODO: Determine update expression
+      UpdateExpression,
+      ExpressionAttributeNames,
+      ExpressionAttributeValues,
     });
 
     try {
       const result = await this.dynamoDbClient.send(command);
       return result;
     } catch (error) {
-      console.log(`Error updating ${fieldName} to ${fieldValue} to table ${tableName}`);
+      console.log(`Error updating ${attributeNames} to ${attributeValues} for shelter ${shelterId} to table ${tableName}`);
       throw new Error(error);
     }
   }

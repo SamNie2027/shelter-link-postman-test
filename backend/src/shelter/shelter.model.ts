@@ -81,10 +81,10 @@ export type ShelterInputModel = {
 export type ShelterUpdateModel = {
   name?: string;
   address?: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
     country?: string;
   };
   latitude?: number;
@@ -96,8 +96,8 @@ export type ShelterUpdateModel = {
   website?: string;
   hours?: {
     [day in DayOfWeek]: {
-      opening_time: string;
-      closing_time: string;
+      opening_time?: string;
+      closing_time?: string;
     };
   };
   picture?: string[];

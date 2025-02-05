@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ShelterInputModel, ShelterModel, ShelterUpdateModel } from './shelter.model';
 import { DynamoDbService } from '../dynamodb';
 import { NewShelterInput } from '../dtos/newShelterDTO';
+import { DayOfWeek } from '../types';
 
 @Injectable()
 export class ShelterService {
@@ -14,7 +15,41 @@ export class ShelterService {
    * @param desiredUpdates Object containing the desired fields and values to update
    */
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
-    //TODO: write this
+    let buildAttributeNamesList: string[] = [];
+    let buildAttributeValuesList: string[] = [];
+
+    const addressFields = ["city", "country", "state", "street", "zipCode"];
+    for (let key in desiredUpdates) {
+      if (key === 'address') {
+        for (const field of addressFields) {
+          if (desiredUpdates.address[field]) {
+            buildAttributeNamesList.push(`address.${field}`);
+            buildAttributeValuesList.push(desiredUpdates.address[field]);
+          }
+        }
+      } else if (key === 'hours') {
+            for (const day in DayOfWeek) {
+              if (desiredUpdates.hours[day]['closing_time']) {
+                buildAttributeNamesList.push(`hours.${day}.closing_time`);
+                buildAttributeValuesList.push(desiredUpdates.hours[day]['closing_time']);
+              } else if (desiredUpdates.hours[day]['opening_time']) {
+                buildAttributeNamesList.push(`hours.${day}.opening_time`);
+                buildAttributeValuesList.push(desiredUpdates.hours[day]['opening_time']);
+              }
+            };
+      } else {
+        buildAttributeNamesList.push(key);
+        buildAttributeValuesList.push(desiredUpdates[key]);
+      }
+    }
+
+    try {
+      const result = await this.dynamoDbService.updateAttribute(this.tableName, shelterId, 
+        buildAttributeNamesList, buildAttributeValuesList);
+      return { result } ;
+    } catch (e) {
+      throw new Error('Unable to update new shelter: ' + e);
+    }
   }
 
   /**
