@@ -2,6 +2,7 @@ import {
   DynamoDBClient,
   PutItemCommand,
   ScanCommand,
+  DeleteItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
 
@@ -84,6 +85,30 @@ export class DynamoDbService {
     } catch (error) {
       console.log(`Error posting item to table ${tableName}`);
       throw new Error(error);
+    }
+  }
+
+  public async deleteItem(
+    tableName: string,
+    key: { [key: string]: any }
+  ): Promise<boolean> {
+    const params = {
+      TableName: tableName,
+      Key: key, // The primary key of the item to delete
+      ConditionExpression: 'attribute_exists(shelterId)', // Ensures the shelter exists before deleting
+    };
+
+    try {
+      await this.dynamoDbClient.send(new DeleteItemCommand(params));
+      return true; // Successfully deleted
+    } catch (error) {
+      if (error.name === 'ConditionalCheckFailedException') {
+        return false; // The item does not exist
+      }
+      console.error('DynamoDB Delete Error:', error);
+      throw new Error(
+        `Unable to delete item from ${tableName}: ${error.message}`
+      );
     }
   }
 }

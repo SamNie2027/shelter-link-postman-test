@@ -231,4 +231,26 @@ export class ShelterService {
 
     return newShelterModel;
   };
+
+  /**
+   * Delete a shelter by its ID.
+   * @param shelterId The ID of the shelter to delete.
+   * @returns True if deleted, false if shelter does not exist.
+   */
+  public async deleteShelter(shelterId: string): Promise<boolean> {
+    // Check if shelter exists before attempting deletion
+    const shelters = await this.dynamoDbService.scanTable(this.tableName);
+    const shelterExists = shelters.some(
+      (shelter) => shelter.shelterId.S === shelterId
+    );
+
+    if (!shelterExists) {
+      return false; // Shelter does not exist
+    }
+
+    // Delete the shelter
+    return await this.dynamoDbService.deleteItem(this.tableName, {
+      shelterId: { S: shelterId },
+    });
+  }
 }
