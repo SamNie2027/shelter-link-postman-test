@@ -25,6 +25,7 @@ export class ShelterController {
   public async getShelters() {
     return this.shelterService.getShelters();
   }
+  
   @Delete(':shelterId')
   public async deleteShelter(@Param('shelterId') shelterId: string) {
     const deleted = await this.shelterService.deleteShelter(shelterId);
