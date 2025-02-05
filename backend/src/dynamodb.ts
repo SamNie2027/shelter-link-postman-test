@@ -114,10 +114,15 @@ export class DynamoDbService {
     for(let i = 0; i<attributeNames.length; i++) {
       UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;
       ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
-      ExpressionAttributeValues[`:${attributeNames[i]}`] = attributeValues[i];
+      ExpressionAttributeValues[`:${attributeNames[i]}`] = {"S": attributeValues[i]};
     }
 
-    UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 3);
+    const Key = {
+      shelterId: {
+        S: shelterId + ""
+      }};
+
+    UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
     
     console.log(`Attribute Names (input): ${attributeNames}`);
     console.log(`Attribute Values (input): ${attributeValues}`);
@@ -126,19 +131,17 @@ export class DynamoDbService {
     console.log(`Update Expression: ${UpdateExpression}`);
     console.log(`Expression Attribute Names: ${JSON.stringify(ExpressionAttributeNames)}`);
     console.log(`Expression Attribute Values: ${JSON.stringify(ExpressionAttributeValues)}`);
+    console.log(`Key: ${JSON.stringify(Key)}`);
 
     const command = new UpdateItemCommand({
       TableName : tableName,
       ReturnValues: "UPDATED_NEW",
-      Key: {
-        "<keys>": {
-          S: shelterId
-        }
-      },
+      Key,
       UpdateExpression,
       ExpressionAttributeNames,
       ExpressionAttributeValues,
     });
+    console.log("past command");
     try {
       const result = await this.dynamoDbClient.send(command);
       return result;

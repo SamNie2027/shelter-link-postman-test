@@ -20,7 +20,9 @@ export class ShelterService {
 
     const addressFields = ["city", "country", "state", "street", "zipCode"];
     for (let key in desiredUpdates) {
-      if (key === 'address') {
+      if (key === 'shelterId') {
+        continue;
+      } else if (key === 'address') {
         for (const field of addressFields) {
           if (desiredUpdates.address[field]) {
             buildAttributeNamesList.push(`address.${field}`);
