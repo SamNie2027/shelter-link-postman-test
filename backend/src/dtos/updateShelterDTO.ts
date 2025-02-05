@@ -1,6 +1,6 @@
 import { DayOfWeek } from "../types";
 
-export type updateShelterInput = {
+export type UpdateShelterInput = {
     shelterId: string;
     name?: string;
     address?: {

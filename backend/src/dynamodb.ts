@@ -116,6 +116,17 @@ export class DynamoDbService {
       ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
       ExpressionAttributeValues[`:${attributeNames[i]}`] = attributeValues[i];
     }
+
+    UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 3);
+    
+    console.log(`Attribute Names (input): ${attributeNames}`);
+    console.log(`Attribute Values (input): ${attributeValues}`);
+    console.log(`Table Name: ${tableName}`);
+
+    console.log(`Update Expression: ${UpdateExpression}`);
+    console.log(`Expression Attribute Names: ${JSON.stringify(ExpressionAttributeNames)}`);
+    console.log(`Expression Attribute Values: ${JSON.stringify(ExpressionAttributeValues)}`);
+
     const command = new UpdateItemCommand({
       TableName : tableName,
       ReturnValues: "UPDATED_NEW",
@@ -128,7 +139,6 @@ export class DynamoDbService {
       ExpressionAttributeNames,
       ExpressionAttributeValues,
     });
-
     try {
       const result = await this.dynamoDbClient.send(command);
       return result;
