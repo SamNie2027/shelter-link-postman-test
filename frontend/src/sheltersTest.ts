@@ -25,6 +25,7 @@ export const ExampleShelters: Shelter[] = [
     picture: [
       'https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp',
       'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978'
     ],
   },
   {

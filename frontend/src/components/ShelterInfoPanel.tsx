@@ -62,10 +62,13 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   );
 };
 
+const panelWidth = 332;
+const panelHeight = 214;
+
 const styles = StyleSheet.create({
   panel: {
-    width: 332,
-    height: 214,
+    width: panelWidth,
+    height: panelHeight,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: darkMainColor,
@@ -75,28 +78,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   images: {
-    paddingTop: 8,
-    paddingLeft: 15,
+    paddingVertical: panelHeight*0.037,
+    paddingLeft: panelWidth*0.045,
     flexDirection: 'row',
-
   },
   shelterImage: {
-    width: 84,
-    height: 84,
+    width: panelWidth*0.253,
+    height: panelWidth*0.253,
     borderRadius: 10,
-    borderWidth: 1,
-    marginRight: 9,
+    borderWidth: 2,
+    marginRight: panelWidth*0.027,
     borderColor: darkMainColor,
     backgroundColor: '#D9D9D9',
   },
   bookmarkContainer: {
     position: 'absolute',
-    top: 8,
-    right: 11,
+    top: panelHeight*0.037,
+    right: panelWidth*0.033,
   },
   shelterName: {
-    paddingLeft: 15,
-    paddingTop: 4,
+    paddingLeft: panelWidth*0.045,
+    paddingTop: panelHeight*0.018,
     fontSize: 20,
     fontFamily: bodyFont,
     fontWeight: '400',
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     color: darkMainColor
   },
   shelterAddressDistance: {
-    paddingLeft: 15,
+    paddingLeft: panelWidth*0.045,
     fontSize: 15,
     fontFamily: bodyFont,
     fontWeight: '400',
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     color: darkMainColor,
   },
   shelterRatingDescription: {
-    paddingLeft: 15,
+    paddingLeft: panelWidth*0.045,
     fontSize: 15,
     fontFamily: bodyFont,
     fontWeight: '400',
@@ -120,13 +122,13 @@ const styles = StyleSheet.create({
     color: darkMainColor,
   },
   buttonsContainer: {
-    paddingTop: 10, // might need to change
-    paddingLeft: 15,
+    paddingTop: panelHeight*0.047, // might need to change
+    paddingLeft: panelWidth*0.045,
     flexDirection: 'row',
   },
   directionsButton: {
-    width: 93,
-    height: 28,
+    width: panelWidth*0.28,
+    height: panelHeight*0.13,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: darkMainColor,
@@ -134,8 +136,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   learnMoreButton: {
-    width: 100,
-    height: 28,
+    width: panelWidth*0.301,
+    height: panelHeight*0.131,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: darkMainColor,

@@ -26,10 +26,11 @@ const SearchBar = () => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    width: 360,
+    width: '90%',
     height: 36,
     borderRadius: 11,
     borderWidth: 1,
+    paddingTop: 1,
     borderColor: mainColor,
     backgroundColor: '#FFFFFF',
   },

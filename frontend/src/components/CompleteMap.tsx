@@ -82,32 +82,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  
   itemContainer: {
-    marginHorizontal: 29,
     marginTop: 29,
   },
-  logoContainer: {
+  /* logoContainer: {
     alignItems: 'flex-start',
     paddingHorizontal: 20,
     paddingTop: 11,
     paddingBottom: 18,
-  },
+  },*/
   searchBarContainer: {
     alignItems: 'center',
-    paddingHorizontal: 13,
-    paddingBottom: 22,
-    paddingTop: 45, //ToRecoverIcon: Remove this line if you want the icon back
+    paddingBottom: '6%',
+    paddingTop: '10%', //ToRecoverIcon: Remove this line if you want the icon back
   },
   headerContainer: {
     alignItems: 'center',
-    paddingHorizontal: 25,
-    paddingBottom: 25,
-    paddingTop: 10,
+    paddingHorizontal: '10%',
+    paddingBottom: '7%',
+    paddingTop: '3%',
   },
   filtersDropdownContainer: {
     alignItems: 'flex-start',
-    paddingHorizontal: 13,
-    paddingBottom: 12,
+    paddingHorizontal: '3%',
+    paddingBottom: '3%',
     borderStyle: 'solid',
     borderBottomWidth: 4,
     borderColor: darkMainColor

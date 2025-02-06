@@ -4,21 +4,24 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { ExampleShelters } from '../sheltersTest';
+import Logo from '../components/Logo';
+import SignUpModal from '../components/SignUpModal';
 
 export const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/*<View style={styles.logoContainer}>*/}
-      {/*  <Logo />*/}
-      {/*</View>*/}
-      {/*<View style={styles.centeredView}>*/}
-      {/*  <SignUpModal />*/}
-      {/*</View>*/}
-      {/*<GestureHandlerRootView style={{ flex: 1 }}>*/}
-      {/*  <CompleteMap />*/}
-      {/*</GestureHandlerRootView>*/}
+      {/*
+      <View style={styles.logoContainer}>
+        <Logo />
+      </View>*/}
+      {/*<View style={styles.centeredView}>
+        <SignUpModal />
+      </View>*/}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <CompleteMap />
+      </GestureHandlerRootView>
 
-      <DetailedShelterView shelter={ExampleShelters[0]} />
+      {/*<DetailedShelterView shelter={ExampleShelters[0]} />*/}
     </SafeAreaView>
   );
 };
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   searchBarContainer: {
-    marginVertical: 10,
+    marginVertical: '10%',
   },
   headerContainer: {
     marginTop: 20,
