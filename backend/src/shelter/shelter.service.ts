@@ -48,6 +48,7 @@ export class ShelterService {
   public async getShelters(): Promise<ShelterModel[]> {
     try {
       const data = await this.dynamoDbService.scanTable(this.tableName);
+      console.log(data);
       return data.map((item) => this.shelterModelToOutput(item));
     } catch (e) {
       throw new Error('Unable to get shelters: ' + e);
@@ -239,16 +240,6 @@ export class ShelterService {
    */
   public async deleteShelter(shelterId: string): Promise<boolean> {
     try {
-      // Get the shelter
-      const shelter = await this.dynamoDbService.getItem(this.tableName, {
-        shelterId: { S: shelterId },
-      });
-
-      if (!shelter) {
-        return false; // Shelter does not exist
-      }
-
-      // Delete the shelter
       return await this.dynamoDbService.deleteItem(this.tableName, {
         shelterId: { S: shelterId },
       });
