@@ -3,6 +3,7 @@ import {
   PutItemCommand,
   ScanCommand,
   DeleteItemCommand,
+  GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
 
@@ -88,23 +89,41 @@ export class DynamoDbService {
     }
   }
 
+  public async getItem(
+    tableName: string,
+    key: { [key: string]: any }
+  ): Promise<any | null> {
+    const params = {
+      TableName: tableName,
+      Key: key,
+    };
+
+    try {
+      const result = await this.dynamoDbClient.send(new GetItemCommand(params));
+      return result.Item ?? null; // Return the item if found, otherwise null
+    } catch (error) {
+      console.error('DynamoDB GetItem Error:', error);
+      throw new Error(`Unable to get item from ${tableName}: ${error.message}`);
+    }
+  }
+
   public async deleteItem(
     tableName: string,
     key: { [key: string]: any }
   ): Promise<boolean> {
-    const params = {
-      TableName: tableName,
-      Key: key, // The primary key of the item to delete
-      ConditionExpression: 'attribute_exists(shelterId)', // Ensures the shelter exists before deleting
-    };
-
     try {
-      await this.dynamoDbClient.send(new DeleteItemCommand(params));
-      return true; // Successfully deleted
-    } catch (error) {
-      if (error.name === 'ConditionalCheckFailedException') {
-        return false; // The item does not exist
+      // First, check if the item exists
+      const existingItem = await this.getItem(tableName, key);
+      if (!existingItem) {
+        return false; // Item does not exist
       }
+
+      // Delete the existing item
+      await this.dynamoDbClient.send(
+        new DeleteItemCommand({ TableName: tableName, Key: key })
+      );
+      return true;
+    } catch (error) {
       console.error('DynamoDB Delete Error:', error);
       throw new Error(
         `Unable to delete item from ${tableName}: ${error.message}`

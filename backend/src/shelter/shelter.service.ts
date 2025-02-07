@@ -238,19 +238,22 @@ export class ShelterService {
    * @returns True if deleted, false if shelter does not exist.
    */
   public async deleteShelter(shelterId: string): Promise<boolean> {
-    // Check if shelter exists before attempting deletion
-    const shelters = await this.dynamoDbService.scanTable(this.tableName);
-    const shelterExists = shelters.some(
-      (shelter) => shelter.shelterId.S === shelterId
-    );
+    try {
+      // Get the shelter
+      const shelter = await this.dynamoDbService.getItem(this.tableName, {
+        shelterId: { S: shelterId },
+      });
 
-    if (!shelterExists) {
-      return false; // Shelter does not exist
+      if (!shelter) {
+        return false; // Shelter does not exist
+      }
+
+      // Delete the shelter
+      return await this.dynamoDbService.deleteItem(this.tableName, {
+        shelterId: { S: shelterId },
+      });
+    } catch (error) {
+      throw new Error(`Failed to delete shelter: ${error.message}`);
     }
-
-    // Delete the shelter
-    return await this.dynamoDbService.deleteItem(this.tableName, {
-      shelterId: { S: shelterId },
-    });
   }
 }
