@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Shelter } from '../sheltersTest';
 import { bodyFont, darkMainColor } from 'frontend/constants';
 
@@ -32,7 +32,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       </View>
       <View style={styles.bookmarkContainer}>
         <Image
-          style={{ tintColor: darkMainColor }}
+          style={styles.bookmarkImage}
           source={require('frontend/assets/bookmark.png')}
         />
       </View>
@@ -62,15 +62,36 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   );
 };
 
-const panelWidth = 332;
-const panelHeight = 214;
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+const panelWidth = screenWidth*0.85;
+const panelHeight = (218/332)*panelWidth;
+
+let panelBorderWidth = 2;
+let shelterNameFontSize = 20;
+let descriptionFontSize = 15;
+let buttonFontSize = 13;
+let shelterNameLineHeight = 24.2;
+let shelterAddressDistanceLineHeight = 18.15;
+let buttonTextLineHeight = 15.73;
+let buttonBorderWidth = 1;
+if (screenWidth > 500) {
+  panelBorderWidth = panelBorderWidth*(screenWidth/500);
+  shelterNameFontSize = shelterNameFontSize*(screenHeight/500);
+  descriptionFontSize = descriptionFontSize*(screenHeight/500);
+  buttonFontSize = buttonFontSize*(screenHeight/500);
+  shelterNameLineHeight = shelterNameLineHeight*(screenHeight/500);
+  shelterAddressDistanceLineHeight = shelterAddressDistanceLineHeight*(screenWidth/500);
+  buttonTextLineHeight = buttonTextLineHeight*(screenHeight/500);
+  buttonBorderWidth = buttonBorderWidth*(screenWidth/500);
+}
 
 const styles = StyleSheet.create({
   panel: {
     width: panelWidth,
     height: panelHeight,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: panelBorderWidth,
     borderColor: darkMainColor,
     backgroundColor: 'white',
   },
@@ -86,7 +107,7 @@ const styles = StyleSheet.create({
     width: panelWidth*0.253,
     height: panelWidth*0.253,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: panelBorderWidth,
     marginRight: panelWidth*0.027,
     borderColor: darkMainColor,
     backgroundColor: '#D9D9D9',
@@ -96,29 +117,34 @@ const styles = StyleSheet.create({
     top: panelHeight*0.037,
     right: panelWidth*0.033,
   },
+  bookmarkImage: {
+    tintColor: darkMainColor,
+    width: panelWidth*0.06,
+    height: panelWidth*0.06*(27/20),
+  },
   shelterName: {
     paddingLeft: panelWidth*0.045,
     paddingTop: panelHeight*0.018,
-    fontSize: 20,
+    fontSize: shelterNameFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 24.2,
+    lineHeight: shelterNameLineHeight,
     color: darkMainColor
   },
   shelterAddressDistance: {
     paddingLeft: panelWidth*0.045,
-    fontSize: 15,
+    fontSize: descriptionFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 18.15,
+    lineHeight: shelterAddressDistanceLineHeight,
     color: darkMainColor,
   },
   shelterRatingDescription: {
     paddingLeft: panelWidth*0.045,
-    fontSize: 15,
+    fontSize: descriptionFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 18.15,
+    lineHeight: shelterAddressDistanceLineHeight,
     color: darkMainColor,
   },
   buttonsContainer: {
@@ -130,7 +156,7 @@ const styles = StyleSheet.create({
     width: panelWidth*0.28,
     height: panelHeight*0.13,
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: buttonBorderWidth,
     borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
@@ -139,17 +165,17 @@ const styles = StyleSheet.create({
     width: panelWidth*0.301,
     height: panelHeight*0.131,
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: buttonBorderWidth,
     borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
   },
   buttonText: {
-    fontSize: 13,
+    fontSize: buttonFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 15.73,
+    lineHeight: buttonTextLineHeight,
     color: darkMainColor,
   },
 });

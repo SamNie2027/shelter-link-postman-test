@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 //import Logo from '../components/Logo'; ToRecoverIcon: uncomment this line
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 33,
     alignItems: 'center',
     backgroundColor: '#FFFFF',
+    paddingBottom: 500,
   },
 });
 
