@@ -20,11 +20,10 @@ export class ShelterController {
   @Post('/update')
   public async updateShelter(@Body() updateData: UpdateShelterInput) {
     const result = this.shelterService.updateShelter(updateData.shelterId, updateData);
-    if (!result) {
-      throw new NotFoundException(`Shelter with ID ${updateData.shelterId} not found.`);
-    } else {
-      return result;
+    if (result) {
+      return result
     }
+    throw new NotFoundException(`Shelter with ID ${updateData.shelterId} not found.`);
   }
 
 }

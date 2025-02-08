@@ -1,5 +1,6 @@
 import {
   DynamoDBClient,
+  GetItemCommand,
   PutItemCommand,
   ScanCommand,
   UpdateItemCommand,
@@ -87,7 +88,24 @@ export class DynamoDbService {
       throw new Error(error);
     }
   }
+  public async getItem(
+    tableName: string,
+    key: { [key: string]: any }
+  ): Promise<any | null> {
+    const params = {
+      TableName: tableName,
+      Key: key,
+    };
 
+    try {
+      const result = await this.dynamoDbClient.send(new GetItemCommand(params));
+      return result.Item ?? null; // Return the item if found, otherwise null
+    } catch (error) {
+      console.error('DynamoDB GetItem Error:', error);
+      throw new Error(`Unable to get item from ${tableName}: ${error.message}`);
+    }
+  }
+  
   /**
    * Updates the attribute of the specified name to the specified value
    * within the table
@@ -99,12 +117,23 @@ export class DynamoDbService {
    *                      For lists, must also include index, e.g. "picture[0]"
    * @param attributeValue The desired new value of the attribute
    */
-  public async updateAttribute(tableName: string, shelterId: string, attributeNames: string[], attributeValues: string[]) {
+  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: string[]) {
     if (attributeNames.length !== attributeValues.length) {
       const err = `Error updating attributes of shelter ${shelterId} to table ${tableName}: 
         attributeNames and attributeValues must be the same length`;
       console.log(err);
       throw new Error (err)
+    }
+
+    
+    const Key = {
+      shelterId: {
+        S: shelterId + ""
+    }};
+
+    const existingItem = await this.getItem(tableName, Key);
+    if (!existingItem) {
+      return false; // Item does not exist
     }
 
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
@@ -116,11 +145,6 @@ export class DynamoDbService {
       ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
       ExpressionAttributeValues[`:${attributeNames[i]}`] = {"S": attributeValues[i]};
     }
-
-    const Key = {
-      shelterId: {
-        S: shelterId + ""
-      }};
 
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
     

@@ -10,28 +10,11 @@ export class ShelterService {
   constructor(private readonly dynamoDbService: DynamoDbService) {}
 
   /**
-   * Checks if the shelter of the given name exists
-   * @param shelterId The id of the shelter to check
-   * @returns If the shelter of the given name exists
-   */
-  private async shelterExists(shelterId: string) {
-    const shelters = await this.dynamoDbService.scanTable(this.tableName);
-    const shelterExists = shelters.some(
-      (shelter) => shelter.shelterId.S === shelterId
-    );
-    console.log(`Shelter Exists: ${shelterExists}`);
-    return shelterExists;
-  }
-
-  /**
    * Update desired fields in the shelter of the id in the database
    * @param shelterId The id of the shelter to update
    * @param desiredUpdates Object containing the desired fields and values to update
    */
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
-    if (!this.shelterExists(shelterId)) {
-      return false
-    } else {
     let buildAttributeNamesList: string[] = [];
     let buildAttributeValuesList: string[] = [];
 
@@ -60,10 +43,8 @@ export class ShelterService {
         buildAttributeNamesList.push(key);
         buildAttributeValuesList.push(desiredUpdates[key]);
       }
-    }
-
     try {
-      const result = await this.dynamoDbService.updateAttribute(this.tableName, shelterId, 
+      const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId, 
         buildAttributeNamesList, buildAttributeValuesList);
       return { result } ;
     } catch (e) {
