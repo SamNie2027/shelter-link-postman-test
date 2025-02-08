@@ -5,7 +5,7 @@ import {
   ScanCommand,
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class DynamoDbService {
@@ -133,7 +133,7 @@ export class DynamoDbService {
 
     const existingItem = await this.getItem(tableName, Key);
     if (!existingItem) {
-      return false; // Item does not exist
+    throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
     }
 
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
