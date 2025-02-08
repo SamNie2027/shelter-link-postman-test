@@ -48,6 +48,9 @@ export class ShelterService {
         buildAttributeNamesList, buildAttributeValuesList);
       return { result } ;
     } catch (e) {
+      if (e instanceof NotFoundException) {
+        throw e;
+      }
       throw new Error('Unable to update new shelter: ' + e);
     }
   }
