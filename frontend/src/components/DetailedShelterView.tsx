@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   backgroundColor,
   headerFont,
@@ -19,13 +19,15 @@ import {
 } from '../../constants';
 import { useFonts } from 'expo-font';
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { DayOfWeek } from '../../../backend/src/types';
 
 interface Props {
   shelter: NewShelterInput;
 }
 
 export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
-  // to do: change directions button func
+  const [showAllHours, setShowAllHours] = useState(false);
+
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
@@ -44,7 +46,6 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     JomhuriaRegular: require('../../assets/fonts/JomhuriaRegular.ttf'),
   });
 
-  // to do: change contact button func
   // for now, this gives the option to confirm if you want to call the shelter number
   // figure out how number/email maybe should be displayed?
   const handleContact = () => {
@@ -58,24 +59,83 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     });
   };
 
+  const getHoursForDay = (day: DayOfWeek) => {
+    if (!shelter.hours || !shelter.hours[day]) return 'Closed';
+    const dayHours = shelter.hours[day];
+    if (!dayHours || dayHours.is_closed) return 'Closed';
+    return `${formatTime(dayHours.opening_time)} - ${formatTime(
+      dayHours.closing_time
+    )}`;
+  };
+
+  const getCurrentDayHours = () => {
+    const today = new Date().getDay();
+    const dayIndex = today === 0 ? 6 : today - 1;
+    const daysEnum: DayOfWeek[] = [
+      DayOfWeek.MONDAY,
+      DayOfWeek.TUESDAY,
+      DayOfWeek.WEDNESDAY,
+      DayOfWeek.THURSDAY,
+      DayOfWeek.FRIDAY,
+      DayOfWeek.SATURDAY,
+      DayOfWeek.SUNDAY,
+    ];
+    return getHoursForDay(daysEnum[dayIndex]);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.shelterNameContainer}>
         <Text style={styles.shelterNameText}>{shelter.name}</Text>
       </View>
       <View style={styles.quickInfoContainer}>
-        <Text style={styles.quickInfoText}>
-          {/* added availability here instead of minutes away based on shelter.entity.ts */}
-          {shelter.overall_rating.toFixed(1)} STARS {/*{shelter.availability}*/}
-        </Text>
+        {shelter.rating !== undefined && (
+          <Text style={styles.quickInfoText}>
+            {shelter.rating.toFixed(1)} STARS
+          </Text>
+        )}
         <Text style={styles.quickInfoText}>
           {shelter.address.street}, {shelter.address.city},{' '}
           {shelter.address.state}{' '}
-          {/*{formatTime(shelter.opening_time)} -{' '}*/}
-          {/*{formatTime(shelter.closing_time)}*/}
         </Text>
-        {/* added availability here instead of short description on shelter.entity.ts */}
-        <Text style={styles.quickInfoText}>{shelter.availability}</Text>
+
+        <TouchableOpacity
+          style={styles.hoursContainer}
+          onPress={() => setShowAllHours(!showAllHours)}
+        >
+          <View style={styles.hoursRow}>
+            <Text style={styles.dayText}>Today:</Text>
+            <Text style={styles.hoursText}>{getCurrentDayHours()}</Text>
+            <Text
+              style={[
+                styles.dropdownArrow,
+                showAllHours && styles.dropdownArrowUp,
+              ]}
+            >
+              ▼
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        {showAllHours && (
+          <View style={styles.allHoursContainer}>
+            {Object.values(DayOfWeek).map((day) => (
+              <View key={day} style={styles.hoursRow}>
+                <Text style={styles.dayText}>{day}:</Text>
+                <Text
+                  style={[
+                    styles.hoursText,
+                    (!shelter.hours[day] || shelter.hours[day]?.is_closed) &&
+                      styles.closedText,
+                  ]}
+                >
+                  {getHoursForDay(day)}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
+
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -109,33 +169,6 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
       <View style={styles.fullReview}>
         <View style={styles.fullReviewTitleContainer}>
           <Text style={styles.fullReviewTitle}>BAGLY REVIEW</Text>
-        </View>
-        <View style={styles.reviews}>
-          <View style={styles.traits}>
-            <Text style={styles.traitText}>
-              Safety: {shelter.safety_rating}/5
-            </Text>
-            <Text style={styles.traitText}>
-              Inclusivity: {shelter.inclusivity_rating}/5
-            </Text>
-            {/* add other traits here */}
-            {/*<Text style={styles.traitText}>Trait 3</Text>*/}
-            {/*<Text style={styles.traitText}>Trait 4</Text>*/}
-            {/*<Text style={styles.traitText}>Trait 5</Text>*/}
-          </View>
-          <Image
-            style={styles.allOfThisIcon}
-            source={require('frontend/assets/AllOfThisIcon.png')}
-          />
-          <View style={styles.sumRating}>
-            <Text style={styles.sumRatingText}>
-              {shelter.overall_rating.toFixed(1)}
-            </Text>
-            <Image
-              style={styles.sumStarIcon}
-              source={require('frontend/assets/teenyicons_star-solid.png')}
-            />
-          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -271,41 +304,66 @@ const styles = StyleSheet.create({
     lineHeight: 64,
     color: darkMainColor,
   },
-  traits: {
-    width: 142,
+  hoursContainer: {
+    paddingVertical: 8,
+    marginVertical: 4,
   },
-  reviews: {
-    marginTop: 15,
+  hoursRow: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 2,
   },
-  traitText: {
-    height: 28,
+  dropdownArrow: {
+    fontSize: 12,
+    color: mainColor,
+    marginLeft: 8,
+  },
+  dropdownArrowUp: {
+    transform: [{ rotate: '180deg' }],
+  },
+  allHoursContainer: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: 8,
+    padding: 8,
+    marginTop: 4,
+  },
+  closedText: {
+    color: '#FF4444',
+  },
+  hoursSection: {
+    marginTop: 20,
+    marginLeft: 12,
+  },
+  dayHoursRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 4,
+  },
+  arrowButton: {
+    padding: 8,
+    marginLeft: 8,
+  },
+  arrow: {
+    color: mainColor,
+    fontSize: 12,
+  },
+  arrowUp: {
+    transform: [{ rotate: '180deg' }],
+  },
+  dayText: {
+    fontFamily: bodyFont,
     fontSize: 15,
+    fontWeight: '700',
+    color: descriptionFontColor,
+    marginRight: 14,
+    lineHeight: 21.59,
+    width: 60,
+  },
+  hoursText: {
     fontFamily: bodyFont,
     fontWeight: '700',
+    fontSize: 15,
+    color: mainColor,
     lineHeight: 21.59,
-    color: descriptionFontColor,
-    width: '100%',
-  },
-  allOfThisIcon: {
-    marginLeft: 24,
-  },
-  sumRating: {
-    flexDirection: 'row',
-    marginLeft: 19,
-    marginTop: 20,
-  },
-  sumRatingText: {
-    width: 84,
-    height: 82,
-    fontSize: 48,
-    fontFamily: bodyFont,
-    fontWeight: '400',
-    lineHeight: 58.09,
-  },
-  sumStarIcon: {
-    marginTop: 14,
   },
 });
