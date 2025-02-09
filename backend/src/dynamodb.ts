@@ -141,9 +141,12 @@ export class DynamoDbService {
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
     for(let i = 0; i<attributeNames.length; i++) {
-      UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;
-      ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
-      ExpressionAttributeValues[`:${attributeNames[i]}`] = {"S": attributeValues[i]};
+      let names = attributeNames[i].split('.');
+      for (let name in names) {
+        UpdateExpression += `#${name} = :${names[names.length - 1]}, `;
+        ExpressionAttributeNames[`#${name}`] = name;
+      }
+      ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
     }
 
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
