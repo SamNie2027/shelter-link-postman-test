@@ -15,4 +15,10 @@ export class ShelterController {
   public async getShelters() {
     return this.shelterService.getShelters();
   }
+
+  @Get(':shelterId')
+  public async getShelter(@Param('shelterId') shelterId: string) {
+    return this.shelterService.getShelter(shelterId);
+  }
 }
+
