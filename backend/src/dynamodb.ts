@@ -133,19 +133,21 @@ export class DynamoDbService {
 
     const existingItem = await this.getItem(tableName, Key);
     if (!existingItem) {
-    throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
+      throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
     }
 
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
     let UpdateExpression = "SET ";
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
-    for(let i = 0; i<attributeNames.length; i++) {
+    for(let i = 0; i < attributeNames.length; i++) {
       let names = attributeNames[i].split('.');
-      for (let name in names) {
-        UpdateExpression += `#${name} = :${names[names.length - 1]}, `;
+      for (let name of names) {
+        UpdateExpression += `#${name}.`
         ExpressionAttributeNames[`#${name}`] = name;
       }
+      UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
+      UpdateExpression += ` = :${names[names.length - 1]}, `;
       ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
     }
 

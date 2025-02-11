@@ -31,10 +31,10 @@ export class ShelterService {
         }
       } else if (key === 'hours') {
             for (const day in DayOfWeek) {
-              if (desiredUpdates.hours[day]['closing_time']) {
+              if (typeof desiredUpdates.hours[day]['closing_time'] !== 'undefined') {
                 buildAttributeNamesList.push(`hours.${day}.closing_time`);
                 buildAttributeValuesList.push(desiredUpdates.hours[day]['closing_time']);
-              } else if (desiredUpdates.hours[day]['opening_time']) {
+              } else if (typeof desiredUpdates.hours[day]['opening_time'] !== 'undefined') {
                 buildAttributeNamesList.push(`hours.${day}.opening_time`);
                 buildAttributeValuesList.push(desiredUpdates.hours[day]['opening_time']);
               }
