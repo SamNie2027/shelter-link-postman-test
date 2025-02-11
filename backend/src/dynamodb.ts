@@ -148,7 +148,18 @@ export class DynamoDbService {
       }
       UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
       UpdateExpression += ` = :${names[names.length - 1]}, `;
-      ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
+      if (attributeValues[i].includes("[\"") && attributeValues[i].includes("\"]")) {
+        let nestedList = attributeValues[i].substring(3, attributeValues[i].length - 3).split("\",\"");
+        if (nestedList.length === 1) {
+          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}]};
+        } else if (nestedList.length === 2) {
+          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}, {"S": nestedList[1]}]};
+        } else if (nestedList.length === 3) {
+          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}, {"S": nestedList[1]}, {"S": nestedList[2]}]};
+        }
+      } else {
+        ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
+      }
     }
 
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);

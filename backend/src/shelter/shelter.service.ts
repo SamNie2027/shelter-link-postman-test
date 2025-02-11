@@ -31,17 +31,23 @@ export class ShelterService {
         }
       } else if (key === 'hours') {
             for (const day in DayOfWeek) {
-              if (typeof desiredUpdates.hours[day]['closing_time'] !== 'undefined') {
-                buildAttributeNamesList.push(`hours.${day}.closing_time`);
-                buildAttributeValuesList.push(desiredUpdates.hours[day]['closing_time']);
-              } else if (typeof desiredUpdates.hours[day]['opening_time'] !== 'undefined') {
-                buildAttributeNamesList.push(`hours.${day}.opening_time`);
-                buildAttributeValuesList.push(desiredUpdates.hours[day]['opening_time']);
+              const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
+              // Note: Unfortunately typescript will throw an error if I start by checking 
+              // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
+              if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
+                if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
+                  buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
+                  buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
+                } else if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
+                  buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
+                  buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
+                }
               }
             };
-      } else {
+      }
+      else {
         buildAttributeNamesList.push(key);
-        buildAttributeValuesList.push(desiredUpdates[key]);
+        buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
       }
     try {
       const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId, 
