@@ -107,6 +107,32 @@ export class DynamoDbService {
   }
 
   /**
+   * Handles a singular entry in update expression given the current index is on a list
+   * @param i the current index
+   * @param attributeNames exact same value as passed in updateAttributes
+   * @param attributeValues exact same value as passed in updateAttributes
+   */
+  private static updateAttributesHandleList(i: number, currVal: string, ExpressionAttributeValues, names: string[]) {
+    let nestedList = currVal.substring(2, currVal.toString().length - 3).split("\",\"");
+
+    // Value as a list, I tried building onto an object dynamically so these 
+    // lengths don't need to be checked like this but that didn't seem to work.
+    if (nestedList.length === 1) {
+      ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "L": [{ "S": nestedList[0] }] };
+    } else if (nestedList.length === 2) {
+      ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
+        "L":
+          [{ "S": nestedList[0] }, { "S": nestedList[1] }]
+      };
+    } else if (nestedList.length === 3) {
+      ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
+        "L":
+          [{ "S": nestedList[0] }, { "S": nestedList[1] }, { "S": nestedList[2] }]
+      };
+    }
+  }
+
+  /**
    * Updates the attribute of the specified name to the specified value
    * within the table
    * @param tableName Name of the table
@@ -169,23 +195,7 @@ export class DynamoDbService {
 
         //Checking to see if a list was passed in as a value
         if (currVal.toString().includes("[\"") && currVal.toString().includes("\"]")) {
-          let nestedList = currVal.substring(2, currVal.toString().length - 3).split("\",\"");
-
-          // Value as a list, I tried building onto an object dynamically so these 
-          // lengths don't need to be checked like this but that didn't seem to work.
-          if (nestedList.length === 1) {
-            ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "L": [{ "S": nestedList[0] }] };
-          } else if (nestedList.length === 2) {
-            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
-              "L":
-                [{ "S": nestedList[0] }, { "S": nestedList[1] }]
-            };
-          } else if (nestedList.length === 3) {
-            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
-              "L":
-                [{ "S": nestedList[0] }, { "S": nestedList[1] }, { "S": nestedList[2] }]
-            };
-          }
+          DynamoDbService.updateAttributesHandleList(i, currVal, ExpressionAttributeValues, names);
         } else {
           //Non-list case, still includes nested values
           if (closeOrOpenTimeCount === 0) {

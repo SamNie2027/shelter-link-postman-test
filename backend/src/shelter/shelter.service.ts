@@ -10,6 +10,54 @@ export class ShelterService {
   constructor(private readonly dynamoDbService: DynamoDbService) { }
 
   /**
+   * Handles what values to push given the key within updateShelter is of type 'address'
+   * @param buildAttributeNamesList Reference type 
+   * @param buildAttributeValuesList Reference type
+   */
+  private static updateShelterHandleAddress(buildAttributeNamesList: string[],
+    buildAttributeValuesList: (string | number)[],
+    desiredUpdates: ShelterUpdateModel) {
+    const addressFields = ["city", "country", "state", "street", "zipCode"];
+    //within the address key, adding each field specified
+    for (const field of addressFields) {
+      if (desiredUpdates.address[field]) {
+        buildAttributeNamesList.push(`address.${field}`);
+        buildAttributeValuesList.push(desiredUpdates.address[field]);
+      }
+    }
+  }
+
+  /**
+ * Handles what values to push given the key within updateShelter is of type 'address'
+ * @param buildAttributeNamesList Reference type 
+ * @param buildAttributeValuesList Reference type
+ */
+  private static updateShelterHandleHours(buildAttributeNamesList: string[],
+    buildAttributeValuesList: (string | number)[],
+    desiredUpdates: ShelterUpdateModel) {
+    // within the hours key, checking each day to see if it is specified, and if so,
+    // then checking to see if closing_time and/or opening_time are defined and adding them
+    for (const day in DayOfWeek) {
+      // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
+      const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
+
+      // Note: Unfortunately typescript will throw an error if I start by checking 
+      // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
+      if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
+        if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
+          buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
+          buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
+        }
+        if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
+          buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
+          buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
+        }
+      }
+    };
+  }
+
+
+  /**
    * Update desired fields in the shelter of the id in the database
    * @param shelterId The id of the shelter to update
    * @param desiredUpdates Object containing the desired fields and values to update
@@ -18,38 +66,13 @@ export class ShelterService {
     let buildAttributeNamesList: string[] = []; //names of the fields
     let buildAttributeValuesList: (string | number)[] = []; //desired values to update
 
-    const addressFields = ["city", "country", "state", "street", "zipCode"];
     for (let key in desiredUpdates) {
       if (key === 'shelterId') {
         continue;
       } else if (key === 'address') { //checking the top level key
-        //within the address key, adding each field specified
-        for (const field of addressFields) {
-          if (desiredUpdates.address[field]) {
-            buildAttributeNamesList.push(`address.${field}`);
-            buildAttributeValuesList.push(desiredUpdates.address[field]);
-          }
-        }
+        ShelterService.updateShelterHandleAddress(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
       } else if (key === 'hours') { //checking the top level key
-        // within the hours key, checking each day to see if it is specified, and if so,
-        // then checking to see if closing_time and/or opening_time are defined and adding them
-        for (const day in DayOfWeek) {
-          // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
-          const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
-
-          // Note: Unfortunately typescript will throw an error if I start by checking 
-          // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
-          if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
-            if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
-              buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
-              buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
-            } 
-            if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
-              buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
-              buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
-            }
-          }
-        };
+        ShelterService.updateShelterHandleHours(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
       } else {
         // top level keys with no nesting
         buildAttributeNamesList.push(key);
@@ -76,19 +99,19 @@ export class ShelterService {
         if (e.message.includes("The document path provided in the update expression is invalid for update")) {
           let result;
           let curr = 0;
-          while (buildAttributeNamesList.length/3 > 0) {
+          while (buildAttributeNamesList.length / 3 > 0) {
             result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
               buildAttributeNamesList.slice(curr, curr + 3), buildAttributeValuesList.slice(curr, curr + 3));
-              curr += 3;
+            curr += 3;
           }
-          if (buildAttributeNamesList.slice(curr).length > 0 ) {
+          if (buildAttributeNamesList.slice(curr).length > 0) {
             result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
               buildAttributeNamesList.slice(curr), buildAttributeValuesList.slice(curr));
           }
           return result
         }
       }
-      
+
       throw new Error('Unable to update new shelter: ' + e);
     }
   }
