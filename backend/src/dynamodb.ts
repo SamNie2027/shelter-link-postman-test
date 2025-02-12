@@ -136,6 +136,8 @@ export class DynamoDbService {
       throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
     }
 
+    let closeOrOpenTimeCount = 0;
+
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
     // Looping through the input and adding to the update expression so everything is updated in one call
     let UpdateExpression = "SET ";
@@ -157,9 +159,13 @@ export class DynamoDbService {
         //Remove the last . in the update expression: e.g. item1.item2. -> item1.item2
         UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
 
+        if (closeOrOpenTimeCount === 0) {
         //Value alias which is named just for the very last item in the map, so
         //it will look like item1.item2 = :item2, 
         UpdateExpression += ` = :${names[names.length - 1]}, `;
+        } else {
+          UpdateExpression += ` = :${names[names.length - 1]}${closeOrOpenTimeCount}, `;
+        }
 
         //Checking to see if a list was passed in as a value
         if (currVal.toString().includes("[\"") && currVal.toString().includes("\"]")) {
@@ -182,7 +188,12 @@ export class DynamoDbService {
           }
         } else {
           //Non-list case, still includes nested values
-          ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "S": attributeValues[i] };
+          if (closeOrOpenTimeCount === 0) {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "S": attributeValues[i] };
+          } else {
+            ExpressionAttributeValues[`:${names[names.length - 1]}${closeOrOpenTimeCount}`] = { "S": attributeValues[i] };
+          }
+          closeOrOpenTimeCount++;
         }
       } else {
         //number cases; data inputted still needs quotation marks

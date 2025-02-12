@@ -43,7 +43,8 @@ export class ShelterService {
             if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
               buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
               buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
-            } else if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
+            } 
+            if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
               buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
               buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
             }
