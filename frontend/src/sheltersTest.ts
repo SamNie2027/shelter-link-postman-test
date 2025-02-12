@@ -23,37 +23,27 @@ export const ExampleShelters: NewShelterInput[] = [
       [DayOfWeek.MONDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
-      [DayOfWeek.TUESDAY]: {
-        opening_time: '09:00:00',
-        closing_time: '21:00:00',
-        is_closed: true,
-      },
+      [DayOfWeek.TUESDAY]: null,
       [DayOfWeek.WEDNESDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
       [DayOfWeek.THURSDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
       [DayOfWeek.FRIDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
       [DayOfWeek.SATURDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
       [DayOfWeek.SUNDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
       },
     },
     picture: [
