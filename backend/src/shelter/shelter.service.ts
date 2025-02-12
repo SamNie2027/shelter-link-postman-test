@@ -7,7 +7,7 @@ import { DayOfWeek } from '../types';
 @Injectable()
 export class ShelterService {
   private readonly tableName = 'shelterlinkShelters';
-  constructor(private readonly dynamoDbService: DynamoDbService) {}
+  constructor(private readonly dynamoDbService: DynamoDbService) { }
 
   /**
    * Update desired fields in the shelter of the id in the database
@@ -33,22 +33,22 @@ export class ShelterService {
       } else if (key === 'hours') { //checking the top level key
         // within the hours key, checking each day to see if it is specified, and if so,
         // then checking to see if closing_time and/or opening_time are defined and adding them
-            for (const day in DayOfWeek) {
-              // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
-              const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
+        for (const day in DayOfWeek) {
+          // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
+          const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
 
-              // Note: Unfortunately typescript will throw an error if I start by checking 
-              // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
-              if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
-                if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
-                  buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
-                  buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
-                } else if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
-                  buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
-                  buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
-                }
-              }
-            };
+          // Note: Unfortunately typescript will throw an error if I start by checking 
+          // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
+          if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
+            if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
+              buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
+              buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
+            } else if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
+              buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
+              buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
+            }
+          }
+        };
       } else {
         // top level keys with no nesting
         buildAttributeNamesList.push(key);
@@ -60,10 +60,11 @@ export class ShelterService {
           buildAttributeValuesList.push(desiredUpdates[key]);
         }
       }
+    }
     try {
-      const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId, 
+      const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
         buildAttributeNamesList, buildAttributeValuesList);
-      return { result } ;
+      return { result };
     } catch (e) {
       // NotFoundException gets passed up from dynamodb.ts since I found that with 
       // returning non-boolean data I couldn't check at the controller level
@@ -72,7 +73,6 @@ export class ShelterService {
       }
       throw new Error('Unable to update new shelter: ' + e);
     }
-  }
   }
 
   /**
@@ -150,59 +150,59 @@ export class ShelterService {
         M: {
           Monday: input.hours.Monday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Monday.opening_time },
-                  closing_time: { S: input.hours.Monday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Monday.opening_time },
+                closing_time: { S: input.hours.Monday.closing_time },
+              },
+            }
             : null,
           Tuesday: input.hours.Tuesday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Tuesday.opening_time },
-                  closing_time: { S: input.hours.Tuesday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Tuesday.opening_time },
+                closing_time: { S: input.hours.Tuesday.closing_time },
+              },
+            }
             : null,
           Wednesday: input.hours.Wednesday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Wednesday.opening_time },
-                  closing_time: { S: input.hours.Wednesday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Wednesday.opening_time },
+                closing_time: { S: input.hours.Wednesday.closing_time },
+              },
+            }
             : null,
           Thursday: input.hours.Thursday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Thursday.opening_time },
-                  closing_time: { S: input.hours.Thursday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Thursday.opening_time },
+                closing_time: { S: input.hours.Thursday.closing_time },
+              },
+            }
             : null,
           Friday: input.hours.Friday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Friday.opening_time },
-                  closing_time: { S: input.hours.Friday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Friday.opening_time },
+                closing_time: { S: input.hours.Friday.closing_time },
+              },
+            }
             : null,
           Saturday: input.hours.Saturday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Saturday.opening_time },
-                  closing_time: { S: input.hours.Saturday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Saturday.opening_time },
+                closing_time: { S: input.hours.Saturday.closing_time },
+              },
+            }
             : null,
           Sunday: input.hours.Sunday
             ? {
-                M: {
-                  opening_time: { S: input.hours.Sunday.opening_time },
-                  closing_time: { S: input.hours.Sunday.closing_time },
-                },
-              }
+              M: {
+                opening_time: { S: input.hours.Sunday.opening_time },
+                closing_time: { S: input.hours.Sunday.closing_time },
+              },
+            }
             : null,
         },
       },
@@ -244,45 +244,45 @@ export class ShelterService {
       hours: {
         Monday: input.hours.M.Monday
           ? {
-              opening_time: input.hours.M.Monday.M.opening_time.S,
-              closing_time: input.hours.M.Monday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Monday.M.opening_time.S,
+            closing_time: input.hours.M.Monday.M.closing_time.S,
+          }
           : null,
         Tuesday: input.hours.M.Tuesday
           ? {
-              opening_time: input.hours.M.Tuesday.M.opening_time.S,
-              closing_time: input.hours.M.Tuesday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Tuesday.M.opening_time.S,
+            closing_time: input.hours.M.Tuesday.M.closing_time.S,
+          }
           : null,
         Wednesday: input.hours.M.Wednesday
           ? {
-              opening_time: input.hours.M.Wednesday.M.opening_time.S,
-              closing_time: input.hours.M.Wednesday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Wednesday.M.opening_time.S,
+            closing_time: input.hours.M.Wednesday.M.closing_time.S,
+          }
           : null,
         Thursday: input.hours.M.Thursday
           ? {
-              opening_time: input.hours.M.Thursday.M.opening_time.S,
-              closing_time: input.hours.M.Thursday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Thursday.M.opening_time.S,
+            closing_time: input.hours.M.Thursday.M.closing_time.S,
+          }
           : null,
         Friday: input.hours.M.Friday
           ? {
-              opening_time: input.hours.M.Friday.M.opening_time.S,
-              closing_time: input.hours.M.Friday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Friday.M.opening_time.S,
+            closing_time: input.hours.M.Friday.M.closing_time.S,
+          }
           : null,
         Saturday: input.hours.M.Saturday
           ? {
-              opening_time: input.hours.M.Saturday.M.opening_time.S,
-              closing_time: input.hours.M.Saturday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Saturday.M.opening_time.S,
+            closing_time: input.hours.M.Saturday.M.closing_time.S,
+          }
           : null,
         Sunday: input.hours.M.Sunday
           ? {
-              opening_time: input.hours.M.Sunday.M.opening_time.S,
-              closing_time: input.hours.M.Sunday.M.closing_time.S,
-            }
+            opening_time: input.hours.M.Sunday.M.opening_time.S,
+            closing_time: input.hours.M.Sunday.M.closing_time.S,
+          }
           : null,
       },
       picture: input.picture.L.map((url: { S: string }) => url.S),
