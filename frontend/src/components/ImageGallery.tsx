@@ -1,10 +1,4 @@
-import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { darkMainColor } from '../../constants';
 
@@ -14,17 +8,22 @@ interface ImageGalleryProps {
 
 export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   const [currentPage, setCurrentPage] = useState(0);
+  // total num of "pages" for the carousel (each page holds max two images)
   const totalPages = Math.ceil(images.length / 2);
 
   const handleNext = () => {
+    // if there r more pages to scroll right
     if (currentPage < totalPages - 1) {
-      setCurrentPage(curr => curr + 1);
+      // assign current page val to be next page
+      setCurrentPage((curr) => curr + 1);
     }
   };
 
   const handlePrev = () => {
+    // if there r more pages to scroll left
     if (currentPage > 0) {
-      setCurrentPage(curr => curr - 1);
+      // assign current page val to be next page
+      setCurrentPage((curr) => curr - 1);
     }
   };
 
@@ -33,6 +32,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
 
   return (
     <View style={styles.galleryContainer}>
+      {/* renders left arrow button if there are any more pages in that direction */}
       {currentPage > 0 && (
         <TouchableOpacity
           style={[styles.navButton, styles.leftButton]}
@@ -42,6 +42,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         </TouchableOpacity>
       )}
 
+      {/* renders images for current page */}
       <View style={styles.imagesContainer}>
         {currentImages.map((url, index) => (
           <Image
@@ -52,6 +53,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         ))}
       </View>
 
+      {/* renders right arrow button if there are any more pages in that direction */}
       {currentPage < totalPages - 1 && (
         <TouchableOpacity
           style={[styles.navButton, styles.rightButton]}
