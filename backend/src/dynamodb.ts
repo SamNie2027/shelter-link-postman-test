@@ -105,7 +105,7 @@ export class DynamoDbService {
       throw new Error(`Unable to get item from ${tableName}: ${error.message}`);
     }
   }
-  
+
   /**
    * Updates the attribute of the specified name to the specified value
    * within the table
@@ -117,18 +117,19 @@ export class DynamoDbService {
    *                      For lists, must have format "[\"item1\", \"item2\", ... ]" 
    * @param attributeValue The desired new value of the attribute
    */
-  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: string[]) {
+  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: (string | number)[]) {
     if (attributeNames.length !== attributeValues.length) {
       const err = `Error updating attributes of shelter ${shelterId} to table ${tableName}: 
         attributeNames and attributeValues must be the same length`;
       console.log(err);
-      throw new Error (err)
+      throw new Error(err)
     }
-    
+
     const Key = {
       shelterId: {
         S: shelterId + ""
-    }};
+      }
+    };
 
     const existingItem = await this.getItem(tableName, Key);
     if (!existingItem) {
@@ -140,48 +141,60 @@ export class DynamoDbService {
     let UpdateExpression = "SET ";
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
-    for(let i = 0; i < attributeNames.length; i++) {
-      // each variable in a map: e.g. item1.item2 have to have 
-      // separate aliases, which is why it is split up and defined here
-      let names = attributeNames[i].split('.');
-      for (let name of names) {
-        UpdateExpression += `#${name}.`
-        ExpressionAttributeNames[`#${name}`] = name;
-      }
+    for (let i = 0; i < attributeNames.length; i++) {
+      //non-number cases
+      if (typeof attributeValues[i] === 'string') {
+        let currVal = attributeValues[i] as string
 
-      //Remove the last . in the update expression: e.g. item1.item2. -> item1.item2
-      UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
+        // each variable in a map: e.g. item1.item2 have to have 
+        // separate aliases, which is why it is split up and defined here
+        let names = attributeNames[i].split('.');
+        for (let name of names) {
+          UpdateExpression += `#${name}.`
+          ExpressionAttributeNames[`#${name}`] = name;
+        }
 
-      //Value alias which is named just for the very last item in the map, so
-      //it will look like item1.item2 = :item2, 
-      UpdateExpression += ` = :${names[names.length - 1]}, `;
-      //Checking to see if a list was passed in as a value
-      if (attributeValues[i].includes("[\"") && attributeValues[i].includes("\"]")) {
-        let nestedList = attributeValues[i].substring(2, attributeValues[i].length - 3).split("\",\"");
+        //Remove the last . in the update expression: e.g. item1.item2. -> item1.item2
+        UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
 
-        // Value as a list, I tried building onto an object dynamically so these 
-        // lengths don't need to be checked like this but that didn't seem to work.
-        if (nestedList.length === 1) {
-          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}]};
-        } else if (nestedList.length === 2) {
-          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}, {"S": nestedList[1]}]};
-        } else if (nestedList.length === 3) {
-          ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}, {"S": nestedList[1]}, {"S": nestedList[2]}]};
+        //Value alias which is named just for the very last item in the map, so
+        //it will look like item1.item2 = :item2, 
+        UpdateExpression += ` = :${names[names.length - 1]}, `;
+
+        //Checking to see if a list was passed in as a value
+        if (currVal.toString().includes("[\"") && currVal.toString().includes("\"]")) {
+          let nestedList = currVal.substring(2, currVal.toString().length - 3).split("\",\"");
+
+          // Value as a list, I tried building onto an object dynamically so these 
+          // lengths don't need to be checked like this but that didn't seem to work.
+          if (nestedList.length === 1) {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "L": [{ "S": nestedList[0] }] };
+          } else if (nestedList.length === 2) {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
+              "L":
+                [{ "S": nestedList[0] }, { "S": nestedList[1] }]
+            };
+          } else if (nestedList.length === 3) {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {
+              "L":
+                [{ "S": nestedList[0] }, { "S": nestedList[1] }, { "S": nestedList[2] }]
+            };
+          }
+        } else {
+          //Non-list case, still includes nested values
+          ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "S": attributeValues[i] };
         }
       } else {
-        if (names[names.length - 1] === 'latitude' 
-          || names[names.length - 1] === 'longitude' 
-          || names[names.length - 1] === 'rating') {
-            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"N": attributeValues[i]};
-          } else {
-            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
-          }
+        //number cases; data inputted still needs quotation marks
+        UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;
+        ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
+        ExpressionAttributeValues[`:${attributeNames[i]}`] = { "N": `${attributeValues[i]}` };
       }
     }
 
     //Removing the trailing comma -> e.g. "..., item1.item2 = :item2, " -> "..., item1.item2 = :item2"
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
-    
+
     console.log(`Attribute Names (input): ${attributeNames}`);
     console.log(`Attribute Values (input): ${attributeValues}`);
     console.log(`Table Name: ${tableName}`);
@@ -192,7 +205,7 @@ export class DynamoDbService {
     console.log(`Key: ${JSON.stringify(Key)}`);
 
     const command = new UpdateItemCommand({
-      TableName : tableName,
+      TableName: tableName,
       ReturnValues: "UPDATED_NEW",
       Key,
       UpdateExpression,

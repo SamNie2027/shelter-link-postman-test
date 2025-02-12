@@ -16,7 +16,7 @@ export class ShelterService {
    */
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
     let buildAttributeNamesList: string[] = []; //names of the fields
-    let buildAttributeValuesList: string[] = []; //desired values to update
+    let buildAttributeValuesList: (string | number)[] = []; //desired values to update
 
     const addressFields = ["city", "country", "state", "street", "zipCode"];
     for (let key in desiredUpdates) {
@@ -52,7 +52,7 @@ export class ShelterService {
       } else {
         // top level keys with no nesting
         buildAttributeNamesList.push(key);
-        
+
         if (key === 'picture') {
           //entire list is updated as one item
           buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
