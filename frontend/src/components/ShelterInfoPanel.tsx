@@ -15,8 +15,6 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
     return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
   };
 
-
-
   return (
     <View style={[styles.panel, style]}>
       <View style={styles.topRowItems}>
