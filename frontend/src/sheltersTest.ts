@@ -28,7 +28,7 @@ export const ExampleShelters: NewShelterInput[] = [
       [DayOfWeek.TUESDAY]: {
         opening_time: '09:00:00',
         closing_time: '21:00:00',
-        is_closed: false,
+        is_closed: true,
       },
       [DayOfWeek.WEDNESDAY]: {
         opening_time: '09:00:00',
@@ -58,6 +58,9 @@ export const ExampleShelters: NewShelterInput[] = [
     },
     picture: [
       'https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
+      'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
       'https://www.bostonherald.com/wp-content/uploads/2020/07/best018.jpg?w=978',
     ],
   },

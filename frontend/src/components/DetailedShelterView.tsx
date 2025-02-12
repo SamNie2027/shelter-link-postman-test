@@ -1,5 +1,4 @@
 import {
-  Image,
   Linking,
   SafeAreaView,
   StyleSheet,
@@ -7,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   backgroundColor,
   headerFont,
@@ -20,14 +19,14 @@ import {
 import { useFonts } from 'expo-font';
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 import { DayOfWeek } from '../../../backend/src/types';
+import { ImageGallery } from './ImageGallery';
+import { HoursDropdown } from './HoursDropdown';
 
 interface Props {
   shelter: NewShelterInput;
 }
 
 export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
-  const [showAllHours, setShowAllHours] = useState(false);
-
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
@@ -68,6 +67,21 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     )}`;
   };
 
+  const getCurrentDay = () => {
+    const today = new Date().getDay();
+    const dayIndex = today === 0 ? 6 : today - 1;
+    const daysEnum: DayOfWeek[] = [
+      DayOfWeek.MONDAY,
+      DayOfWeek.TUESDAY,
+      DayOfWeek.WEDNESDAY,
+      DayOfWeek.THURSDAY,
+      DayOfWeek.FRIDAY,
+      DayOfWeek.SATURDAY,
+      DayOfWeek.SUNDAY,
+    ];
+    return daysEnum[dayIndex];
+  };
+
   const getCurrentDayHours = () => {
     const today = new Date().getDay();
     const dayIndex = today === 0 ? 6 : today - 1;
@@ -83,6 +97,11 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     return getHoursForDay(daysEnum[dayIndex]);
   };
 
+  const hoursData = Object.values(DayOfWeek).map((day) => ({
+    label: `${day}: ${getHoursForDay(day)}`,
+    value: day,
+  }));
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.shelterNameContainer}>
@@ -91,7 +110,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
       <View style={styles.quickInfoContainer}>
         {shelter.rating !== undefined && (
           <Text style={styles.quickInfoText}>
-            {shelter.rating.toFixed(1)} STARS
+            {shelter.rating.toFixed(1)} ★ ★ ★ ★ ★
           </Text>
         )}
         <Text style={styles.quickInfoText}>
@@ -99,43 +118,16 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
           {shelter.address.state}{' '}
         </Text>
 
-        <TouchableOpacity
-          style={styles.hoursContainer}
-          onPress={() => setShowAllHours(!showAllHours)}
-        >
-          <View style={styles.hoursRow}>
-            <Text style={styles.dayText}>Today:</Text>
-            <Text style={styles.hoursText}>{getCurrentDayHours()}</Text>
-            <Text
-              style={[
-                styles.dropdownArrow,
-                showAllHours && styles.dropdownArrowUp,
-              ]}
-            >
-              ▼
-            </Text>
+        <View style={styles.hoursRow}>
+          <Text style={styles.dayText}>{getCurrentDay()}:</Text>
+          <View style={styles.hoursStatusContainer}>
+            <HoursDropdown
+              currentDay={getCurrentDay()}
+              currentHours={getCurrentDayHours()}
+              hoursData={hoursData}
+            />
           </View>
-        </TouchableOpacity>
-
-        {showAllHours && (
-          <View style={styles.allHoursContainer}>
-            {Object.values(DayOfWeek).map((day) => (
-              <View key={day} style={styles.hoursRow}>
-                <Text style={styles.dayText}>{day}:</Text>
-                <Text
-                  style={[
-                    styles.hoursText,
-                    (!shelter.hours[day] || shelter.hours[day]?.is_closed) &&
-                      styles.closedText,
-                  ]}
-                >
-                  {getHoursForDay(day)}
-                </Text>
-              </View>
-            ))}
-          </View>
-        )}
-
+        </View>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -157,13 +149,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.images}>
-        {shelter.picture.slice(0, 2).map((url, index) => (
-          <Image
-            key={index}
-            source={{ uri: url }}
-            style={styles.shelterImage}
-          />
-        ))}
+        <ImageGallery images={shelter.picture} />
       </View>
       <Text style={styles.shelterDescription}>{shelter.description}</Text>
       <View style={styles.fullReview}>
@@ -179,11 +165,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: backgroundColor,
-  },
-  logoContainer: {
-    alignItems: 'flex-start',
-    paddingLeft: 12,
-    paddingTop: 9,
   },
   shelterNameContainer: {
     height: 44,
@@ -213,7 +194,6 @@ const styles = StyleSheet.create({
     lineHeight: 21.59,
   },
   buttonsContainer: {
-    marginTop: 19,
     marginLeft: 15,
     flexDirection: 'row',
     width: '100%',
@@ -304,22 +284,9 @@ const styles = StyleSheet.create({
     lineHeight: 64,
     color: darkMainColor,
   },
-  hoursContainer: {
-    paddingVertical: 8,
-    marginVertical: 4,
-  },
   hoursRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 2,
-  },
-  dropdownArrow: {
-    fontSize: 12,
-    color: mainColor,
-    marginLeft: 8,
-  },
-  dropdownArrowUp: {
-    transform: [{ rotate: '180deg' }],
   },
   allHoursContainer: {
     backgroundColor: '#F9F9F9',
@@ -328,27 +295,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   closedText: {
-    color: '#FF4444',
-  },
-  hoursSection: {
-    marginTop: 20,
-    marginLeft: 12,
-  },
-  dayHoursRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 4,
-  },
-  arrowButton: {
-    padding: 8,
-    marginLeft: 8,
+    fontFamily: bodyFont,
+    color: darkMainColor,
+    fontWeight: 700,
   },
   arrow: {
     color: mainColor,
     fontSize: 12,
-  },
-  arrowUp: {
-    transform: [{ rotate: '180deg' }],
   },
   dayText: {
     fontFamily: bodyFont,
@@ -357,7 +310,6 @@ const styles = StyleSheet.create({
     color: descriptionFontColor,
     marginRight: 14,
     lineHeight: 21.59,
-    width: 60,
   },
   hoursText: {
     fontFamily: bodyFont,
@@ -365,5 +317,32 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: mainColor,
     lineHeight: 21.59,
+  },
+  hoursStatusContainer: {
+    overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  hoursDropdown: {
+    height: 36,
+    minWidth: 120,
+    paddingHorizontal: 12,
+    paddingRight: 50,
+  },
+  redArrow: {
+    color: darkMainColor,
+    fontSize: 17,
+    marginLeft: 4,
+  },
+  placeholderStyle: {
+    fontFamily: bodyFont,
+    fontSize: 15,
+    color: darkMainColor,
+  },
+  dropdownContainer: {
+    backgroundColor: 'white',
+    borderColor: '#007AFF',
+    borderWidth: 1,
+    marginTop: 4,
   },
 });
