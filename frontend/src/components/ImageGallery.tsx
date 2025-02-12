@@ -64,21 +64,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   );
 };
 
-// // Update the DetailedShelterView to use the new ImageGallery
-// export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
-//   // ... previous code remains the same
-//
-//   return (
-//     <SafeAreaView style={styles.safeArea}>
-//       {/* ... previous components remain the same */}
-//       <View style={styles.images}>
-//         <ImageGallery images={shelter.picture} />
-//       </View>
-//       {/* ... rest of the components remain the same */}
-//     </SafeAreaView>
-//   );
-// };
-
 const styles = StyleSheet.create({
   galleryContainer: {
     flexDirection: 'row',

@@ -55,7 +55,6 @@ export const HoursDropdown = ({
               styles.dropdownContainer,
               {
                 position: 'absolute',
-                //set these dynamically in a real implementation
                 top: 150,
               },
             ]}
