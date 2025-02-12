@@ -15,23 +15,28 @@ export class ShelterService {
    * @param desiredUpdates Object containing the desired fields and values to update
    */
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
-    let buildAttributeNamesList: string[] = [];
-    let buildAttributeValuesList: string[] = [];
+    let buildAttributeNamesList: string[] = []; //names of the fields
+    let buildAttributeValuesList: string[] = []; //desired values to update
 
     const addressFields = ["city", "country", "state", "street", "zipCode"];
     for (let key in desiredUpdates) {
       if (key === 'shelterId') {
         continue;
-      } else if (key === 'address') {
+      } else if (key === 'address') { //checking the top level key
+        //within the address key, adding each field specified
         for (const field of addressFields) {
           if (desiredUpdates.address[field]) {
             buildAttributeNamesList.push(`address.${field}`);
             buildAttributeValuesList.push(desiredUpdates.address[field]);
           }
         }
-      } else if (key === 'hours') {
+      } else if (key === 'hours') { //checking the top level key
+        // within the hours key, checking each day to see if it is specified, and if so,
+        // then checking to see if closing_time and/or opening_time are defined and adding them
             for (const day in DayOfWeek) {
+              // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
               const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
+
               // Note: Unfortunately typescript will throw an error if I start by checking 
               // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
               if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
@@ -44,16 +49,24 @@ export class ShelterService {
                 }
               }
             };
-      }
-      else {
+      } else {
+        // top level keys with no nesting
         buildAttributeNamesList.push(key);
-        buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
+        
+        if (key === 'picture') {
+          //entire list is updated as one item
+          buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
+        } else {
+          buildAttributeValuesList.push(desiredUpdates[key]);
+        }
       }
     try {
       const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId, 
         buildAttributeNamesList, buildAttributeValuesList);
       return { result } ;
     } catch (e) {
+      // NotFoundException gets passed up from dynamodb.ts since I found that with 
+      // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
         throw e;
       }

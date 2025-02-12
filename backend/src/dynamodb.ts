@@ -114,7 +114,7 @@ export class DynamoDbService {
    * @param attributeName The name of the attribute:
    *                      Must be given with its parent separated by periods, 
    *                      e.g. "address.zipCode", "hours.Sunday.closing_time".
-   *                      For lists, must also include index, e.g. "picture[0]"
+   *                      For lists, must have format "[\"item1\", \"item2\", ... ]" 
    * @param attributeValue The desired new value of the attribute
    */
   public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: string[]) {
@@ -124,7 +124,6 @@ export class DynamoDbService {
       console.log(err);
       throw new Error (err)
     }
-
     
     const Key = {
       shelterId: {
@@ -137,19 +136,31 @@ export class DynamoDbService {
     }
 
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
+    // Looping through the input and adding to the update expression so everything is updated in one call
     let UpdateExpression = "SET ";
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
     for(let i = 0; i < attributeNames.length; i++) {
+      // each variable in a map: e.g. item1.item2 have to have 
+      // separate aliases, which is why it is split up and defined here
       let names = attributeNames[i].split('.');
       for (let name of names) {
         UpdateExpression += `#${name}.`
         ExpressionAttributeNames[`#${name}`] = name;
       }
+
+      //Remove the last . in the update expression: e.g. item1.item2. -> item1.item2
       UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
+
+      //Value alias which is named just for the very last item in the map, so
+      //it will look like item1.item2 = :item2, 
       UpdateExpression += ` = :${names[names.length - 1]}, `;
+      //Checking to see if a list was passed in as a value
       if (attributeValues[i].includes("[\"") && attributeValues[i].includes("\"]")) {
-        let nestedList = attributeValues[i].substring(3, attributeValues[i].length - 3).split("\",\"");
+        let nestedList = attributeValues[i].substring(2, attributeValues[i].length - 3).split("\",\"");
+
+        // Value as a list, I tried building onto an object dynamically so these 
+        // lengths don't need to be checked like this but that didn't seem to work.
         if (nestedList.length === 1) {
           ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}]};
         } else if (nestedList.length === 2) {
@@ -158,10 +169,17 @@ export class DynamoDbService {
           ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"L": [{"S": nestedList[0]}, {"S": nestedList[1]}, {"S": nestedList[2]}]};
         }
       } else {
-        ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
+        if (names[names.length - 1] === 'latitude' 
+          || names[names.length - 1] === 'longitude' 
+          || names[names.length - 1] === 'rating') {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"N": attributeValues[i]};
+          } else {
+            ExpressionAttributeValues[`:${names[names.length - 1]}`] = {"S": attributeValues[i]};
+          }
       }
     }
 
+    //Removing the trailing comma -> e.g. "..., item1.item2 = :item2, " -> "..., item1.item2 = :item2"
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
     
     console.log(`Attribute Names (input): ${attributeNames}`);
