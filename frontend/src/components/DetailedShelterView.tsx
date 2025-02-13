@@ -21,12 +21,20 @@ import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 import { DayOfWeek } from '../../../backend/src/types';
 import { ImageGallery } from './ImageGallery';
 import { HoursDropdown } from './HoursDropdown';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface Props {
-  shelter: NewShelterInput;
-}
+type RootStackParamList = {
+  'Map View': undefined;
+  'Detailed Shelter View': {
+    shelter: NewShelterInput;
+  };
+};
 
-export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Detailed Shelter View'>;
+
+export const DetailedShelterView: React.FC<Props> = ({ route }) => {
+  const { shelter } = route.params;  // get shelter from route params
+
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
@@ -61,7 +69,7 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
   const getHoursForDay = (day: DayOfWeek) => {
     if (!shelter.hours || !shelter.hours[day]) return 'Closed';
     const dayHours = shelter.hours[day];
-    if (!dayHours || dayHours.is_closed) return 'Closed';
+    if (!dayHours) return 'Closed';
     return `${formatTime(dayHours.opening_time)} - ${formatTime(
       dayHours.closing_time
     )}`;
