@@ -61,9 +61,9 @@ export class ShelterService {
    */
   public async getShelter(shelterId: string) {
     try {
-      const data = await this.dynamoDbService.scanTable(this.tableName);
+      const data = await this.dynamoDbService.scanTable(this.tableName, 'shelterId = :id');
       const shelter = data.find((item) => item.shelterId.S === shelterId);
-      return this.shelterModelToOutput(shelter);
+      return this.shelterModelToOutput(data[0]);
     } catch (e) {
       throw new Error('Unable to get shelter: ' + e);
     }
