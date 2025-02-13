@@ -14,7 +14,7 @@ export class ShelterService {
    * @param buildAttributeNamesList Reference type 
    * @param buildAttributeValuesList Reference type
    */
-  private static updateShelterHandleAddress(buildAttributeNamesList: string[],
+  private updateShelterHandleAddress(buildAttributeNamesList: string[],
     buildAttributeValuesList: (string | number)[],
     desiredUpdates: ShelterUpdateModel) {
     const addressFields = ["city", "country", "state", "street", "zipCode"];
@@ -32,7 +32,7 @@ export class ShelterService {
  * @param buildAttributeNamesList Reference type 
  * @param buildAttributeValuesList Reference type
  */
-  private static updateShelterHandleHours(buildAttributeNamesList: string[],
+  private updateShelterHandleHours(buildAttributeNamesList: string[],
     buildAttributeValuesList: (string | number)[],
     desiredUpdates: ShelterUpdateModel) {
     // within the hours key, checking each day to see if it is specified, and if so,
@@ -56,40 +56,14 @@ export class ShelterService {
     };
   }
 
-
   /**
-   * Update desired fields in the shelter of the id in the database
-   * @param shelterId The id of the shelter to update
-   * @param desiredUpdates Object containing the desired fields and values to update
+   * Handle behavior given something (e) was caught
+   * @param e the object that was caught
    */
-  public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
-    let buildAttributeNamesList: string[] = []; //names of the fields
-    let buildAttributeValuesList: (string | number)[] = []; //desired values to update
-
-    for (let key in desiredUpdates) {
-      if (key === 'shelterId') {
-        continue;
-      } else if (key === 'address') { //checking the top level key
-        ShelterService.updateShelterHandleAddress(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
-      } else if (key === 'hours') { //checking the top level key
-        ShelterService.updateShelterHandleHours(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
-      } else {
-        // top level keys with no nesting
-        buildAttributeNamesList.push(key);
-
-        if (key === 'picture') {
-          //entire list is updated as one item
-          buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
-        } else {
-          buildAttributeValuesList.push(desiredUpdates[key]);
-        }
-      }
-    }
-    try {
-      const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
-        buildAttributeNamesList, buildAttributeValuesList);
-      return { result };
-    } catch (e) {
+  private async updateShelterHandleCatch(e: any, 
+    shelterId: string,
+    buildAttributeNamesList: string[], 
+    buildAttributeValuesList: (string | number)[]) {
       // NotFoundException gets passed up from dynamodb.ts since I found that with 
       // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
@@ -111,8 +85,43 @@ export class ShelterService {
           return result
         }
       }
-
       throw new Error('Unable to update new shelter: ' + e);
+  }
+
+  /**
+   * Update desired fields in the shelter of the id in the database
+   * @param shelterId The id of the shelter to update
+   * @param desiredUpdates Object containing the desired fields and values to update
+   */
+  public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
+    let buildAttributeNamesList: string[] = []; //names of the fields
+    let buildAttributeValuesList: (string | number)[] = []; //desired values to update
+
+    for (let key in desiredUpdates) {
+      if (key === 'shelterId') {
+        continue;
+      } else if (key === 'address') { //checking the top level key
+        this.updateShelterHandleAddress(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
+      } else if (key === 'hours') { //checking the top level key
+        this.updateShelterHandleHours(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
+      } else {
+        // top level keys with no nesting
+        buildAttributeNamesList.push(key);
+
+        if (key === 'picture') {
+          //entire list is updated as one item
+          buildAttributeValuesList.push(JSON.stringify(desiredUpdates[key]));
+        } else {
+          buildAttributeValuesList.push(desiredUpdates[key]);
+        }
+      }
+    }
+    try {
+      const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
+        buildAttributeNamesList, buildAttributeValuesList);
+      return { result };
+    } catch (e) {
+      this.updateShelterHandleCatch(e, shelterId, buildAttributeNamesList, buildAttributeValuesList);
     }
   }
 
