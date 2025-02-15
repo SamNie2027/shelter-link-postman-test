@@ -1,24 +1,38 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Shelter } from '../sheltersTest';
 import { bodyFont, darkMainColor } from 'frontend/constants';
-
+import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ShelterInfoPanelProps = {
-  shelter: Shelter;
+  shelter: NewShelterInput;
   style?: any;
 };
-const outlineColor = 'red'
+
+type RootStackParamList = {
+  'Map View': undefined;
+  'Detailed Shelter View': {
+    shelter: NewShelterInput;
+  };
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+const outlineColor = 'red';
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
+  const navigation = useNavigation<NavigationProp>();
+
   const formatAddress = (address: any) => {
     return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
   };
 
-
-
   return (
-    <View style={[styles.panel, style]}>
+    <TouchableOpacity
+      style={[styles.panel, style]}
+      onPress={() => navigation.navigate('Detailed Shelter View', { shelter })}
+    >
       <View style={styles.topRowItems}>
         <View style={styles.images}>
           {shelter.picture.slice(0, 3).map((url, index) => (
@@ -41,24 +55,42 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
         {formatAddress(shelter.address)} | Distance
       </Text>
 
-      <Text style={{ ...styles.shelterRatingDescription, alignItems: 'center', }}>
-        {shelter.overall_rating} <Image style={{
-          marginTop: 'auto', marginBottom: 'auto', width: 10,
-          height: 10,
-          tintColor: darkMainColor
-        }} source={require('frontend/assets/teenyicons_star-solid.png')}></Image> | {shelter.description}
+      <Text
+        style={{ ...styles.shelterRatingDescription, alignItems: 'center' }}
+      >
+        {shelter.rating}{' '}
+        <Image
+          style={{
+            marginTop: 'auto',
+            marginBottom: 'auto',
+            width: 10,
+            height: 10,
+            tintColor: darkMainColor,
+          }}
+          source={require('frontend/assets/teenyicons_star-solid.png')}
+        ></Image>{' '}
+        | {shelter.description}
       </Text>
 
-
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.directionsButton}>
+        <TouchableOpacity
+          style={styles.directionsButton}
+          onPress={(e) => {
+            e.stopPropagation(); // don't trigger the detailed view
+          }}
+        >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.learnMoreButton}>
+        <TouchableOpacity
+          style={styles.learnMoreButton}
+          onPress={(e) => {
+            e.stopPropagation(); // don't trigger the detailed view
+          }}
+        >
           <Text style={styles.buttonText}>Learn More</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -78,7 +110,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingLeft: 15,
     flexDirection: 'row',
-
   },
   shelterImage: {
     width: 84,
@@ -101,7 +132,7 @@ const styles = StyleSheet.create({
     fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 24.2,
-    color: darkMainColor
+    color: darkMainColor,
   },
   shelterAddressDistance: {
     paddingLeft: 15,
