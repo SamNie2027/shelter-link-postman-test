@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Shelter } from '../types';
-import { ExampleShelters } from '../sheltersTest';
 import getShelters from '../services/mapService';
 
 const Map = ({

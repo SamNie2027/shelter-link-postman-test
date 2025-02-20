@@ -14,7 +14,6 @@ import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
-import { ExampleShelters } from '../sheltersTest';
 import { useFonts } from 'expo-font';
 import { darkMainColor } from 'frontend/constants';
 import mapService from '../services/mapService';
