@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Shelter } from '../types';
 import { ExampleShelters } from '../sheltersTest';
+import getShelters from '../services/mapService';
 
 const Map = ({
   onMarkerPress,
 }: {
   onMarkerPress: (shelter: Shelter) => void;
 }) => {
+  const [shelters, setShelters] = useState<Shelter[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchShelters = async () => {
+    try {
+      const data = await getShelters(); // Use mapService to fetch shelters
+      setShelters(data);
+    } catch (error) {
+      console.error('Error fetching shelters:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShelters();
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -20,16 +39,16 @@ const Map = ({
           longitudeDelta: 0.05,
         }}
       >
-        {ExampleShelters.map((shelter) => (
+        {shelters.map((shelter) => (
           <Marker
-            key={shelter.id}
+            key={shelter.shelterId}
             coordinate={{
               latitude: shelter.latitude,
               longitude: shelter.longitude,
             }}
             onPress={() => onMarkerPress(shelter)}
           >
-            <Text style={styles.customMarker}>{shelter.emoji}</Text>
+            {/* <Text style={styles.customMarker}>{shelter.emoji}</Text> */}
           </Marker>
         ))}
       </MapView>

@@ -1,58 +1,56 @@
 /**
- * Represents an Address in the application.
- * 
- * - `street`  - string representation of the street number and name separated by a space 
- *               with proper capitalization and no punctuation
- * - `city`    - string representation of the city name with proper capitalization
- * - `state`   - string representation of the state using 
- *               all-caps abbreviation (E.g. it's not "Massachusetts", but "MA")
- * - `zipCode` - string representation of the five-digit zipcode
- * - `country` - string representation of the country's abbreviation in all-capss
+ * Enum representing days of the week.
  */
-export type Address = {
+export enum DayOfWeek {
+  SUNDAY = 'Sunday',
+  MONDAY = 'Monday',
+  TUESDAY = 'Tuesday',
+  WEDNESDAY = 'Wednesday',
+  THURSDAY = 'Thursday',
+  FRIDAY = 'Friday',
+  SATURDAY = 'Saturday',
+}
+
+/**
+ * Represents the model schema of a shelter.
+ *
+ * shelterId - The unique identifier of the shelter.
+ * name - The name of the shelter.
+ * address - The address of the shelter.
+ * latitude - The latitude of the shelter.
+ * longitude - The longitude of the shelter.
+ * description - The description of the shelter.
+ * rating - The rating of the shelter, a decimal number between (0, 5].
+ * phone_number - The phone number of the shelter.
+ * email_address - The email address of the shelter.
+ * website - The website of the shelter.
+ * hours - The hours of operation of the shelter. The key is the day of the week,
+ *          which maps to the opening and closing times. If the shelter is closed on a particular
+ *          day, the value is null.
+ * picture - Picture(s) of the shelter.
+ */
+export type Shelter = {
+  shelterId: string;
+  name: string;
+  address: {
     street: string;
     city: string;
     state: string;
     zipCode: string;
     country?: string;
   };
-  
-/**
- * Represents a Shelter in the application
- * 
- * - `id`                 - a unique number identifier
- * - `name`               - official (short version) name of the shelter with proper capitalization
- * - `address`            - the Address type representation of the address
- * - `latitude`           - number to represent the locational latitude accurate to 4 decimal places
- * - `longitude`          - number to represent the locational longitude accurate to 4 decimal places
- * - `description`        - string description of the shelter, typically the full unabbreviated name, 
- *                          recommended to limit to under 75 characters
- * - `overall_rating`     - number that represents the overall rating out of 5 accurate to 1 decimal place
- * - `inclusivity_rating` - number that represents the inclusivity rating out of 5 accurate to 1 decimal place
- * - `safety_rating`      - number that represents the safety rating out of 5 accurate to 1 decimal place
- * - `phone_number`       - string that represents the shelter's phone number [TODO: add format]
- * - `email_address`      - string that represents the shelter's email address according to conventional standards
- * - `opening_time`       - string in HH:mm:ss format representing the opening time of the shelter
- * - `closing_time`       - string in HH:mm:ss format representing the closing time of the shelter
- * - `picture`            - array of maximum length 3 of strings storing URLs pointing
- *                          to picture files online or in assets of or relating to the shelter
- * - `emoji`              - string containing an in-text emoji character
- */
-export type Shelter = {
-    id: number;
-    name: string;
-    address: Address;
-    latitude: number;
-    longitude: number;
-    description: string;
-    overall_rating: number;
-    inclusivity_rating: number;
-    safety_rating: number;
-    availability: string;
-    phone_number: string;
-    email_address: string;
-    opening_time: string;
-    closing_time: string;
-    picture: string[];
-    emoji: string;
+  latitude: number;
+  longitude: number;
+  description: string;
+  rating?: number;
+  phone_number: string;
+  email_address: string;
+  website?: string;
+  hours: {
+    [day in DayOfWeek]: {
+      opening_time: string; // Format: HH:MM.
+      closing_time: string; // Format: HH:MM.
+    } | null;
   };
+  picture: string[]; // Array of S3 URLs
+};

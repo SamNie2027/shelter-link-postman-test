@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View, Text } from 'react-native';
 import { MapContainer, TileLayer, Marker as WebMarker } from 'react-leaflet';
 import L from 'leaflet';
@@ -6,12 +6,31 @@ import 'leaflet/dist/leaflet.css';
 import MapView, { Marker as NativeMarker } from 'react-native-maps';
 import { Shelter } from '../types';
 import { ExampleShelters } from '../sheltersTest';
+import getShelters from '../services/mapService';
 
 const Map = ({
   onMarkerPress,
 }: {
   onMarkerPress: (shelter: Shelter) => void;
 }) => {
+  const [shelters, setShelters] = useState<Shelter[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchShelters = async () => {
+    try {
+      const data = await getShelters(); // Use mapService to fetch shelters
+      setShelters(data);
+    } catch (error) {
+      console.error('Error fetching shelters:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShelters();
+  }, []);
+
   if (Platform.OS === 'web') {
     return (
       <MapContainer
@@ -25,15 +44,15 @@ const Map = ({
         }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {ExampleShelters.map((shelter) => {
+        {shelters.map((shelter) => {
           const customIcon = L.divIcon({
             className: 'custom-marker',
-            html: `<div style="font-size: 30px;">${shelter.emoji}</div>`,
+            // html: `<div style="font-size: 30px;">${shelter.emoji}</div>`,
           });
 
           return (
             <WebMarker
-              key={shelter.id}
+              key={shelter.shelterId}
               position={[shelter.latitude, shelter.longitude]}
               icon={customIcon}
               eventHandlers={{
@@ -58,16 +77,16 @@ const Map = ({
             longitudeDelta: 0.05,
           }}
         >
-          {ExampleShelters.map((shelter) => (
+          {shelters.map((shelter) => (
             <NativeMarker
-              key={shelter.id}
+              key={shelter.shelterId}
               coordinate={{
                 latitude: shelter.latitude,
                 longitude: shelter.longitude,
               }}
               onPress={() => onMarkerPress(shelter)}
             >
-              <Text style={styles.customMarker}>{shelter.emoji}</Text>
+              {/* <Text style={styles.customMarker}>{shelter.emoji}</Text> */}
             </NativeMarker>
           ))}
         </MapView>
