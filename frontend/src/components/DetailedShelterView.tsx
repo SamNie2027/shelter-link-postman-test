@@ -17,7 +17,7 @@ import {
   descriptionFontColor,
 } from '../../constants';
 import { useFonts } from 'expo-font';
-import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { Shelter } from '../types';
 import { DayOfWeek } from '../../../backend/src/types';
 import { ImageGallery } from './ImageGallery';
 import { HoursDropdown } from './HoursDropdown';
@@ -26,14 +26,17 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
-    shelter: NewShelterInput;
+    shelter: Shelter;
   };
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Detailed Shelter View'>;
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'Detailed Shelter View'
+>;
 
 export const DetailedShelterView: React.FC<Props> = ({ route }) => {
-  const { shelter } = route.params;  // get shelter from route params
+  const { shelter } = route.params; // get shelter from route params
 
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {

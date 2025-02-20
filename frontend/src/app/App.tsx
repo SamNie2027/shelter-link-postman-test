@@ -5,19 +5,25 @@ import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { Shelter } from '../types';
 
 // defines type for nav stack
 type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
-    shelter: NewShelterInput;
+    shelter: Shelter;
   };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const App = () => {
+  if (process.env.EXPO_PUBLIC_API_URL === undefined) {
+    throw new Error(
+      "Environment variable 'EXPO_PUBLIC_API_URL' must be defined"
+    );
+  }
+
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.safeArea}>
