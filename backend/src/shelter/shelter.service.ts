@@ -68,22 +68,6 @@ export class ShelterService {
       // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
         throw e;
-      } else if (e instanceof Error) {
-        // This error occurs if the request is too large so the goal is to try again by breaking it up.
-        if (e.message.includes("The document path provided in the update expression is invalid for update")) {
-          let result;
-          let curr = 0;
-          while (buildAttributeNamesList.length / 3 > 0) {
-            result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
-              buildAttributeNamesList.slice(curr, curr + 3), buildAttributeValuesList.slice(curr, curr + 3));
-            curr += 3;
-          }
-          if (buildAttributeNamesList.slice(curr).length > 0) {
-            result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
-              buildAttributeNamesList.slice(curr), buildAttributeValuesList.slice(curr));
-          }
-          return result
-        }
       }
       throw new Error('Unable to update new shelter: ' + e);
   }
