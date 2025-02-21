@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Linking,
+} from 'react-native';
 import { bodyFont, darkMainColor } from 'frontend/constants';
 import { Shelter } from '../types';
 import { useNavigation } from '@react-navigation/native';
@@ -28,6 +35,12 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
     return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
   };
 
+  // for now, this redirects to google maps based on lat and long
+  const handleDirections = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
+    Linking.openURL(url);
+  };
+
   return (
     <TouchableOpacity
       style={[styles.panel, style]}
@@ -52,7 +65,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       </View>
       <Text style={styles.shelterName}>{shelter.name}</Text>
       <Text style={styles.shelterAddressDistance}>
-        {formatAddress(shelter.address)} | Distance
+        {formatAddress(shelter.address)}
       </Text>
 
       <Text
@@ -75,17 +88,15 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.directionsButton}
-          onPress={(e) => {
-            e.stopPropagation(); // don't trigger the detailed view
-          }}
+          onPress={handleDirections}
         >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.learnMoreButton}
-          onPress={(e) => {
-            e.stopPropagation(); // don't trigger the detailed view
-          }}
+          onPress={() =>
+            navigation.navigate('Detailed Shelter View', { shelter })
+          }
         >
           <Text style={styles.buttonText}>Learn More</Text>
         </TouchableOpacity>
