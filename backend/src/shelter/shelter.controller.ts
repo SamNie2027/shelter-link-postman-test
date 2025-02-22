@@ -34,4 +34,10 @@ export class ShelterController {
     }
     return { message: `Shelter with ID ${shelterId} deleted successfully.` };
   }
+
+  @Get(':shelterId')
+  public async getShelter(@Param('shelterId') shelterId: string) {
+    return this.shelterService.getShelter(shelterId);
+  }
 }
+
