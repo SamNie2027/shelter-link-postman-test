@@ -1,25 +1,48 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
-import { ExampleShelters } from '../sheltersTest';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Shelter } from '../types';
+
+// defines type for nav stack
+type RootStackParamList = {
+  'Map View': undefined;
+  'Detailed Shelter View': {
+    shelter: Shelter;
+  };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const App = () => {
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      {/*<View style={styles.logoContainer}>*/}
-      {/*  <Logo />*/}
-      {/*</View>*/}
-      {/*<View style={styles.centeredView}>*/}
-      {/*  <SignUpModal />*/}
-      {/*</View>*/}
-      {/*<GestureHandlerRootView style={{ flex: 1 }}>*/}
-      {/*  <CompleteMap />*/}
-      {/*</GestureHandlerRootView>*/}
+  if (process.env.EXPO_PUBLIC_API_URL === undefined) {
+    throw new Error(
+      "Environment variable 'EXPO_PUBLIC_API_URL' must be defined"
+    );
+  }
 
-      <DetailedShelterView shelter={ExampleShelters[0]} />
-    </SafeAreaView>
+  return (
+    <NavigationContainer>
+      <SafeAreaView style={styles.safeArea}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Map View"
+              component={CompleteMap}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Detailed Shelter View"
+              component={DetailedShelterView}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </GestureHandlerRootView>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 

@@ -22,7 +22,7 @@ const DropdownComponent = () => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle} // Add this
+        iconStyle={styles.iconStyle}
         search
         data={data}
         labelField="label"
