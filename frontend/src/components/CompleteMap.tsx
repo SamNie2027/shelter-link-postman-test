@@ -15,7 +15,7 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
 import { useFonts } from 'expo-font';
-import { darkMainColor } from 'frontend/constants';
+import { darkMainColor } from '../../constants';
 import mapService from '../services/mapService';
 import getShelters from '../services/mapService';
 

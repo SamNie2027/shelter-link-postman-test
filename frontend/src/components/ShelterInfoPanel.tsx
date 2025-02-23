@@ -7,7 +7,7 @@ import {
   Image,
   Linking,
 } from 'react-native';
-import { bodyFont, darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from '../../constants';
 import { Shelter } from '../types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -60,7 +60,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       <View style={styles.bookmarkContainer}>
         <Image
           style={{ tintColor: darkMainColor }}
-          source={require('frontend/assets/bookmark.png')}
+          source={require('../../assets/bookmark.png')}
         />
       </View>
       <Text style={styles.shelterName}>{shelter.name}</Text>
@@ -80,7 +80,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
             height: 10,
             tintColor: darkMainColor,
           }}
-          source={require('frontend/assets/teenyicons_star-solid.png')}
+          source={require('../../assets/teenyicons_star-solid.png')}
         ></Image>{' '}
         | {shelter.description}
       </Text>

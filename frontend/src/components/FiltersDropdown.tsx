@@ -1,4 +1,4 @@
-import { bodyFont, darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from '../../constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
-    tintColor: darkMainColor
+    tintColor: darkMainColor,
   },
 });
 
