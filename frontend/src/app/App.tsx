@@ -1,14 +1,16 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import Logo from '../components/Logo';
 
 // defines type for nav stack
-type RootStackParamList = {
+export type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
     shelter: NewShelterInput;
@@ -22,6 +24,11 @@ export const App = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.safeArea}>
         <GestureHandlerRootView style={{ flex: 1 }}>
+          {/* If you want to show the logo, render it as a sibling */}
+          <View style={styles.logoContainer}>
+            <Logo />
+          </View>
+
           <Stack.Navigator>
             <Stack.Screen
               name="Map View"
@@ -49,9 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  logoContainer: {
-    marginBottom: 20,
   },
   searchBarContainer: {
     marginVertical: 10,
