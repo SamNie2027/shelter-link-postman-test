@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { CompleteMap } from '../components/CompleteMap';
-import { DetailedShelterView } from '../components/DetailedShelterView';
+import { CompleteMap } from './frontend/src/components/CompleteMap'; // Ensure this path is correct and the file exists
+import { DetailedShelterView } from './frontend/src/components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Shelter } from '../types';
+import { Shelter } from './frontend/src/types';
 
 // defines type for nav stack
 type RootStackParamList = {
@@ -16,7 +16,6 @@ type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-console.log('EXPO_PUBLIC_API_URL:', process.env.EXPO_PUBLIC_API_URL);
 
 export const App = () => {
   if (process.env.EXPO_PUBLIC_API_URL === undefined) {
@@ -29,7 +28,7 @@ export const App = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.safeArea}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack.Navigator>
+          <Stack.Navigator id={undefined}>
             <Stack.Screen
               name="Map View"
               component={CompleteMap}
