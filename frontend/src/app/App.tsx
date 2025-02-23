@@ -24,11 +24,11 @@ export const App = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.safeArea}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          {/* If you want to show the logo, render it as a sibling */}
-          <View style={styles.logoContainer}>
+          {/* logo is rendered as a sibling */}
+          <View>
             <Logo />
           </View>
-
+          {/* add other pages here in this similar way */}
           <Stack.Navigator>
             <Stack.Screen
               name="Map View"
