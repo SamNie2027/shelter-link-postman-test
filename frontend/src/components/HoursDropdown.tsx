@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
-import { DayOfWeek } from '../../../backend/src/types';
+import { DayOfWeek } from '../types';
 import {
   bodyFont,
   darkMainColor,

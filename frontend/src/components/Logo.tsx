@@ -1,4 +1,4 @@
-import { bodyFont } from 'frontend/constants';
+import { bodyFont } from '../../constants';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
