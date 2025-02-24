@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { CompleteMap } from '../components/CompleteMap';
+import CompleteMap from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, View, Text } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { MapContainer, TileLayer, Marker as WebMarker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -13,7 +13,6 @@ const Map = ({
   onMarkerPress: (shelter: Shelter) => void;
 }) => {
   const [shelters, setShelters] = useState<Shelter[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchShelters = async () => {
     try {
@@ -22,7 +21,7 @@ const Map = ({
     } catch (error) {
       console.error('Error fetching shelters:', error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

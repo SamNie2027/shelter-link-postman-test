@@ -14,9 +14,7 @@ import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
-import { useFonts } from 'expo-font';
-import { darkMainColor } from 'frontend/constants';
-import mapService from '../services/mapService';
+import { darkMainColor } from '../../constants';
 import getShelters from '../services/mapService';
 
 /*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
@@ -24,12 +22,7 @@ export const CompleteMap = () => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
   const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
-  const [fonts] = useFonts({
-    IstokWebRegular: require('../../assets/fonts/IstokWebRegular.ttf'),
-    JomhuriaRegular: require('../../assets/fonts/JomhuriaRegular.ttf'),
-  });
   const [shelters, setShelters] = useState<Shelter[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchShelters = async () => {
     try {
@@ -38,7 +31,7 @@ export const CompleteMap = () => {
     } catch (error) {
       console.error('Error fetching shelters:', error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

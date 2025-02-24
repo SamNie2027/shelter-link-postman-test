@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { bodyFont, darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from '../../constants';
 import { Shelter } from '../types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,8 +18,6 @@ type RootStackParamList = {
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const outlineColor = 'red';
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const navigation = useNavigation<NavigationProp>();

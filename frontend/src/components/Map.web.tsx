@@ -11,7 +11,6 @@ const Map = ({
   onMarkerPress: (shelter: Shelter) => void;
 }) => {
   const [shelters, setShelters] = useState<Shelter[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchShelters = async () => {
     try {
@@ -20,7 +19,7 @@ const Map = ({
     } catch (error) {
       console.error('Error fetching shelters:', error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

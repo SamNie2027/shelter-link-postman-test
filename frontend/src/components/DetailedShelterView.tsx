@@ -16,9 +16,7 @@ import {
   buttonBackgroundColor,
   descriptionFontColor,
 } from '../../constants';
-import { useFonts } from 'expo-font';
-import { Shelter } from '../types';
-import { DayOfWeek } from '../../../backend/src/types';
+import { Shelter, DayOfWeek } from '../types';
 import { ImageGallery } from './ImageGallery';
 import { HoursDropdown } from './HoursDropdown';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -50,11 +48,6 @@ export const DetailedShelterView: React.FC<Props> = ({ route }) => {
       Linking.openURL(shelter.website);
     }
   };
-
-  const [fonts] = useFonts({
-    IstokWebRegular: require('../../assets/fonts/IstokWebRegular.ttf'),
-    JomhuriaRegular: require('../../assets/fonts/JomhuriaRegular.ttf'),
-  });
 
   // for now, this gives the option to confirm if you want to call the shelter number
   // figure out how number/email maybe should be displayed?
