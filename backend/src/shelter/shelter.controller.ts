@@ -25,7 +25,12 @@ export class ShelterController {
   public async getShelters() {
     return this.shelterService.getShelters();
   }
-  
+
+  @Get(':shelterId')
+  public async getShelter(@Param('shelterId') shelterId: string) {
+    return this.shelterService.getShelter(shelterId);
+  }
+
   @Delete(':shelterId')
   public async deleteShelter(@Param('shelterId') shelterId: string) {
     const deleted = await this.shelterService.deleteShelter(shelterId);
@@ -33,5 +38,6 @@ export class ShelterController {
       throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
     }
     return { message: `Shelter with ID ${shelterId} deleted successfully.` };
-  }
+
 }
+
