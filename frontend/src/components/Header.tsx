@@ -1,12 +1,6 @@
 import { bodyFont, darkMainColor, headerFont } from 'frontend/constants';
 import React from 'react';
-<<<<<<< Updated upstream
 import { Text, StyleSheet, View } from 'react-native';
-=======
-import { Text, StyleSheet, View, Dimensions } from 'react-native';
-import "leaflet/dist/leaflet.css";
-
->>>>>>> Stashed changes
 
 const Header = () => {
   return (

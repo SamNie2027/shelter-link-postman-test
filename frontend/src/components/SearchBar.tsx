@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { bodyFont, mainColor } from '../../constants'
-import "leaflet/dist/leaflet.css";
-
 
 const SearchBar = () => {
   const [isTyping, setIsTyping] = useState(false);

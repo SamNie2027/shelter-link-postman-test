@@ -118,13 +118,13 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
           </View>
           <Image
             style={styles.allOfThisIcon}
-            source={require('../../assets/AllOfThisIcon.png')}
+            source={require('frontend/assets/AllOfThisIcon.png')}
           />
           <View style={styles.sumRating}>
             <Text style={styles.sumRatingText}>{shelter.overall_rating.toFixed(1)}</Text>
             <Image
               style={styles.sumStarIcon}
-              source={require('../../assets/teenyicons_star-solid.png')}
+              source={require('frontend/assets/teenyicons_star-solid.png')}
             />
           </View>
         </View>

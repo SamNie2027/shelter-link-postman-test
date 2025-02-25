@@ -5,16 +5,13 @@
   "dependencies": {
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",
-    "expo": "*",
-    "leaflet": "^1.9.4",
     "metro-config": "*",
-    "react-leaflet": "^5.0.0",
-    "react-native": "^0.76.7",
-    "react-native-svg": "^15.8.0",
+    "react-native": "*",
+    "expo": "*",
+    "react-native-svg": "*",
     "react-native-web": "*"
   },
   "scripts": {
     "eas-build-post-install": "cd ../ && node tools/scripts/eas-build-post-install.mjs . frontend"
   }
-
 }

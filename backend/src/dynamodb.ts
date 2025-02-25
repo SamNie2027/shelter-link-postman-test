@@ -6,7 +6,6 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { HoursUpdateModel } from './shelter/shelter.model';
 
 @Injectable()
 export class DynamoDbService {
@@ -89,7 +88,6 @@ export class DynamoDbService {
       throw new Error(error);
     }
   }
-
   public async getItem(
     tableName: string,
     key: { [key: string]: any }
@@ -152,13 +150,9 @@ export class DynamoDbService {
       }
 
       const existingItem = await this.getItem(tableName, Key);
-
-      console.log('existing: ' + JSON.stringify(existingItem));
       if (!existingItem) {
         throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
       }  
-
-      return existingItem;
   }
 
   /**
@@ -172,12 +166,13 @@ export class DynamoDbService {
    * @param attributeValues the attribute values passed from the application's service
    * @returns The new values for modified params that are not pass by reference
    */
-  private handleNonNumberCasesForUpdateAttributes(i: number, 
+  private handleNonNumberCasesForUpdateAttributes(i: number, closeOrOpenTimeCount: number, 
     UpdateExpression: string, 
     ExpressionAttributeNames, 
     ExpressionAttributeValues,
     attributeNames: string[],
-    attributeValues: (string | number)[]): string {
+    attributeValues: (string | number)[]): 
+    { closeOrOpenTimeCount: number, UpdateExpression: string} {
     let currVal = attributeValues[i] as string
 
     // each variable in a map: e.g. item1.item2 have to have 
@@ -191,26 +186,28 @@ export class DynamoDbService {
     //Remove the last . in the update expression: e.g. item1.item2. -> item1.item2
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 1);
 
+    if (closeOrOpenTimeCount === 0) {
+    //Value alias which is named just for the very last item in the map, so
+    //it will look like item1.item2 = :item2, 
     UpdateExpression += ` = :${names[names.length - 1]}, `;
+    } else {
+      UpdateExpression += ` = :${names[names.length - 1]}${closeOrOpenTimeCount}, `;
+    }
 
     //Checking to see if a list was passed in as a value
     if (currVal.toString().includes("[\"") && currVal.toString().includes("\"]")) {
       this.updateAttributesHandleList(i, currVal, ExpressionAttributeValues, names);
     } else {
       //Non-list case, still includes nested values
-      ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "S": attributeValues[i] };
+      if (closeOrOpenTimeCount === 0) {
+        ExpressionAttributeValues[`:${names[names.length - 1]}`] = { "S": attributeValues[i] };
+      } else {
+        ExpressionAttributeValues[`:${names[names.length - 1]}${closeOrOpenTimeCount}`] = { "S": attributeValues[i] };
+      }
+      closeOrOpenTimeCount++;
     }
 
-    return UpdateExpression;
-  }
-
-  /**
-   * Handles what to add to the update expression for the hours.
-   * Calls the database to merge desired hours with current hours.
-   * @param ObjectOfTheExistingShelter
-   */
-  private async handleHoursUpdateExpression(existingShelter: any) {
-
+    return {closeOrOpenTimeCount, UpdateExpression};
   }
 
   /**
@@ -224,28 +221,24 @@ export class DynamoDbService {
    *                      For lists, must have format "[\"item1\", \"item2\", ... ]" 
    * @param attributeValue The desired new value of the attribute
    */
-  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], 
-    attributeValues: (string | number)[], hoursMap: boolean | HoursUpdateModel) {
+  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: (string | number)[]) {
     const Key = { shelterId: { S: shelterId + "" }};
-    const existingShelter = this.validateInputForUpdate(Key, tableName, shelterId, attributeNames, attributeValues);
+    this.validateInputForUpdate(Key, tableName, shelterId, attributeNames, attributeValues);
+
+    let closeOrOpenTimeCount = 0;
 
     // Helped by https://stackoverflow.com/questions/55825544/how-to-dynamically-update-an-attribute-in-a-dynamodb-item
     // Looping through the input and adding to the update expression so everything is updated in one call
     let UpdateExpression = "SET ";
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
-
-    
-    //if (hoursMap) {
-    //  UpdateExpression += this.handleHoursUpdateExpression(existingShelter);
-    //}
-
     for (let i = 0; i < attributeNames.length; i++) {
       //non-number cases
       if (typeof attributeValues[i] === 'string') {
-        let res = this.handleNonNumberCasesForUpdateAttributes(i, 
+        let res = this.handleNonNumberCasesForUpdateAttributes(i, closeOrOpenTimeCount, 
           UpdateExpression, ExpressionAttributeNames, ExpressionAttributeValues, attributeNames, attributeValues);
-        UpdateExpression = res;
+        UpdateExpression = res.UpdateExpression;
+        closeOrOpenTimeCount = res.closeOrOpenTimeCount;
       } else {
         //number cases; data inputted still needs quotation marks
         UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;

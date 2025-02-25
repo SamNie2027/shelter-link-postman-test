@@ -3,8 +3,6 @@ import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Shelter } from '../types';
 import { ExampleShelters } from '../sheltersTest';
-import "leaflet/dist/leaflet.css";
-
 
 const Map = ({
   onMarkerPress,

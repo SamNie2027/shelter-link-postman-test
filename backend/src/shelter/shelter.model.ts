@@ -102,10 +102,3 @@ export type ShelterUpdateModel = {
   };
   picture?: string[];
  };
-
- export type HoursUpdateModel = {
-  [day in DayOfWeek]: {
-    opening_time?: string;
-    closing_time?: string;
-  };
- }
