@@ -5,14 +5,14 @@ import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { Shelter } from '../types';
 import Logo from '../components/Logo';
 
 // defines type for nav stack
 export type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
-    shelter: NewShelterInput;
+    shelter: Shelter;
   };
 };
 
