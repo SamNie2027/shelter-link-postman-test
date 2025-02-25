@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
@@ -8,29 +14,38 @@ import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
-import { ExampleShelters } from '../sheltersTest';
-import { useFonts } from 'expo-font';
-import { darkMainColor } from 'frontend/constants';
-import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { darkMainColor } from '../../constants';
+import getShelters from '../services/mapService';
 
 /*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
 export const CompleteMap = () => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['15%', '60%', '90%'], []);
-  const [selectedShelter, setSelectedShelter] =
-    useState<NewShelterInput | null>(null);
-  const [fonts] = useFonts({
-    IstokWebRegular: require('../../assets/fonts/IstokWebRegular.ttf'),
-    JomhuriaRegular: require('../../assets/fonts/JomhuriaRegular.ttf'),
-  });
+  const [selectedShelter, setSelectedShelter] = useState<Shelter | null>(null);
+  const [shelters, setShelters] = useState<Shelter[]>([]);
 
-  const handleMarkerPress = useCallback((shelter: NewShelterInput) => {
+  const fetchShelters = async () => {
+    try {
+      const data = await getShelters(); // Use mapService to fetch shelters
+      setShelters(data);
+    } catch (error) {
+      console.error('Error fetching shelters:', error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShelters();
+  }, []);
+
+  const handleMarkerPress = useCallback((shelter: Shelter) => {
     setSelectedShelter(shelter);
     sheetRef.current?.snapToIndex(1);
   }, []);
 
   const renderItem = useCallback(
-    ({ item }: { item: NewShelterInput }) => (
+    ({ item }: { item: Shelter }) => (
       <ShelterInfoPanel shelter={item} style={styles.itemContainer} />
     ),
     []
@@ -66,7 +81,7 @@ export const CompleteMap = () => {
           />
         ) : (
           <BottomSheetFlatList
-            data={ExampleShelters}
+            data={shelters}
             keyExtractor={(item) =>
               `${item.name}-${item.address.street}`.replace(/\s+/g, '')
             } // creating a unique id

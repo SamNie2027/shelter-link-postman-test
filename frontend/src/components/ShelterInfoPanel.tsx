@@ -1,25 +1,23 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { bodyFont, darkMainColor } from 'frontend/constants';
-import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
+import { bodyFont, darkMainColor } from '../../constants';
+import { Shelter } from '../types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ShelterInfoPanelProps = {
-  shelter: NewShelterInput;
+  shelter: Shelter;
   style?: any;
 };
 
 type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
-    shelter: NewShelterInput;
+    shelter: Shelter;
   };
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const outlineColor = 'red';
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const navigation = useNavigation<NavigationProp>();
