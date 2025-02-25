@@ -29,11 +29,10 @@ export class ShelterService {
 
   /**
  * Handles what values to push given the key within updateShelter is of type 'address'
- * @param buildAttributeNamesList Reference type 
- * @param buildAttributeValuesList Reference type
+ * @param buildHoursList Reference type 
  */
-  private updateShelterHandleHours(buildAttributeNamesList: string[],
-    buildAttributeValuesList: (string | number)[],
+  private updateShelterHandleHours(
+    buildHoursList: any[],
     desiredUpdates: ShelterUpdateModel) {
     // within the hours key, checking each day to see if it is specified, and if so,
     // then checking to see if closing_time and/or opening_time are defined and adding them
@@ -44,14 +43,15 @@ export class ShelterService {
       // Note: Unfortunately typescript will throw an error if I start by checking 
       // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
       if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
-        if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
+        buildHoursList.push({properCapitalDay: desiredUpdates.hours[properCapitalDay]});
+        /*if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
           buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
           buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
         }
         if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
           buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
           buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
-        }
+        }*/
       }
     };
   }
@@ -60,10 +60,7 @@ export class ShelterService {
    * Handle behavior given something (e) was caught
    * @param e the object that was caught
    */
-  private async updateShelterHandleCatch(e: any, 
-    shelterId: string,
-    buildAttributeNamesList: string[], 
-    buildAttributeValuesList: (string | number)[]) {
+  private async updateShelterHandleCatch(e: any) {
       // NotFoundException gets passed up from dynamodb.ts since I found that with 
       // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
@@ -80,14 +77,16 @@ export class ShelterService {
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
     let buildAttributeNamesList: string[] = []; //names of the fields
     let buildAttributeValuesList: (string | number)[] = []; //desired values to update
+    let buildHoursList: any[] = [];
 
+    let containsHours = false;
     for (let key in desiredUpdates) {
       if (key === 'shelterId') {
         continue;
       } else if (key === 'address') { //checking the top level key
         this.updateShelterHandleAddress(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
       } else if (key === 'hours') { //checking the top level key
-        this.updateShelterHandleHours(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
+        this.updateShelterHandleHours(buildHoursList, desiredUpdates);
       } else {
         // top level keys with no nesting
         buildAttributeNamesList.push(key);
@@ -102,10 +101,10 @@ export class ShelterService {
     }
     try {
       const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
-        buildAttributeNamesList, buildAttributeValuesList);
+        buildHoursList, buildAttributeNamesList, buildAttributeValuesList);
       return { result };
     } catch (e) {
-      this.updateShelterHandleCatch(e, shelterId, buildAttributeNamesList, buildAttributeValuesList);
+      this.updateShelterHandleCatch(e);
     }
   }
 

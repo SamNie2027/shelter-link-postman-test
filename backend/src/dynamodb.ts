@@ -6,6 +6,7 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { DayOfWeek } from './types';
 
 @Injectable()
 export class DynamoDbService {
@@ -215,13 +216,14 @@ export class DynamoDbService {
    * within the table
    * @param tableName Name of the table
    * @param shelterId id of the shelter (key of the shelter)
+   * @param hourUpdates A list of day maps: e.g. { "Friday": {"opening_time": "05:00", "closing_time": "10:00"}} is one item
    * @param attributeName The name of the attribute:
    *                      Must be given with its parent separated by periods, 
-   *                      e.g. "address.zipCode", "hours.Sunday.closing_time".
+   *                      e.g. "address.zipCode"
    *                      For lists, must have format "[\"item1\", \"item2\", ... ]" 
    * @param attributeValue The desired new value of the attribute
    */
-  public async updateAttributes(tableName: string, shelterId: string, attributeNames: string[], attributeValues: (string | number)[]) {
+  public async updateAttributes(tableName: string, shelterId: string, hourUpdates: any[], attributeNames: string[], attributeValues: (any)[]) {
     const Key = { shelterId: { S: shelterId + "" }};
     this.validateInputForUpdate(Key, tableName, shelterId, attributeNames, attributeValues);
 
@@ -232,6 +234,12 @@ export class DynamoDbService {
     let UpdateExpression = "SET ";
     let ExpressionAttributeNames = {};
     let ExpressionAttributeValues = {};
+
+
+    for (let i = 0; i < hourUpdates.length; i++) {
+
+      
+    }
     for (let i = 0; i < attributeNames.length; i++) {
       //non-number cases
       if (typeof attributeValues[i] === 'string') {
@@ -240,6 +248,7 @@ export class DynamoDbService {
         UpdateExpression = res.UpdateExpression;
         closeOrOpenTimeCount = res.closeOrOpenTimeCount;
       } else {
+        
         //number cases; data inputted still needs quotation marks
         UpdateExpression += `#${attributeNames[i]} = :${attributeNames[i]}, `;
         ExpressionAttributeNames[`#${attributeNames[i]}`] = attributeNames[i];
