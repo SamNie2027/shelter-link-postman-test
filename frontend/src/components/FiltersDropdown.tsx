@@ -2,6 +2,8 @@ import { bodyFont, darkMainColor } from 'frontend/constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
+import "leaflet/dist/leaflet.css";
+
 
 const data = [
   { label: 'Item 1', value: '1' },

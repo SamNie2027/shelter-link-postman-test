@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Shelter } from '../sheltersTest';
 import { bodyFont, darkMainColor } from 'frontend/constants';
+import "leaflet/dist/leaflet.css";
+
 
 
 type ShelterInfoPanelProps = {
@@ -32,8 +34,13 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       </View>
       <View style={styles.bookmarkContainer}>
         <Image
+<<<<<<< Updated upstream
           style={{ tintColor: darkMainColor }}
           source={require('frontend/assets/bookmark.png')}
+=======
+          style={styles.bookmarkImage}
+          source={require('../../assets/bookmark.png')}
+>>>>>>> Stashed changes
         />
       </View>
       <Text style={styles.shelterName}>{shelter.name}</Text>
@@ -46,7 +53,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
           marginTop: 'auto', marginBottom: 'auto', width: 10,
           height: 10,
           tintColor: darkMainColor
-        }} source={require('frontend/assets/teenyicons_star-solid.png')}></Image> | {shelter.description}
+        }} source={require('../../assets/teenyicons_star-solid.png')}></Image> | {shelter.description}
       </Text>
 
 

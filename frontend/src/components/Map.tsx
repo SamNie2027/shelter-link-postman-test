@@ -6,6 +6,8 @@ import 'leaflet/dist/leaflet.css';
 import MapView, { Marker as NativeMarker } from 'react-native-maps';
 import { Shelter } from '../types';
 import { ExampleShelters } from '../sheltersTest';
+import "leaflet/dist/leaflet.css";
+
 
 const Map = ({
   onMarkerPress,

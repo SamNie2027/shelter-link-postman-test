@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ShelterInputModel, ShelterModel, ShelterUpdateModel } from './shelter.model';
+import { HoursUpdateModel, ShelterInputModel, ShelterModel, ShelterUpdateModel } from './shelter.model';
 import { DynamoDbService } from '../dynamodb';
 import { NewShelterInput } from '../dtos/newShelterDTO';
 import { DayOfWeek } from '../types';
@@ -28,42 +28,10 @@ export class ShelterService {
   }
 
   /**
- * Handles what values to push given the key within updateShelter is of type 'address'
- * @param buildAttributeNamesList Reference type 
- * @param buildAttributeValuesList Reference type
- */
-  private updateShelterHandleHours(buildAttributeNamesList: string[],
-    buildAttributeValuesList: (string | number)[],
-    desiredUpdates: ShelterUpdateModel) {
-    // within the hours key, checking each day to see if it is specified, and if so,
-    // then checking to see if closing_time and/or opening_time are defined and adding them
-    for (const day in DayOfWeek) {
-      // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
-      const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
-
-      // Note: Unfortunately typescript will throw an error if I start by checking 
-      // desiredUpdates.hours[day][closed_time] so this is why I check for the parent
-      if (typeof desiredUpdates.hours[properCapitalDay] !== 'undefined') {
-        if (typeof desiredUpdates.hours[properCapitalDay]['closing_time'] !== 'undefined') {
-          buildAttributeNamesList.push(`hours.${properCapitalDay}.closing_time`);
-          buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['closing_time']);
-        }
-        if (typeof desiredUpdates.hours[properCapitalDay]['opening_time'] !== 'undefined') {
-          buildAttributeNamesList.push(`hours.${properCapitalDay}.opening_time`);
-          buildAttributeValuesList.push(desiredUpdates.hours[properCapitalDay]['opening_time']);
-        }
-      }
-    };
-  }
-
-  /**
    * Handle behavior given something (e) was caught
    * @param e the object that was caught
    */
-  private async updateShelterHandleCatch(e: any, 
-    shelterId: string,
-    buildAttributeNamesList: string[], 
-    buildAttributeValuesList: (string | number)[]) {
+  private async updateShelterHandleCatch(e: any) {
       // NotFoundException gets passed up from dynamodb.ts since I found that with 
       // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
@@ -80,6 +48,7 @@ export class ShelterService {
   public async updateShelter(shelterId: string, desiredUpdates: ShelterUpdateModel) {
     let buildAttributeNamesList: string[] = []; //names of the fields
     let buildAttributeValuesList: (string | number)[] = []; //desired values to update
+    let hoursMap: false | HoursUpdateModel  = false;
 
     for (let key in desiredUpdates) {
       if (key === 'shelterId') {
@@ -87,7 +56,7 @@ export class ShelterService {
       } else if (key === 'address') { //checking the top level key
         this.updateShelterHandleAddress(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
       } else if (key === 'hours') { //checking the top level key
-        this.updateShelterHandleHours(buildAttributeNamesList, buildAttributeValuesList, desiredUpdates);
+        hoursMap = desiredUpdates.hours;
       } else {
         // top level keys with no nesting
         buildAttributeNamesList.push(key);
@@ -102,10 +71,10 @@ export class ShelterService {
     }
     try {
       const result = await this.dynamoDbService.updateAttributes(this.tableName, shelterId,
-        buildAttributeNamesList, buildAttributeValuesList);
+        buildAttributeNamesList, buildAttributeValuesList, hoursContained);
       return { result };
     } catch (e) {
-      this.updateShelterHandleCatch(e, shelterId, buildAttributeNamesList, buildAttributeValuesList);
+      this.updateShelterHandleCatch(e);
     }
   }
 

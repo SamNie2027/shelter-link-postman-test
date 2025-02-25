@@ -1,6 +1,8 @@
 import { bodyFont } from 'frontend/constants';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import "leaflet/dist/leaflet.css";
+
 
 const Logo = () => {
   return (
