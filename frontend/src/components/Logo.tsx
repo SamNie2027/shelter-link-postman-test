@@ -1,4 +1,4 @@
-import { backgroundColor, bodyFont, darkMainColor } from 'frontend/constants';
+import { backgroundColor, bodyFont, darkMainColor } from '../../constants';
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';

@@ -5,7 +5,6 @@ import { CompleteMap } from '../components/CompleteMap';
 import { DetailedShelterView } from '../components/DetailedShelterView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 import Logo from '../components/Logo';
 
