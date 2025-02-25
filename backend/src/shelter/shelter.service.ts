@@ -34,54 +34,47 @@ export class ShelterService {
       if (shelterData.hours.hasOwnProperty(day)) {
         const hours = shelterData.hours[day];
         if (hours) {
-          const { opening_time, closing_time, is_closed } = hours;
-          //if is_closed is True, set opening_time and closing_time to be an empty string
-          if (is_closed) {
-            shelterModel.hours.M[day].M.opening_time.S = '';
-            shelterModel.hours.M[day].M.closing_time.S = '';
-          } else {
-            const [openingHour, openingMinute] = opening_time
-              .split(':')
-              .map(Number);
-            const [closingHour, closingMinute] = closing_time
-              .split(':')
-              .map(Number);
+          const { opening_time, closing_time } = hours;
 
-            // Make sure opening time is not after closing
-            if (
-              openingHour > closingHour ||
-              (openingHour === closingHour && openingMinute >= closingMinute)
-            ) {
-              throw new Error(
-                `Opening time must be before closing time on ${day}`
-              );
-            }
+          const [openingHour, openingMinute] = opening_time
+            .split(':')
+            .map(Number);
+          const [closingHour, closingMinute] = closing_time
+            .split(':')
+            .map(Number);
 
-            // Make sure hours are between 00:00 and 24:00
-            if (
-              openingHour < 0 ||
-              openingHour > 23 ||
-              closingHour < 0 ||
-              closingHour > 23 ||
-              openingMinute < 0 ||
-              openingMinute > 59 ||
-              closingMinute < 0 ||
-              closingMinute > 59
-            ) {
-              throw new Error(
-                `Hours must be between 00:00 and 24:00 on ${day}`
-              );
-            }
+          // Make sure opening time is not after closing
+          if (
+            openingHour > closingHour ||
+            (openingHour === closingHour && openingMinute >= closingMinute)
+          ) {
+            throw new Error(
+              `Opening time must be before closing time on ${day}`
+            );
+          }
 
-            // Make sure hours string follows HH:MM format
-            if (
-              opening_time.length !== 5 ||
-              closing_time.length !== 5 ||
-              opening_time[2] !== ':' ||
-              closing_time[2] !== ':'
-            ) {
-              throw new Error(`Hours must follow HH:MM format on ${day}`);
-            }
+          // Make sure hours are between 00:00 and 24:00
+          if (
+            openingHour < 0 ||
+            openingHour > 23 ||
+            closingHour < 0 ||
+            closingHour > 23 ||
+            openingMinute < 0 ||
+            openingMinute > 59 ||
+            closingMinute < 0 ||
+            closingMinute > 59
+          ) {
+            throw new Error(`Hours must be between 00:00 and 24:00 on ${day}`);
+          }
+
+          // Make sure hours string follows HH:MM format
+          if (
+            opening_time.length !== 5 ||
+            closing_time.length !== 5 ||
+            opening_time[2] !== ':' ||
+            closing_time[2] !== ':'
+          ) {
+            throw new Error(`Hours must follow HH:MM format on ${day}`);
           }
         }
       }
