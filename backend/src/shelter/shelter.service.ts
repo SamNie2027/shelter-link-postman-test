@@ -56,6 +56,23 @@ export class ShelterService {
   }
 
   /**
+   * Retrieve a specific shelter from the database.
+   * @returns a specific shelter
+   * @throws Error if the shelter cannot be retrieved
+   */
+  public async getShelter(shelterId: string) {
+    try {
+      const data = await this.dynamoDbService.scanTable(this.tableName, 'shelterId = :id');
+      const shelter = data.find((item) => item.shelterId.S === shelterId);
+      return this.shelterModelToOutput(data[0]);
+    } catch (e) {
+      throw new Error('Unable to get shelter: ' + e);
+    }
+  }
+
+
+
+  /**
    * Converts the input data to a shelter model suitable for DynamoDB.
    * @param input The input data for the new shelter.
    * @returns The shelter model.
@@ -248,3 +265,4 @@ export class ShelterService {
     }
   }
 }
+

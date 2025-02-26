@@ -7,20 +7,18 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ShelterInfoPanelProps = {
-  shelter: NewShelterInput;
+  shelter: Shelter;
   style?: any;
 };
 
 type RootStackParamList = {
   'Map View': undefined;
   'Detailed Shelter View': {
-    shelter: NewShelterInput;
+    shelter: Shelter;
   };
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const outlineColor = 'red';
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const navigation = useNavigation<NavigationProp>();

@@ -1,4 +1,4 @@
-import { bodyFont, darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from '../../constants';
 import React, { useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -31,7 +31,7 @@ const DropdownComponent = () => {
         searchPlaceholder="SEARCH"
         value={selected}
         onChange={(item) => {
-          // @ts-ignore
+          // @ts-expect-error
           setSelected(item);
         }}
       />

@@ -1,4 +1,4 @@
-import { bodyFont, darkMainColor, headerFont } from 'frontend/constants';
+import { bodyFont, darkMainColor, headerFont } from '../../constants';
 import React from 'react';
 import { Text, StyleSheet, View, Dimensions } from 'react-native';
 
@@ -6,7 +6,9 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Map</Text>
-      <Text style={styles.headerDescription}>Brief description of map features</Text>
+      <Text style={styles.headerDescription}>
+        Brief description of map features
+      </Text>
     </View>
   );
 };
