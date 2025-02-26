@@ -32,8 +32,7 @@ export class ShelterService {
    * @param e the object that was caught
    */
   private async updateShelterHandleCatch(e: any) {
-      // NotFoundException gets passed up from dynamodb.ts since I found that with 
-      // returning non-boolean data I couldn't check at the controller level
+      // NotFoundException gets passed up from dynamodb.ts
       if (e instanceof NotFoundException) {
         throw e;
       }
@@ -119,7 +118,6 @@ export class ShelterService {
   public async getShelters(): Promise<ShelterModel[]> {
     try {
       const data = await this.dynamoDbService.scanTable(this.tableName);
-      console.log(data);
       return data.map((item) => this.shelterModelToOutput(item));
     } catch (e) {
       throw new Error('Unable to get shelters: ' + e);

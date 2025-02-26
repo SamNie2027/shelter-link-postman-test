@@ -96,7 +96,7 @@ export class DynamoDbService {
       const result = await this.dynamoDbClient.send(command);
       return result;
     } catch (error) {
-      console.log(`Error posting item to table ${tableName}`);
+      console.error(`Error posting item to table ${tableName}`);
       throw new Error(error);
     }
   }
@@ -140,7 +140,6 @@ export class DynamoDbService {
     if (attributeNames.length !== attributeValues.length) {
       const err = `Error updating attributes of shelter ${shelterId} to table ${tableName}: 
           attributeNames and attributeValues must be the same length`;
-      console.log(err);
       throw new Error(err)
     }
 
@@ -211,11 +210,9 @@ export class DynamoDbService {
       'Friday': {},
       'Saturday': {}
     }
-    console.log(`existingShelter.hours: ${JSON.stringify(existingShelter.hours)}`);
     for (const key in existingShelter.hours.M) {
       result[key] = existingShelter.hours.M[key].M
     }
-    console.log(`before merge: ${JSON.stringify(result)}`);
     for (const day in DayOfWeek) {
       // the values of the enum are in all-caps, but the db is in proper caps so it must be translated
       const properCapitalDay = day.charAt(0).toUpperCase() + day.substring(1).toLowerCase();
@@ -232,11 +229,9 @@ export class DynamoDbService {
     for (const day in result) {
       if (Object.keys(result[day]).length === 0) {  // Check if the object is empty
         delete result[day];
-        console.log(`Deleted ${day}`);
       }
     }
     
-    console.log(`after merge: ${JSON.stringify(result)}`);
     return result;
   }
 
@@ -267,7 +262,6 @@ export class DynamoDbService {
     if (typeof hoursMap === 'object') {
       let mergedObject = this.mergeHours(existingShelter, hoursMap);
       for (let dayKey in mergedObject) {
-        console.log(`reached 269 with ${dayKey}`)
         UpdateExpression += `#hours.#${dayKey} = :${dayKey}, `;
         ExpressionAttributeNames[`#${dayKey}`] = dayKey;
         ExpressionAttributeValues[`:${dayKey}`] = {M: mergedObject[dayKey]};
@@ -294,15 +288,6 @@ export class DynamoDbService {
     //Removing the trailing comma -> e.g. "..., item1.item2 = :item2, " -> "..., item1.item2 = :item2"
     UpdateExpression = UpdateExpression.substring(0, UpdateExpression.length - 2);
 
-    console.log(`Attribute Names (input): ${attributeNames}`);
-    console.log(`Attribute Values (input): ${attributeValues}`);
-    console.log(`Table Name: ${tableName}`);
-
-    console.log(`Update Expression: ${UpdateExpression}`);
-    console.log(`Expression Attribute Names: ${JSON.stringify(ExpressionAttributeNames)}`);
-    console.log(`Expression Attribute Values: ${JSON.stringify(ExpressionAttributeValues)}`);
-    console.log(`Key: ${JSON.stringify(Key)}`);
-
     const command = new UpdateItemCommand({
       TableName: tableName,
       ReturnValues: "UPDATED_NEW",
@@ -311,12 +296,11 @@ export class DynamoDbService {
       ExpressionAttributeNames,
       ExpressionAttributeValues,
     });
-    console.log("past command");
     try {
       const result = await this.dynamoDbClient.send(command);
       return result;
     } catch (error) {
-      console.log(`Error updating ${attributeNames} to ${attributeValues} for shelter ${shelterId} to table ${tableName}`);
+      console.error(`Error updating ${attributeNames} to ${attributeValues} for shelter ${shelterId} to table ${tableName}`);
       throw new Error(error);
     }
   }
