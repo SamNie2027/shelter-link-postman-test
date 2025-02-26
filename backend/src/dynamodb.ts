@@ -1,9 +1,10 @@
 import {
   DynamoDBClient,
-  GetItemCommand,
   PutItemCommand,
   ScanCommand,
+  DeleteItemCommand,
   UpdateItemCommand,
+  GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { HoursUpdateModel } from './shelter/shelter.model';
@@ -88,24 +89,6 @@ export class DynamoDbService {
     } catch (error) {
       console.log(`Error posting item to table ${tableName}`);
       throw new Error(error);
-    }
-  }
-
-  public async getItem(
-    tableName: string,
-    key: { [key: string]: any }
-  ): Promise<any | null> {
-    const params = {
-      TableName: tableName,
-      Key: key,
-    };
-
-    try {
-      const result = await this.dynamoDbClient.send(new GetItemCommand(params));
-      return result.Item ?? null; // Return the item if found, otherwise null
-    } catch (error) {
-      console.error('DynamoDB GetItem Error:', error);
-      throw new Error(`Unable to get item from ${tableName}: ${error.message}`);
     }
   }
 
@@ -328,4 +311,49 @@ export class DynamoDbService {
       throw new Error(error);
     }
   }
+
+  public async getItem(
+    tableName: string,
+    key: { [key: string]: any }
+  ): Promise<any | null> {
+    const params = {
+      TableName: tableName,
+      Key: key,
+    };
+
+    try {
+      const result = await this.dynamoDbClient.send(new GetItemCommand(params));
+      return result.Item ?? null; // Return the item if found, otherwise null
+    } catch (error) {
+      console.error('DynamoDB GetItem Error:', error);
+      throw new Error(`Unable to get item from ${tableName}: ${error.message}`);
+    }
+  }
+
+  public async deleteItem(
+    tableName: string,
+    key: { [key: string]: any }
+  ): Promise<boolean> {
+    try {
+      // First, check if the item exists
+      const existingItem = await this.getItem(tableName, key);
+      if (!existingItem) {
+        return false; // Item does not exist
+      }
+
+      // Delete the existing item
+      await this.dynamoDbClient.send(
+        new DeleteItemCommand({ TableName: tableName, Key: key })
+      );
+      return true;
+    } catch (error) {
+      console.error('DynamoDB Delete Error:', error);
+      throw new Error(
+        `Unable to delete item from ${tableName}: ${error.message}`
+      );
+    }
+  }
 }
+
+
+

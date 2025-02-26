@@ -1,4 +1,4 @@
-import { bodyFont, darkMainColor } from 'frontend/constants';
+import { bodyFont, darkMainColor } from '../../constants';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
@@ -22,7 +22,7 @@ const DropdownComponent = () => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle} // Add this
+        iconStyle={styles.iconStyle}
         search
         data={data}
         labelField="label"
@@ -31,7 +31,7 @@ const DropdownComponent = () => {
         searchPlaceholder="SEARCH"
         value={selected}
         onChange={(item) => {
-          // @ts-ignore
+          // @ts-expect-error
           setSelected(item);
         }}
       />
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
-    tintColor: darkMainColor
+    tintColor: darkMainColor,
   },
 });
 

@@ -1,6 +1,4 @@
-import Logo from '../components/Logo';
 import {
-  Image,
   Linking,
   SafeAreaView,
   StyleSheet,
@@ -9,44 +7,48 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { backgroundColor, bodyFont } from 'frontend/constants';
+import {
+  backgroundColor,
+  headerFont,
+  darkMainColor,
+  bodyFont,
+  mainColor,
+  buttonBackgroundColor,
+  descriptionFontColor,
+} from '../../constants';
+import { Shelter, DayOfWeek } from '../types';
+import { ImageGallery } from './ImageGallery';
+import { HoursDropdown } from './HoursDropdown';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface Shelter {
-  id: number;
-  name: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
+type RootStackParamList = {
+  'Map View': undefined;
+  'Detailed Shelter View': {
+    shelter: Shelter;
   };
-  latitude: number;
-  longitude: number;
-  description: string;
-  overall_rating: number;
-  inclusivity_rating: number;
-  safety_rating: number;
-  availability: string;
-  phone_number: string;
-  email_address: string;
-  opening_time: string;
-  closing_time: string;
-  picture: string[];
-}
+};
 
-interface Props {
-  shelter: Shelter;
-}
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'Detailed Shelter View'
+>;
 
-export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
-  // to do: change directions button func
+export const DetailedShelterView: React.FC<Props> = ({ route }) => {
+  const { shelter } = route.params; // get shelter from route params
+
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
     Linking.openURL(url);
   };
 
-  // to do: change contact button func
+  // website will pop up if there is one
+  const handleWebsite = () => {
+    if (shelter.website) {
+      Linking.openURL(shelter.website);
+    }
+  };
+
   // for now, this gives the option to confirm if you want to call the shelter number
   // figure out how number/email maybe should be displayed?
   const handleContact = () => {
@@ -60,73 +62,103 @@ export const DetailedShelterView: React.FC<Props> = ({ shelter }) => {
     });
   };
 
+  const getHoursForDay = (day: DayOfWeek) => {
+    if (!shelter.hours || !shelter.hours[day]) return 'Closed';
+    const dayHours = shelter.hours[day];
+    if (!dayHours) return 'Closed';
+    return `${formatTime(dayHours.opening_time)} - ${formatTime(
+      dayHours.closing_time
+    )}`;
+  };
+
+  const getCurrentDay = () => {
+    const today = new Date().getDay();
+    const dayIndex = today === 0 ? 6 : today - 1;
+    const daysEnum: DayOfWeek[] = [
+      DayOfWeek.MONDAY,
+      DayOfWeek.TUESDAY,
+      DayOfWeek.WEDNESDAY,
+      DayOfWeek.THURSDAY,
+      DayOfWeek.FRIDAY,
+      DayOfWeek.SATURDAY,
+      DayOfWeek.SUNDAY,
+    ];
+    return daysEnum[dayIndex];
+  };
+
+  const getCurrentDayHours = () => {
+    const today = new Date().getDay();
+    const dayIndex = today === 0 ? 6 : today - 1;
+    const daysEnum: DayOfWeek[] = [
+      DayOfWeek.MONDAY,
+      DayOfWeek.TUESDAY,
+      DayOfWeek.WEDNESDAY,
+      DayOfWeek.THURSDAY,
+      DayOfWeek.FRIDAY,
+      DayOfWeek.SATURDAY,
+      DayOfWeek.SUNDAY,
+    ];
+    return getHoursForDay(daysEnum[dayIndex]);
+  };
+
+  const hoursData = Object.values(DayOfWeek).map((day) => ({
+    label: `${day}: ${getHoursForDay(day)}`,
+    value: day,
+  }));
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
       <View style={styles.shelterNameContainer}>
-      <Text style={styles.shelterNameText}>{shelter.name}</Text>
+        <Text style={styles.shelterNameText}>{shelter.name}</Text>
       </View>
       <View style={styles.quickInfoContainer}>
+        {shelter.rating !== undefined && (
+          <Text style={styles.quickInfoText}>
+            {shelter.rating.toFixed(1)} ★ ★ ★ ★ ★
+          </Text>
+        )}
         <Text style={styles.quickInfoText}>
-          {/* added availability here instead of minutes away based on shelter.entity.ts */}
-          {shelter.overall_rating.toFixed(1)} stars rating | {shelter.availability}
+          {shelter.address.street}, {shelter.address.city},{' '}
+          {shelter.address.state}{' '}
         </Text>
-        <Text style={styles.quickInfoText}>
-          {shelter.address.street}, {shelter.address.city} | {formatTime(shelter.opening_time)} - {formatTime(shelter.closing_time)}
-        </Text>
-        {/* added availability here instead of short description on shelter.entity.ts */}
-        <Text style={styles.quickInfoText}>{shelter.availability}</Text>
+
+        <View style={styles.hoursRow}>
+          <Text style={styles.dayText}>{getCurrentDay()}:</Text>
+          <View style={styles.hoursStatusContainer}>
+            <HoursDropdown
+              currentDay={getCurrentDay()}
+              currentHours={getCurrentDayHours()}
+              hoursData={hoursData}
+            />
+          </View>
+        </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.directionsButton} onPress={handleDirections}>
+        <TouchableOpacity
+          style={styles.directionsButton}
+          onPress={handleDirections}
+        >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.websiteButton}>
-          {/* no website field in shelter.entity.ts so no behavior yet */}
-          <Text style={styles.buttonText}>Website</Text>
-        </TouchableOpacity>
+        {shelter.website && (
+          <TouchableOpacity
+            style={styles.websiteButton}
+            onPress={handleWebsite}
+          >
+            <Text style={styles.buttonText}>Website</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.contactButton} onPress={handleContact}>
           <Text style={styles.buttonText}>Contact</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.images}>
-        {shelter.picture.slice(0, 3).map((url, index) => (
-          <Image
-            key={index}
-            source={{ uri: url }}
-            style={styles.shelterImage}
-          />
-        ))}
+        <ImageGallery images={shelter.picture} />
       </View>
-      <Text style={styles.shelterDescription}>
-        {shelter.description}
-      </Text>
+      <Text style={styles.shelterDescription}>{shelter.description}</Text>
       <View style={styles.fullReview}>
         <View style={styles.fullReviewTitleContainer}>
-        <Text style={styles.fullReviewTitle}>BAGLY FULL REVIEW</Text>
-        </View>
-        <View style={styles.reviews}>
-          <View style={styles.traits}>
-            <Text style={styles.traitText}>Safety: {shelter.safety_rating}/5</Text>
-            <Text style={styles.traitText}>Inclusivity: {shelter.inclusivity_rating}/5</Text>
-            {/* add other traits here */}
-            {/*<Text style={styles.traitText}>Trait 3</Text>*/}
-            {/*<Text style={styles.traitText}>Trait 4</Text>*/}
-            {/*<Text style={styles.traitText}>Trait 5</Text>*/}
-          </View>
-          <Image
-            style={styles.allOfThisIcon}
-            source={require('frontend/assets/AllOfThisIcon.png')}
-          />
-          <View style={styles.sumRating}>
-            <Text style={styles.sumRatingText}>{shelter.overall_rating.toFixed(1)}</Text>
-            <Image
-              style={styles.sumStarIcon}
-              source={require('frontend/assets/teenyicons_star-solid.png')}
-            />
-          </View>
+          <Text style={styles.fullReviewTitle}>BAGLY REVIEW</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -138,38 +170,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: backgroundColor,
   },
-  logoContainer: {
-    alignItems: 'flex-start',
-    paddingLeft: 12,
-    paddingTop: 9,
-  },
   shelterNameContainer: {
     height: 44,
     width: '100%',
-    marginLeft: 12,
-    marginTop: 10,
+    marginLeft: 14,
+    marginTop: 23,
   },
   shelterNameText: {
-    fontFamily: bodyFont,
-    fontSize: 32,
+    fontFamily: headerFont,
+    fontSize: 64,
     fontWeight: '400',
-    lineHeight: 38.73,
-    color: '#000000',
+    lineHeight: 64,
+    color: darkMainColor,
   },
   quickInfoContainer: {
     width: '100%',
-    height: 75.14,
+    height: 116,
     marginLeft: 12,
+    marginTop: 6,
   },
   quickInfoText: {
     fontFamily: bodyFont,
+    color: descriptionFontColor,
     fontSize: 15,
     fontWeight: '400',
     paddingBottom: 4,
-    lineHeight: 18.15,
+    lineHeight: 21.59,
   },
   buttonsContainer: {
-    marginTop: 8.86,
     marginLeft: 15,
     flexDirection: 'row',
     width: '100%',
@@ -180,7 +208,9 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: mainColor,
+    backgroundColor: buttonBackgroundColor,
+    fontFamily: bodyFont,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -189,7 +219,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: darkMainColor,
+    backgroundColor: buttonBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -199,7 +230,8 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: darkMainColor,
+    backgroundColor: buttonBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
@@ -209,33 +241,35 @@ const styles = StyleSheet.create({
     fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: 15.73,
-    color: '#1E1E1E',
+    color: darkMainColor,
   },
   images: {
-    width: 322,
+    width: '90%',
     height: 150,
     marginTop: 30.39,
-    marginLeft: 12,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   shelterImage: {
     width: 150,
     height: 150,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 3,
     marginRight: 22,
-    borderColor: '#000000',
+    borderColor: darkMainColor,
     backgroundColor: '#D9D9D9',
   },
   shelterDescription: {
     width: 340,
     marginLeft: 13,
     marginTop: 19,
-    fontSize: 13,
+    fontSize: 15,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 18.15,
-    color: '#1E1E1E',
+    lineHeight: 21.59,
+    color: descriptionFontColor,
   },
   fullReview: {
     marginTop: 40,
@@ -244,50 +278,75 @@ const styles = StyleSheet.create({
     height: 176,
   },
   fullReviewTitleContainer: {
-    width: 247,
+    width: '100%',
     height: 40,
   },
   fullReviewTitle: {
-    fontSize: 24,
-    fontFamily: bodyFont,
+    fontSize: 64,
+    fontFamily: headerFont,
     fontWeight: '400',
-    lineHeight: 29.05,
-    color: '#1E1E1E',
+    lineHeight: 64,
+    color: darkMainColor,
   },
-  traits: {
-    width: 142,
-  },
-  reviews: {
+  hoursRow: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
   },
-  traitText: {
-    height: 28,
+  allHoursContainer: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: 8,
+    padding: 8,
+    marginTop: 4,
+  },
+  closedText: {
+    fontFamily: bodyFont,
+    color: darkMainColor,
+    fontWeight: 700,
+  },
+  arrow: {
+    color: mainColor,
+    fontSize: 12,
+  },
+  dayText: {
+    fontFamily: bodyFont,
     fontSize: 15,
+    fontWeight: '700',
+    color: descriptionFontColor,
+    marginRight: 14,
+    lineHeight: 21.59,
+  },
+  hoursText: {
     fontFamily: bodyFont,
-    fontWeight: '400',
-    lineHeight: 18.15,
-    color: '#1E1E1E',
-    width: '100%',
+    fontWeight: '700',
+    fontSize: 15,
+    color: mainColor,
+    lineHeight: 21.59,
   },
-  allOfThisIcon: {
-    marginLeft: 24,
-  },
-  sumRating: {
+  hoursStatusContainer: {
+    overflow: 'hidden',
     flexDirection: 'row',
-    marginLeft: 19,
-    marginTop: 20,
+    alignItems: 'center',
   },
-  sumRatingText: {
-    width: 84,
-    height: 82,
-    fontSize: 48,
+  hoursDropdown: {
+    height: 36,
+    minWidth: 120,
+    paddingHorizontal: 12,
+    paddingRight: 50,
+  },
+  redArrow: {
+    color: darkMainColor,
+    fontSize: 17,
+    marginLeft: 4,
+  },
+  placeholderStyle: {
     fontFamily: bodyFont,
-    fontWeight: '400',
-    lineHeight: 58.09,
+    fontSize: 15,
+    color: darkMainColor,
   },
-  sumStarIcon: {
-    marginTop: 14,
+  dropdownContainer: {
+    backgroundColor: 'white',
+    borderColor: '#007AFF',
+    borderWidth: 1,
+    marginTop: 4,
   },
 });

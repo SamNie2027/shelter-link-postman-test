@@ -1,4 +1,15 @@
-import { Controller, Post, Put, Body, Param, Query, Get, NotFoundException, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Body,
+  Param,
+  Query,
+  Get,
+  Delete,
+  NotFoundException,
+  Patch,
+} from '@nestjs/common';
 import { NewShelterInput } from '../dtos/newShelterDTO';
 import { UpdateShelterInput } from '../dtos/updateShelterDTO';
 import { ShelterService } from './shelter.service';
@@ -23,4 +34,18 @@ export class ShelterController {
     return this.shelterService.updateShelter(updateData.shelterId, updateData);
   }
 
+
+  @Get(':shelterId')
+  public async getShelter(@Param('shelterId') shelterId: string) {
+    return this.shelterService.getShelter(shelterId);
+  }
+
+  @Delete(':shelterId')
+  public async deleteShelter(@Param('shelterId') shelterId: string) {
+    const deleted = await this.shelterService.deleteShelter(shelterId);
+    if (!deleted) {
+      throw new NotFoundException(`Shelter with ID ${shelterId} not found.`);
+    }
+    return { message: `Shelter with ID ${shelterId} deleted successfully.` };
+  }
 }
