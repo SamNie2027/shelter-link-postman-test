@@ -32,7 +32,6 @@ export class ShelterService {
    * @param e the object that was caught
    */
   private async updateShelterHandleCatch(e: any) {
-  private async updateShelterHandleCatch(e: any) {
       // NotFoundException gets passed up from dynamodb.ts since I found that with 
       // returning non-boolean data I couldn't check at the controller level
       if (e instanceof NotFoundException) {
