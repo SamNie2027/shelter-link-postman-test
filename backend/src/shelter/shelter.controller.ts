@@ -1,4 +1,4 @@
-import { Controller, Post, Put, Body, Param, Query, Get, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Put, Body, Param, Query, Get, NotFoundException, Patch } from '@nestjs/common';
 import { NewShelterInput } from '../dtos/newShelterDTO';
 import { UpdateShelterInput } from '../dtos/updateShelterDTO';
 import { ShelterService } from './shelter.service';
@@ -17,7 +17,7 @@ export class ShelterController {
     return this.shelterService.getShelters();
   }
 
-  @Post('/update')
+  @Patch('/update')
   public async updateShelter(@Body() updateData: UpdateShelterInput) {
     console.log(`updateShelter input: ${JSON.stringify(updateData)}`);
     return this.shelterService.updateShelter(updateData.shelterId, updateData);
