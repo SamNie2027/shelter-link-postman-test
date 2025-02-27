@@ -48,8 +48,7 @@ export class ShelterService {
     let buildAttributeNamesList: string[] = []; //names of the fields
     let buildAttributeValuesList: (string | number)[] = []; //desired values to update
     let hoursMap: false | HoursUpdateModel  = false;
-
-    let containsHours = false;
+    
     for (let key in desiredUpdates) {
       if (key === 'shelterId') {
         continue;
@@ -74,7 +73,6 @@ export class ShelterService {
         buildAttributeNamesList, buildAttributeValuesList, hoursMap);
       return { result };
     } catch (e) {
-      this.updateShelterHandleCatch(e);
       this.updateShelterHandleCatch(e);
     }
   }

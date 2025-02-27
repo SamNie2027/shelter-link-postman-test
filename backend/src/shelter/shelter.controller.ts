@@ -30,7 +30,6 @@ export class ShelterController {
 
   @Patch('/update')
   public async updateShelter(@Body() updateData: UpdateShelterInput) {
-    console.log(`updateShelter input: ${JSON.stringify(updateData)}`);
     return this.shelterService.updateShelter(updateData.shelterId, updateData);
   }
 
