@@ -5,13 +5,15 @@
   "dependencies": {
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",
+    "expo": "*",
     "metro-config": "*",
     "react-native": "*",
-    "expo": "*",
     "react-native-svg": "*",
-    "react-native-web": "*"
+    "react-native-web": "*",
+    "expo-modules-core": "~2.2.2"
   },
   "scripts": {
     "eas-build-post-install": "cd ../ && node tools/scripts/eas-build-post-install.mjs . frontend"
-  }
+  },
+  "devDependencies": {}
 }
