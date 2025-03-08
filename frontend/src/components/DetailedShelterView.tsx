@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   Linking,
   SafeAreaView,
   StyleSheet,
@@ -135,24 +136,24 @@ export const DetailedShelterView: React.FC<Props> = ({ route }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          style={styles.directionsButton}
+          style={styles.button}
           onPress={handleDirections}
         >
           <Text style={styles.buttonText}>Directions</Text>
         </TouchableOpacity>
         {shelter.website && (
           <TouchableOpacity
-            style={styles.websiteButton}
+            style={styles.button}
             onPress={handleWebsite}
           >
             <Text style={styles.buttonText}>Website</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.contactButton} onPress={handleContact}>
+        <TouchableOpacity style={styles.button} onPress={handleContact}>
           <Text style={styles.buttonText}>Contact</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.images}>
+      <View style={styles.imagesContainer}>
         <ImageGallery images={shelter.picture} />
       </View>
       <Text style={styles.shelterDescription}>{shelter.description}</Text>
@@ -164,6 +165,32 @@ export const DetailedShelterView: React.FC<Props> = ({ route }) => {
     </SafeAreaView>
   );
 };
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+let dynamicTabletSizes: Record<string, number> = {};
+dynamicTabletSizes["shelterNameTextSize"] = 64;
+dynamicTabletSizes["shelterNameTextHeight"] = 64;
+dynamicTabletSizes["quickInfoFontSize"] = 15;
+dynamicTabletSizes["quickInfoLineHeight"] = 21.59;
+dynamicTabletSizes["buttonFontSize"] = 13;
+dynamicTabletSizes["buttonLineHeight"] = 15.73;
+dynamicTabletSizes["shelterDescriptionFontSize"] = 15;
+dynamicTabletSizes["shelterDescriptionLineHeight"] = 21.59;
+dynamicTabletSizes["dayTextFontSize"] = 15;
+dynamicTabletSizes["dayTextLineHeight"] = 21.59;
+dynamicTabletSizes["arrowFontSize"] = 12;
+dynamicTabletSizes["redArrowFontSize"] = 17;
+dynamicTabletSizes["hoursTextFontSize"] = 15;
+dynamicTabletSizes["hoursTextLineHeight"] = 21.59;
+
+
+
+if (screenWidth > 500) {
+  let widthRatio = screenWidth/500;
+  for (const key in dynamicTabletSizes) {
+    dynamicTabletSizes[key] = (dynamicTabletSizes[key]*widthRatio)
+  }
+}
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -178,9 +205,9 @@ const styles = StyleSheet.create({
   },
   shelterNameText: {
     fontFamily: headerFont,
-    fontSize: 64,
+    fontSize: dynamicTabletSizes.shelterNameTextSize,
     fontWeight: '400',
-    lineHeight: 64,
+    lineHeight: dynamicTabletSizes.shelterNameTextHeight,
     color: darkMainColor,
   },
   quickInfoContainer: {
@@ -192,69 +219,50 @@ const styles = StyleSheet.create({
   quickInfoText: {
     fontFamily: bodyFont,
     color: descriptionFontColor,
-    fontSize: 15,
+    fontSize: dynamicTabletSizes.quickInfoFontSize,
     fontWeight: '400',
     paddingBottom: 4,
-    lineHeight: 21.59,
+    lineHeight: dynamicTabletSizes.quickInfoLineHeight,
   },
   buttonsContainer: {
-    marginLeft: 15,
     flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
     width: '100%',
-    height: 35.61,
+    height: screenHeight*0.06,
   },
-  directionsButton: {
-    width: 106,
-    height: 32,
+  button: {
+    width: screenWidth/4,
+    height: screenHeight*0.04,
     borderRadius: 4,
     borderWidth: 1,
+    marginLeft: screenWidth/32,
+    marginRight: screenWidth/32,
     borderColor: mainColor,
     backgroundColor: buttonBackgroundColor,
     fontFamily: bodyFont,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  websiteButton: {
-    width: 115,
-    height: 32,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: darkMainColor,
-    backgroundColor: buttonBackgroundColor,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 12,
-  },
-  contactButton: {
-    width: 115,
-    height: 32,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: darkMainColor,
-    backgroundColor: buttonBackgroundColor,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 12,
-  },
   buttonText: {
-    fontSize: 13,
+    fontSize: dynamicTabletSizes.buttonFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 15.73,
+    lineHeight: dynamicTabletSizes.buttonLineHeight,
     color: darkMainColor,
   },
-  images: {
-    width: '90%',
-    height: 150,
-    marginTop: 30.39,
+  imagesContainer: {
+    paddingTop: screenHeight/32,
+    paddingBottom:  screenHeight/32,
+    height: screenHeight/6,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
   },
   shelterImage: {
-    width: 150,
-    height: 150,
+    width: screenHeight/7,
+    height: screenHeight/7,
     borderRadius: 10,
     borderWidth: 3,
     marginRight: 22,
@@ -262,13 +270,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
   },
   shelterDescription: {
-    width: 340,
-    marginLeft: 13,
+    marginLeft: screenWidth/32,
+    marginRight: screenWidth/32,
     marginTop: 19,
-    fontSize: 15,
+    fontSize: dynamicTabletSizes.shelterDescriptionFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
-    lineHeight: 21.59,
+    lineHeight: dynamicTabletSizes.shelterDescriptionLineHeight,
     color: descriptionFontColor,
   },
   fullReview: {
@@ -305,22 +313,22 @@ const styles = StyleSheet.create({
   },
   arrow: {
     color: mainColor,
-    fontSize: 12,
+    fontSize: dynamicTabletSizes.arrowFontSize,
   },
   dayText: {
     fontFamily: bodyFont,
-    fontSize: 15,
+    fontSize: dynamicTabletSizes.dayTextFontSize,
     fontWeight: '700',
     color: descriptionFontColor,
     marginRight: 14,
-    lineHeight: 21.59,
+    lineHeight: dynamicTabletSizes.dayTextLineHeight,
   },
   hoursText: {
     fontFamily: bodyFont,
     fontWeight: '700',
-    fontSize: 15,
+    fontSize: dynamicTabletSizes.hoursTextFontSize,
     color: mainColor,
-    lineHeight: 21.59,
+    lineHeight: dynamicTabletSizes.hoursTextLineHeight,
   },
   hoursStatusContainer: {
     overflow: 'hidden',
@@ -335,7 +343,7 @@ const styles = StyleSheet.create({
   },
   redArrow: {
     color: darkMainColor,
-    fontSize: 17,
+    fontSize: dynamicTabletSizes.redArrowFontSize,
     marginLeft: 4,
   },
   placeholderStyle: {

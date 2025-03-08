@@ -40,4 +40,5 @@ export class ShelterController {
     return { message: `Shelter with ID ${shelterId} deleted successfully.` };
 
 }
+}
 
