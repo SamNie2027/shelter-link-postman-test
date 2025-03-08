@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import { darkMainColor } from '../../constants';
 
@@ -66,6 +66,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   );
 };
 
+const { width: screenWidth } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   galleryContainer: {
     flexDirection: 'row',
@@ -80,8 +82,8 @@ const styles = StyleSheet.create({
     gap: 22,
   },
   shelterImage: {
-    width: 150,
-    height: 150,
+    width: screenWidth/3,
+    height: screenWidth/3,
     borderRadius: 10,
     borderWidth: 3,
     borderColor: darkMainColor,

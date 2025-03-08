@@ -21,6 +21,8 @@ import { Shelter, DayOfWeek } from '../types';
 import { ImageGallery } from './ImageGallery';
 import { HoursDropdown } from './HoursDropdown';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
+
 
 type RootStackParamList = {
   'Map View': undefined;
@@ -36,6 +38,11 @@ type Props = NativeStackScreenProps<
 
 export const DetailedShelterView: React.FC<Props> = ({ route }) => {
   const { shelter } = route.params; // get shelter from route params
+
+  const [fonts] = useFonts({
+    'IstokWebRegular': require('../../assets/fonts/IstokWebRegular.ttf'),
+    'JomhuriaRegular': require('../../assets/fonts/JomhuriaRegular.ttf')
+  });
 
   // for now, this redirects to google maps based on lat and long
   const handleDirections = () => {
@@ -154,7 +161,7 @@ export const DetailedShelterView: React.FC<Props> = ({ route }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.imagesContainer}>
-        <ImageGallery images={shelter.picture} />
+        <ImageGallery images={shelter.picture}/>
       </View>
       <Text style={styles.shelterDescription}>{shelter.description}</Text>
       <View style={styles.fullReview}>
@@ -196,7 +203,6 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
   },
   shelterNameContainer: {
-    height: 44,
     width: '100%',
     marginLeft: 14,
     marginTop: 23,
@@ -250,17 +256,14 @@ const styles = StyleSheet.create({
     color: darkMainColor,
   },
   imagesContainer: {
-    paddingTop: screenHeight/32,
-    paddingBottom:  screenHeight/32,
-    height: screenHeight/6,
+    paddingTop: screenHeight/28,
+    paddingBottom:  screenHeight/28,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
   },
   shelterImage: {
-    width: screenHeight/7,
-    height: screenHeight/7,
     borderRadius: 10,
     borderWidth: 3,
     marginRight: 22,

@@ -5,6 +5,7 @@ import { bodyFont, darkMainColor } from 'frontend/constants';
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
 
 type ShelterInfoPanelProps = {
   shelter: Shelter;
@@ -22,6 +23,10 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   const navigation = useNavigation<NavigationProp>();
+  const [fonts] = useFonts({
+    'IstokWebRegular': require('../../assets/fonts/IstokWebRegular.ttf'),
+    'JomhuriaRegular': require('../../assets/fonts/JomhuriaRegular.ttf')
+  });
 
   const formatAddress = (address: any) => {
     return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
