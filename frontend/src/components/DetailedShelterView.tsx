@@ -183,8 +183,6 @@ dynamicTabletSizes["redArrowFontSize"] = 17;
 dynamicTabletSizes["hoursTextFontSize"] = 15;
 dynamicTabletSizes["hoursTextLineHeight"] = 21.59;
 
-
-
 if (screenWidth > 500) {
   let widthRatio = screenWidth/500;
   for (const key in dynamicTabletSizes) {

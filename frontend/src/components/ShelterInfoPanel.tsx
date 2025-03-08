@@ -98,6 +98,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const panelWidth = screenWidth*0.85;
 const panelHeight = (218/332)*panelWidth;
 
+
 let panelBorderWidth = 2;
 let shelterNameFontSize = 20;
 let descriptionFontSize = 15;
