@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   leftButton: {
-    left: -20,
+    left: -screenWidth/10,
   },
   rightButton: {
-    right: -20,
+    right: -screenWidth/10,
   },
   navButtonText: {
     color: darkMainColor,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { Shelter } from '../sheltersTest';
+import { Shelter } from '../types';
 import { bodyFont, darkMainColor } from 'frontend/constants';
 import { NewShelterInput } from '../../../backend/src/dtos/newShelterDTO';
 import { useNavigation } from '@react-navigation/native';
@@ -64,13 +64,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       >
         {shelter.rating}{' '}
         <Image
-          style={{
-            marginTop: 'auto',
-            marginBottom: 'auto',
-            width: 10,
-            height: 10,
-            tintColor: darkMainColor,
-          }}
+          style={styles.star}
           source={require('frontend/assets/teenyicons_star-solid.png')}
         ></Image>{' '}
         | {shelter.description}
@@ -112,6 +106,7 @@ let shelterNameLineHeight = 24.2;
 let shelterAddressDistanceLineHeight = 18.15;
 let buttonTextLineHeight = 15.73;
 let buttonBorderWidth = 1;
+let starWidth = 10;
 if (screenWidth > 500) {
   panelBorderWidth = panelBorderWidth*(screenWidth/500);
   shelterNameFontSize = shelterNameFontSize*(screenHeight/500);
@@ -121,9 +116,17 @@ if (screenWidth > 500) {
   shelterAddressDistanceLineHeight = shelterAddressDistanceLineHeight*(screenWidth/500);
   buttonTextLineHeight = buttonTextLineHeight*(screenHeight/500);
   buttonBorderWidth = buttonBorderWidth*(screenWidth/500);
+  starWidth = starWidth*(screenWidth/500)
 }
 
 const styles = StyleSheet.create({
+  star: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    width: starWidth,
+    height: starWidth,
+    tintColor: darkMainColor,
+  },
   panel: {
     width: panelWidth,
     height: panelHeight,

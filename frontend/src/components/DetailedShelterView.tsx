@@ -189,6 +189,11 @@ dynamicTabletSizes["arrowFontSize"] = 12;
 dynamicTabletSizes["redArrowFontSize"] = 17;
 dynamicTabletSizes["hoursTextFontSize"] = 15;
 dynamicTabletSizes["hoursTextLineHeight"] = 21.59;
+dynamicTabletSizes["quickInfoTextPaddingBottom"] = 4;
+dynamicTabletSizes["fullReviewMarginTop"] = 40;
+dynamicTabletSizes["fullReviewMarginLeft"] = 13;
+dynamicTabletSizes["fullReviewWidth"] = 330;
+
 
 if (screenWidth > 500) {
   let widthRatio = screenWidth/500;
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
     color: descriptionFontColor,
     fontSize: dynamicTabletSizes.quickInfoFontSize,
     fontWeight: '400',
-    paddingBottom: 4,
+    paddingBottom: dynamicTabletSizes.paddingBottom,
     lineHeight: dynamicTabletSizes.quickInfoLineHeight,
   },
   buttonsContainer: {
@@ -242,6 +247,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginLeft: screenWidth/32,
     marginRight: screenWidth/32,
+    marginTop: 10,
     borderColor: mainColor,
     backgroundColor: buttonBackgroundColor,
     fontFamily: bodyFont,
@@ -281,10 +287,10 @@ const styles = StyleSheet.create({
     color: descriptionFontColor,
   },
   fullReview: {
-    marginTop: 40,
-    marginLeft: 13,
-    width: 330,
-    height: 176,
+    marginTop: dynamicTabletSizes.fullReviewMarginTop,
+    marginLeft: dynamicTabletSizes.fullReviewMarginLeft,
+    width: dynamicTabletSizes.fullReviewWidth,
+    height: screenHeight*(2/5),
   },
   fullReviewTitleContainer: {
     width: '100%',
