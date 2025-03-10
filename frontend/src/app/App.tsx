@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchBarContainer: {
-    marginVertical: 10,
+    marginVertical: '10%',
   },
   headerContainer: {
     marginTop: 20,
