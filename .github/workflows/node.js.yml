@@ -26,4 +26,5 @@ jobs:
     - run: cd frontend
     - run: npm ci
     - run: cd ../
-    - run: npm run build-android
+    - run: npm test
+#    - run: npm run build-android
