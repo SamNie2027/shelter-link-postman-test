@@ -16,9 +16,13 @@ export class ShelterService {
    */
   public async postShelter(shelterData: NewShelterInput) {
     const shelterModel = this.postInputToShelterModel(shelterData);
+    console.log(shelterModel);
     const newId =
       ((await this.dynamoDbService.getHighestShelterId(this.tableName)) ?? 0) +
       1;
+    if (newId.toString().indexOf('Error') >= 0) {
+      throw new Error(newId.toString().substring(5));
+    }
     shelterModel.shelterId.S = newId.toString();
     console.log('Using new ID:' + shelterModel.shelterId.S);
     try {
@@ -33,6 +37,7 @@ export class ShelterService {
         this.tableName,
         shelterModel
       );
+      console.log({ ...result, id: newId });
       return { ...result, id: newId };
     } catch (e) {
       throw new Error('Unable to post new shelter: ' + e);
