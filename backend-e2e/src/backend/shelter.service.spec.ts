@@ -204,7 +204,7 @@ const postDynamoDBReqBodyFiveRatingSuccess = {
     email_address: postDynamoDBReqBodySuccess.email_address,
     hours: postDynamoDBReqBodySuccess.hours,
     picture: postDynamoDBReqBodySuccess.picture,
-    rating: { N: '5'},
+    rating: { N: '5' },
     website: postDynamoDBReqBodySuccess.website
 }
 
@@ -219,6 +219,343 @@ const postReturnSuccess = {
     },
     id: 2
 };
+
+const getSheltersReqSuccessDynamoDB = [
+    {
+        "shelterId": { S: "6" },
+        "name": { S: "BAGLY" },
+        "address": {
+            M: {
+                "street": { S: "123 Main St" },
+                "city": { S: "Boston" },
+                "state": { S: "MA" },
+                "zipCode": { S: "02108" },
+                "country": { S: "" }
+            }
+        },
+        "latitude": { N: 42.3586 },
+        "longitude": { N: -71.180367 },
+        "description": { S: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
+        "phone_number": { S: "555-0123" },
+        "email_address": { S: "contact@shelter.org" },
+        "hours": {
+            M: {
+                "Monday": {
+                    M: {
+                        "opening_time": { S: "06:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Tuesday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Wednesday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Thursday": {
+                    M: {
+                        "opening_time": { S: "06:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Friday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Saturday": null,
+                "Sunday": null
+            }
+        },
+        "picture": {
+            L: [
+                { S: "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp" }
+            ]
+        },
+        "rating": { N: 4.5 },
+        "website": { S: "https://www.bagly.org/" }
+    },
+    {
+        "shelterId": { S: "11" },
+        "name": { S: "BAGLY" },
+        "address": {
+            M: {
+                "street": { S: "123 Main St" },
+                "city": { S: "Boston" },
+                "state": { S: "MA" },
+                "zipCode": { S: "02108" },
+                "country": { S: "" }
+            }
+        },
+        "latitude": { N: 42.3586 },
+        "longitude": { N: -71.180367 },
+        "description": { S: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
+        "phone_number": { S: "555-0123" },
+        "email_address": { S: "contact@shelter.org" },
+        "hours": {
+            M: {
+                "Monday": {
+                    M: {
+                        "opening_time": { S: "06:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Tuesday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Wednesday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Thursday": {
+                    M: {
+                        "opening_time": { S: "06:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Friday": {
+                    M: {
+                        "opening_time": { S: "08:00" },
+                        "closing_time": { S: "20:00" }
+                    }
+                },
+                "Saturday": null,
+                "Sunday": null
+            }
+        },
+        "picture": {
+            L: [
+                { S: "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp" }
+            ]
+        },
+        "rating": { N: 4.5 },
+        "website": { S: "https://www.bagly.org/" }
+    }
+];
+
+const getSheltersReqSuccess = [
+    {
+        "shelterId": "6",
+        "name": "BAGLY",
+        "address": {
+            "street": "123 Main St",
+            "city": "Boston",
+            "state": "MA",
+            "zipCode": "02108",
+            "country": ""
+        },
+        "latitude": 42.3586,
+        "longitude": -71.180367,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "phone_number": "555-0123",
+        "email_address": "contact@shelter.org",
+        "hours": {
+            "Monday": {
+                "opening_time": "06:00",
+                "closing_time": "20:00"
+            },
+            "Tuesday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Wednesday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Thursday": {
+                "opening_time": "06:00",
+                "closing_time": "20:00"
+            },
+            "Friday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Saturday": null,
+            "Sunday": null
+        },
+        "picture": [
+            "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp"
+        ],
+        "rating": 4.5,
+        "website": "https://www.bagly.org/"
+    },
+    {
+        "shelterId": "11",
+        "name": "BAGLY",
+        "address": {
+            "street": "123 Main St",
+            "city": "Boston",
+            "state": "MA",
+            "zipCode": "02108",
+            "country": ""
+        },
+        "latitude": 42.3586,
+        "longitude": -71.180367,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "phone_number": "555-0123",
+        "email_address": "contact@shelter.org",
+        "hours": {
+            "Monday": {
+                "opening_time": "06:00",
+                "closing_time": "20:00"
+            },
+            "Tuesday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Wednesday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Thursday": {
+                "opening_time": "06:00",
+                "closing_time": "20:00"
+            },
+            "Friday": {
+                "opening_time": "08:00",
+                "closing_time": "20:00"
+            },
+            "Saturday": null,
+            "Sunday": null
+        },
+        "picture": [
+            "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp"
+        ],
+        "rating": 4.5,
+        "website": "https://www.bagly.org/"
+    }
+];
+
+const getShelterReqSuccessDynamoDB = [{
+    "shelterId": { S: "6" },
+    "name": { S: "BAGLY" },
+    "address": {
+        M: {
+            "street": { S: "123 Main St" },
+            "city": { S: "Boston" },
+            "state": { S: "MA" },
+            "zipCode": { S: "02108" },
+            "country": { S: "" }
+        }
+    },
+    "latitude": { N: 42.3586 },
+    "longitude": { N: -71.180367 },
+    "description": { S: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
+    "phone_number": { S: "555-0123" },
+    "email_address": { S: "contact@shelter.org" },
+    "hours": {
+        M: {
+            "Monday": {
+                M: {
+                    "opening_time": { S: "06:00" },
+                    "closing_time": { S: "20:00" }
+                }
+            },
+            "Tuesday": {
+                M: {
+                    "opening_time": { S: "08:00" },
+                    "closing_time": { S: "20:00" }
+                }
+            },
+            "Wednesday": {
+                M: {
+                    "opening_time": { S: "08:00" },
+                    "closing_time": { S: "20:00" }
+                }
+            },
+            "Thursday": {
+                M: {
+                    "opening_time": { S: "06:00" },
+                    "closing_time": { S: "20:00" }
+                }
+            },
+            "Friday": {
+                M: {
+                    "opening_time": { S: "08:00" },
+                    "closing_time": { S: "20:00" }
+                }
+            },
+            "Saturday": null,
+            "Sunday": null
+        }
+    },
+    "picture": {
+        L: [
+            { S: "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp" }
+        ]
+    },
+    "rating": { N: 4.5 },
+    "website": { S: "https://www.bagly.org/" }
+}]
+
+const getShelterReqSuccess = {
+    "shelterId": "6",
+    "name": "BAGLY",
+    "address": {
+        "street": "123 Main St",
+        "city": "Boston",
+        "state": "MA",
+        "zipCode": "02108",
+        "country": ""
+    },
+    "latitude": 42.3586,
+    "longitude": -71.180367,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "phone_number": "555-0123",
+    "email_address": "contact@shelter.org",
+    "hours": {
+        "Monday": {
+            "opening_time": "06:00",
+            "closing_time": "20:00"
+        },
+        "Tuesday": {
+            "opening_time": "08:00",
+            "closing_time": "20:00"
+        },
+        "Wednesday": {
+            "opening_time": "08:00",
+            "closing_time": "20:00"
+        },
+        "Thursday": {
+            "opening_time": "06:00",
+            "closing_time": "20:00"
+        },
+        "Friday": {
+            "opening_time": "08:00",
+            "closing_time": "20:00"
+        },
+        "Saturday": null,
+        "Sunday": null
+    },
+    "picture": [
+        "https://shelter-link-shelters.s3.us-east-2.amazonaws.com/test_photo.webp"
+    ],
+    "rating": 4.5,
+    "website": "https://www.bagly.org/"
+}
+
+const deleteDynamoDBSuccess = {
+    '$metadata': {
+        httpStatusCode: 200,
+        requestId: '0099KTBH4F6FMEKPK5R0JGKOO7VV4KQNSO5AEMVJF66Q9ASUAAJG',
+        extendedRequestId: undefined,
+        cfId: undefined,
+        attempts: 1,
+        totalRetryDelay: 0
+    }
+}
 
 describe('ShelterService', () => {
     let service: ShelterService;
@@ -254,32 +591,32 @@ describe('ShelterService', () => {
             expect(response).toStrictEqual(postReturnSuccess);
         });
 
-        it('should correctly fail if dynamoDB returns an error for getHighestShelterId', async() => {
+        it('should correctly fail if dynamoDB returns an error for getHighestShelterId', async () => {
             mockDynamoDB.getHighestShelterId.mockRejectedValue(new Error('highest shelter id error'));
             await expect(service.postShelter(postReqSuccess)).rejects.toThrow('highest shelter id error');
             expect(mockDynamoDB.getHighestShelterId).toHaveBeenCalledWith('shelterlinkShelters');
         });
 
-        it('should correctly fail if dynamoDB returns an error for postItem', async() => {
+        it('should correctly fail if dynamoDB returns an error for postItem', async () => {
             mockDynamoDB.getHighestShelterId.mockResolvedValue(1);
             mockDynamoDB.postItem.mockRejectedValue(new Error('dynamodb post item error'));
             await expect(service.postShelter(postReqSuccess)).rejects.toThrow('dynamodb post item error');
             expect(mockDynamoDB.postItem).toHaveBeenCalledWith('shelterlinkShelters', postDynamoDBReqBodySuccess);
         });
 
-        it('should reject an input with rating less than 0', async() => {
+        it('should reject an input with rating less than 0', async () => {
             mockDynamoDB.getHighestShelterId.mockResolvedValue(1);
 
             await expect(service.postShelter(postSubReqZeroFailure)).rejects.toThrow('Rating must be a number in the range (0, 5]');
         });
 
-        it('should reject an input with rating of 0', async() => {
+        it('should reject an input with rating of 0', async () => {
             mockDynamoDB.getHighestShelterId.mockResolvedValue(1);
 
             await expect(service.postShelter(postReqZeroFailure)).rejects.toThrow('Rating must be a number in the range (0, 5]');
         });
 
-        it('should successfully post a shetler with rating of 5', async() => {
+        it('should successfully post a shetler with rating of 5', async () => {
             mockDynamoDB.getHighestShelterId.mockResolvedValue(1);
             mockDynamoDB.postItem.mockResolvedValue(postReturnSuccess);
 
@@ -288,6 +625,56 @@ describe('ShelterService', () => {
             expect(mockDynamoDB.getHighestShelterId).toHaveBeenCalledWith('shelterlinkShelters');
             expect(mockDynamoDB.postItem).toHaveBeenCalledWith('shelterlinkShelters', postDynamoDBReqBodyFiveRatingSuccess);
             expect(response).toStrictEqual(postReturnSuccess);
+        });
+    });
+
+    describe('getShelters', () => {
+        it('should successfully get shelters', async () => {
+            mockDynamoDB.scanTable.mockResolvedValue(getSheltersReqSuccessDynamoDB);
+
+            const response = await service.getShelters();
+            expect(mockDynamoDB.scanTable).toHaveBeenCalledWith('shelterlinkShelters');
+            expect(response).toStrictEqual(getSheltersReqSuccess);
+        });
+
+        it('should correctly fail if DynamoDB returns an error for scanTable', async () => {
+            mockDynamoDB.scanTable.mockRejectedValue(new Error('dynamodb scanTable error'));
+            await expect(service.getShelters()).rejects.toThrow('dynamodb scanTable error');
+            expect(mockDynamoDB.scanTable).toHaveBeenCalledWith("shelterlinkShelters");
+        });
+    });
+
+    describe('getShelter', () => {
+        it('should successfully get a shelter', async () => {
+            mockDynamoDB.scanTable.mockResolvedValue(getShelterReqSuccessDynamoDB);
+
+            const response = await service.getShelter("6");
+            expect(mockDynamoDB.scanTable).toHaveBeenCalledWith('shelterlinkShelters',
+                'shelterId = :shelterId',
+                { ':shelterId': { S: '6' } });
+            expect(response).toStrictEqual(getShelterReqSuccess);
+        });
+
+        it('should correctly fail if DynamoDB returns an error for scanTable', async () => {
+            mockDynamoDB.scanTable.mockRejectedValue(new Error('dynamodb scanTable error'));
+            await expect(service.getShelter('6')).rejects.toThrow('Unable to get shelter: Error: dynamodb scanTable error');
+            expect(mockDynamoDB.scanTable).toHaveBeenCalledWith('shelterlinkShelters',
+                'shelterId = :shelterId',
+                { ':shelterId': { S: '6' } });
+        });
+    });
+
+    describe('deleteShelter', () => {
+        it('should successfully delete a shelter', async () => {
+            mockDynamoDB.deleteItem.mockResolvedValue(deleteDynamoDBSuccess);
+            const response = await service.deleteShelter('13')
+            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', {shelterId: { S: '13' }});
+        });
+
+        it('should correctly fail if dynamoDB deleteItem returns an error', async () => {
+            mockDynamoDB.deleteItem.mockRejectedValue(new Error('dynamodb deleteItem error'));
+            await expect(service.deleteShelter('13')).rejects.toThrow('Failed to delete shelter: dynamodb deleteItem error');
+            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', {shelterId: { S: '13' }});
         });
     });
 
