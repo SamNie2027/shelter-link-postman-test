@@ -13,13 +13,12 @@ const SearchBar = () => {
           {
             opacity: isTyping ? 1 : 0.6,
             color: mainColor,
-          }
+          },
         ]}
         placeholder="SEARCH"
         placeholderTextColor={mainColor} // Use mainColor for placeholder text
         onChangeText={(text) => setIsTyping(text.length > 0)}
       />
-
     </View>
   );
 };
