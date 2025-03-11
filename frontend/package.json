@@ -7,7 +7,7 @@
     "@testing-library/react-native": "*",
     "expo": "*",
     "metro-config": "*",
-    "react-native": "*",
+    "react-native": "^0.76.7",
     "react-native-svg": "*",
     "react-native-web": "*",
     "expo-modules-core": "~2.2.2"
