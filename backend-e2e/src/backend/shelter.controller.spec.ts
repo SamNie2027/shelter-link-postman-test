@@ -10,6 +10,7 @@ const mockShelterService = {
     getShelters: jest.fn(),
     getShelter: jest.fn(),
     deleteShelter: jest.fn(),
+    updateShelter: jest.fn()
 };
 
 const postReqSuccess: NewShelterInput = {
@@ -232,7 +233,7 @@ const oneShelter = {
     ],
     "rating": 4.2
 }
-    
+
 const postReturnSuccess = {
     $metadata: {
         httpStatusCode: 200,
@@ -242,6 +243,195 @@ const postReturnSuccess = {
     },
     id: 11,
 };
+
+const updateShelterReturnSuccess = {
+    "result": {
+        "$metadata": {
+            "httpStatusCode": 200,
+            "requestId": "IIPQO05DUEBENCG2IPK3QJEJMVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+            "attempts": 1,
+            "totalRetryDelay": 0
+        },
+        "Attributes": {
+            "website": {
+                "S": "https://calendar.northeastern.edu/curry_student_center"
+            },
+            "rating": {
+                "N": "4.6"
+            },
+            "longitude": {
+                "N": "-71.088128"
+            },
+            "phone_number": {
+                "S": "617-373-2000"
+            },
+            "address": {
+                "M": {
+                    "city": {
+                        "S": "Boston"
+                    },
+                    "country": {
+                        "S": "United States"
+                    },
+                    "state": {
+                        "S": "MA"
+                    },
+                    "street": {
+                        "S": "360 Huntington Ave"
+                    },
+                    "zipCode": {
+                        "S": "02115"
+                    }
+                }
+            },
+            "description": {
+                "S": "The John A. and Marcia E. Curry Student Center is the crossroads for community life at Northeastern University, serving all members of the University"
+            },
+            "hours": {
+                "M": {
+                    "Friday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "23:00"
+                            },
+                            "opening_time": {
+                                "S": "07:00"
+                            }
+                        }
+                    },
+                    "Monday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "24:00"
+                            },
+                            "opening_time": {
+                                "S": "07:00"
+                            }
+                        }
+                    },
+                    "Saturday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "23:00"
+                            },
+                            "opening_time": {
+                                "S": "08:00"
+                            }
+                        }
+                    },
+                    "Sunday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "24:00"
+                            },
+                            "opening_time": {
+                                "S": "10:00"
+                            }
+                        }
+                    },
+                    "Thursday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "24:00"
+                            },
+                            "opening_time": {
+                                "S": "07:00"
+                            }
+                        }
+                    },
+                    "Tuesday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "23:00"
+                            },
+                            "opening_time": {
+                                "S": "13:00"
+                            }
+                        }
+                    },
+                    "Wednesday": {
+                        "M": {
+                            "closing_time": {
+                                "S": "24:00"
+                            },
+                            "opening_time": {
+                                "S": "07:00"
+                            }
+                        }
+                    }
+                }
+            },
+            "picture": {
+                "L": [
+                    {
+                        "S": "https://th.bing.com/th/id/OIP.OqpRP8dl-udJN9VAHIiCUQHaE8?rs=1&pid=ImgDetMain"
+                    },
+                    {
+                        "S": "https://mir-s3-cdn-cf.behance.net/project_modules/fs/bd609234077806.56c3572f1b380.jpg"
+                    },
+                    {
+                        "S": "https://www.pcadesign.com/wp-content/uploads/NU-Curry-Dining_5-1536x1114.jp"
+                    }
+                ]
+            },
+            "latitude": {
+                "N": "42.338925"
+            },
+            "name": {
+                "S": "Curry Student Center"
+            },
+            "email_address": {
+                "S": "cie@northeastern.edu"
+            }
+        }
+    }
+}
+
+const updateShelterRequestSuccess = {
+    "shelterId": 10,
+    "name": "Curry Student Center",
+    "address": {
+        "street": "360 Huntington Ave",
+        "city": "Boston",
+        "state": "MA",
+        "zipCode": "02115",
+        "country": "United States"
+    },
+    "latitude": 42.338925,
+    "longitude": -71.088128,
+    "description": "The John A. and Marcia E. Curry Student Center is the crossroads for community life at Northeastern University, serving all members of the University",
+    "rating": 4.6,
+    "phone_number": "617-373-2000",
+    "email_address": "cie@northeastern.edu",
+    "website": "https://calendar.northeastern.edu/curry_student_center",
+    "hours": {
+      "Monday": {
+          "opening_time": "07:00",
+          "closing_time": "24:00"
+      },
+      "Wednesday": {
+          "opening_time": "07:00",
+          "closing_time": "24:00"
+      },
+      "Thursday": {
+          "opening_time": "07:00",
+          "closing_time": "24:00"
+      },
+      "Friday": {
+          "opening_time": "07:00",
+          "closing_time": "23:00"
+      },
+      "Saturday": {
+          "opening_time": "08:00",
+          "closing_time": "23:00"
+      },
+      "Sunday": {
+          "opening_time": "10:00",
+          "closing_time": "24:00"
+      }
+    },
+    "picture": ["https://th.bing.com/th/id/OIP.OqpRP8dl-udJN9VAHIiCUQHaE8?rs=1&pid=ImgDetMain", "https://mir-s3-cdn-cf.behance.net/project_modules/fs/bd609234077806.56c3572f1b380.jpg", "https://www.pcadesign.com/wp-content/uploads/NU-Curry-Dining_5-1536x1114.jpg"]
+  }
 
 describe('ShelterController with mock ShelterService', () => {
     let app: INestApplication;
@@ -264,22 +454,22 @@ describe('ShelterController with mock ShelterService', () => {
         it('should post a shelter successfully', async () => {
 
             mockShelterService.postShelter.mockResolvedValue(postReturnSuccess);
-    
+
             const response = await request(app.getHttpServer())
                 .post('/shelter')
                 .send(postReqSuccess);
-    
+
             expect(response.status).toBe(201);
             expect(mockShelterService.postShelter).toHaveBeenCalledWith(postReqSuccess);
         });
-    
+
         it('should correctly fail if the service returns an Error', async () => {
             mockShelterService.postShelter.mockRejectedValue(new Error('Service Error'));
 
             const response = await request(app.getHttpServer())
                 .post('/shelter')
                 .send();
-    
+
             expect(response.status).toBe(500);
             expect(response.body.message).toBe('Internal server error');
         });
@@ -303,7 +493,7 @@ describe('ShelterController with mock ShelterService', () => {
             const response = await request(app.getHttpServer())
                 .get('/shelter')
                 .send();
-    
+
             expect(response.status).toBe(500);
             expect(response.body.message).toBe('Internal server error');
         });
@@ -326,9 +516,9 @@ describe('ShelterController with mock ShelterService', () => {
             mockShelterService.getShelter.mockRejectedValue(new Error('Service Error'));
 
             const response = await request(app.getHttpServer())
-            .get('/shelter/3')
-            .send();
-    
+                .get('/shelter/3')
+                .send();
+
             expect(response.status).toBe(500);
             expect(response.body.message).toBe('Internal server error');
         });
@@ -339,24 +529,47 @@ describe('ShelterController with mock ShelterService', () => {
             mockShelterService.deleteShelter.mockResolvedValue(oneShelter)
 
             const response = await request(app.getHttpServer())
-            .delete('/shelter/3')
-            .send();
+                .delete('/shelter/3')
+                .send();
 
-        expect(response.status).toBe(200);
-        expect(mockShelterService.deleteShelter).toHaveBeenCalledWith('3');
+            expect(response.status).toBe(200);
+            expect(mockShelterService.deleteShelter).toHaveBeenCalledWith('3');
         })
 
         it('should correctly fail if the service returns an Error', async () => {
             mockShelterService.deleteShelter.mockRejectedValue(new Error('Service Error'));
 
             const response = await request(app.getHttpServer())
-            .delete('/shelter/3')
-            .send();
-    
+                .delete('/shelter/3')
+                .send();
+
             expect(response.status).toBe(500);
             expect(response.body.message).toBe('Internal server error');
         });
-    })
+    });
+
+    describe('PATCH /update', () => {
+        it('should update a specific shelter successfully', async () => {
+            mockShelterService.updateShelter.mockResolvedValue(updateShelterReturnSuccess);
+            const response = await request(app.getHttpServer())
+                .patch('/shelter/update')
+                .send(updateShelterRequestSuccess);
+            
+            expect(response.status).toBe(200);
+            expect(mockShelterService.updateShelter).toHaveBeenCalledWith(10, updateShelterRequestSuccess);
+        });
+
+        it('should correctly fail if the service returns an Error', async () => {
+            mockShelterService.updateShelter.mockRejectedValue(new Error('Service Error'));
+
+            const response = await request(app.getHttpServer())
+                .patch('/shelter/update')
+                .send(updateShelterRequestSuccess);
+
+            expect(response.status).toBe(500);
+            expect(response.body.message).toBe('Internal server error');
+        });
+    });
 });
 
 

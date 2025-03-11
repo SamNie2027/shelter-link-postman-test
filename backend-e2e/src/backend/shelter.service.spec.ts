@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ShelterService } from '../../../backend/src/shelter/shelter.service';
 import { DynamoDbService } from '../../../backend/src/dynamodb'; // Import your DynamoDB service
 import { NewShelterInput } from 'backend/src/dtos/newShelterDTO';
+import { ShelterUpdateModel } from 'backend/src/shelter/shelter.model';
 
 const mockDynamoDB = {
     scanTable: jest.fn(),
@@ -9,6 +10,7 @@ const mockDynamoDB = {
     postItem: jest.fn(),
     getItem: jest.fn(),
     deleteItem: jest.fn(),
+    updateAttributes: jest.fn()
 };
 
 const postReqSuccess: NewShelterInput = {
@@ -557,6 +559,52 @@ const deleteDynamoDBSuccess = {
     }
 }
 
+const updateShelterRequestSuccess: ShelterUpdateModel = {
+    "name": "Curry Student Center",
+    "address": {
+        "street": "360 Huntington Ave",
+        "city": "Boston",
+        "state": "MA",
+        "zipCode": "02115",
+        "country": "United States"
+    },
+    "latitude": 42.338925,
+    "longitude": -71.088128,
+    "description": "The John A. and Marcia E. Curry Student Center is the crossroads for community life at Northeastern University, serving all members of the University",
+    "rating": 4.6,
+    "phone_number": "617-373-2000",
+    "email_address": "cie@northeastern.edu",
+    "website": "https://calendar.northeastern.edu/curry_student_center",
+    "hours": {
+        "Monday": {
+            "opening_time": "07:00",
+            "closing_time": "24:00"
+        },
+        "Wednesday": {
+            "opening_time": "07:00",
+            "closing_time": "24:00"
+        },
+        "Thursday": {
+            "opening_time": "07:00",
+            "closing_time": "24:00"
+        },
+        "Friday": {
+            "opening_time": "07:00",
+            "closing_time": "23:00"
+        },
+        "Saturday": {
+            "opening_time": "08:00",
+            "closing_time": "23:00"
+        },
+        "Sunday": {
+            "opening_time": "10:00",
+            "closing_time": "24:00"
+        },
+        "Tuesday": null
+    },
+    "picture": ["https://th.bing.com/th/id/OIP.OqpRP8dl-udJN9VAHIiCUQHaE8?rs=1&pid=ImgDetMain", "https://mir-s3-cdn-cf.behance.net/project_modules/fs/bd609234077806.56c3572f1b380.jpg", "https://www.pcadesign.com/wp-content/uploads/NU-Curry-Dining_5-1536x1114.jpg"]
+}
+
 describe('ShelterService', () => {
     let service: ShelterService;
 
@@ -668,14 +716,23 @@ describe('ShelterService', () => {
         it('should successfully delete a shelter', async () => {
             mockDynamoDB.deleteItem.mockResolvedValue(deleteDynamoDBSuccess);
             const response = await service.deleteShelter('13')
-            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', {shelterId: { S: '13' }});
+            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', { shelterId: { S: '13' } });
         });
 
         it('should correctly fail if dynamoDB deleteItem returns an error', async () => {
             mockDynamoDB.deleteItem.mockRejectedValue(new Error('dynamodb deleteItem error'));
             await expect(service.deleteShelter('13')).rejects.toThrow('Failed to delete shelter: dynamodb deleteItem error');
-            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', {shelterId: { S: '13' }});
+            expect(mockDynamoDB.deleteItem).toHaveBeenCalledWith('shelterlinkShelters', { shelterId: { S: '13' } });
         });
+    });
+
+    describe('updateShelter', () => {
+        /*
+        it('should correctly fail if dynamoDB updateAttributes returns an error', async () => {
+            mockDynamoDB.updateAttributes.mockRejectedValue(new Error('dynamodb updateAttributes error'));
+            await expect(service.updateShelter('10', updateShelterRequestSuccess))
+                .rejects.toThrow('Error: Unable to update new shelter: Error: dynamodb updateAttributes error');
+        });*/
     });
 
 });
