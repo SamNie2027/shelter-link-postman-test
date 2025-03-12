@@ -18,7 +18,7 @@ const Logo: React.FC = () => {
             marginTop: 25,
             marginLeft: 15,
           }}
-          source={require('frontend/assets/Logo.png')}
+          source={require('../../assets/Logo.png')}
         />
       </TouchableOpacity>
     </View>

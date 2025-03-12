@@ -17,6 +17,8 @@ import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
 import { darkMainColor } from '../../constants';
 import getShelters from '../services/mapService';
+import { useFonts } from 'expo-font';
+
 
 /*If you desire to put the icon back search "ToRecoverIcon" in this document and follow the instructions*/
 export const CompleteMap = () => {
@@ -35,6 +37,10 @@ export const CompleteMap = () => {
       // setLoading(false);
     }
   };
+
+  useFonts({
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+  });
 
   useEffect(() => {
     fetchShelters();

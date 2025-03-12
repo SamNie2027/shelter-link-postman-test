@@ -1,8 +1,13 @@
+import { useFonts } from 'expo-font';
 import { bodyFont, darkMainColor, headerFont } from '../../constants';
 import React from 'react';
 import { Text, StyleSheet, View, Dimensions } from 'react-native';
 
 const Header = () => {
+  useFonts({
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Map</Text>
@@ -19,10 +24,10 @@ let headerLineHeight = 43.57;
 let headerDescriptionSize = 17;
 let headerDescriptionHeight = 18.15;
 if (screenWidth > 500) {
-  headerTextSize = headerTextSize*(screenWidth/500);
-  headerLineHeight = headerLineHeight*(screenWidth/500);
-  headerDescriptionSize = headerDescriptionSize*(screenWidth/500);
-  headerDescriptionHeight = headerDescriptionHeight*(screenWidth/500);
+  headerTextSize = headerTextSize * (screenWidth / 500);
+  headerLineHeight = headerLineHeight * (screenWidth / 500);
+  headerDescriptionSize = headerDescriptionSize * (screenWidth / 500);
+  headerDescriptionHeight = headerDescriptionHeight * (screenWidth / 500);
 }
 
 const styles = StyleSheet.create({

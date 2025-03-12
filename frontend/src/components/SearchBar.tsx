@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { TextInput, StyleSheet, View, Dimensions } from 'react-native';
 import { bodyFont, mainColor } from '../../constants'
+import { useFonts } from 'expo-font';
 
 const SearchBar = () => {
+  useFonts({
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+  });
+
   const [isTyping, setIsTyping] = useState(false);
 
   return (
@@ -27,16 +32,16 @@ const { width: screenWidth } = Dimensions.get('window');
 let searchBarHeight = 36;
 let searchBarBorderWidth = 1;
 let searchBarPaddingTop = 1;
-let searchInputFontSize = 14; 
+let searchInputFontSize = 14;
 let searchInputLineHeight = 19.36;
 let searchInputPaddingTop = 2;
 if (screenWidth > 500) {
-  searchBarHeight = searchBarHeight*(screenWidth/500);
-  searchBarBorderWidth = searchBarBorderWidth*(screenWidth/500);
-  searchBarPaddingTop = searchBarBorderWidth*(screenWidth/500);
-  searchInputFontSize = searchInputFontSize*(screenWidth/500);
-  searchInputLineHeight = searchInputLineHeight*(screenWidth/500);
-  searchInputPaddingTop = searchInputPaddingTop*(screenWidth/500);
+  searchBarHeight = searchBarHeight * (screenWidth / 500);
+  searchBarBorderWidth = searchBarBorderWidth * (screenWidth / 500);
+  searchBarPaddingTop = searchBarBorderWidth * (screenWidth / 500);
+  searchInputFontSize = searchInputFontSize * (screenWidth / 500);
+  searchInputLineHeight = searchInputLineHeight * (screenWidth / 500);
+  searchInputPaddingTop = searchInputPaddingTop * (screenWidth / 500);
 }
 
 const styles = StyleSheet.create({
