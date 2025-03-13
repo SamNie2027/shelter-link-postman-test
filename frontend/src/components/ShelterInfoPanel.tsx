@@ -53,13 +53,7 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
       <Text style={{ ...styles.shelterAddressDistance, alignItems: 'center' }}>
       {shelter.rating}{' '}
         <Image
-          style={{
-            marginTop: 'auto',
-            marginBottom: 'auto',
-            width: 10,
-            height: 10,
-            tintColor: darkMainColor,
-          }}
+          style={styles.starIcon}
           source={require('../../assets/starIcon.png')}
         ></Image> | {formatAddress(shelter.address)} | 2 mi
       </Text>
@@ -112,6 +106,13 @@ if (screenWidth > 500) {
 }
 
 const styles = StyleSheet.create({
+  starIcon: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    width: 10,
+    height: 10,
+    tintColor: darkMainColor,
+  },
   panel: {
     width: panelWidth,
     height: panelHeight,

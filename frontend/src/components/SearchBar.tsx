@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, Dimensions } from 'react-native';
+import { Image, TextInput, StyleSheet, View, Dimensions } from 'react-native';
 import { bodyFont, darkMainColor, mainColor } from '../../constants'
 import { useFonts } from 'expo-font';
 
@@ -12,6 +12,10 @@ const SearchBar = () => {
 
   return (
     <View style={styles.searchBar}>
+      <Image
+        style={styles.searchIcon}
+        source={require('../../assets/searchIcon.png')}
+      />
       <TextInput
         style={[
           styles.searchInput,
@@ -42,7 +46,17 @@ if (screenWidth > 500) {
 }
 
 const styles = StyleSheet.create({
+  searchIcon: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    width: 11,
+    height: 11,
+    tintColor: darkMainColor,
+    marginLeft: 10,
+  },
   searchBar: {
+    flexDirection: 'row',
+    alignContent: 'center',
     marginLeft: '2%',
     width: '70%',
     height: searchBarHeight,
@@ -56,7 +70,7 @@ const styles = StyleSheet.create({
     fontFamily: bodyFont,
     fontSize: searchInputFontSize,
     color: darkMainColor,
-    paddingLeft: 17,
+    paddingLeft: 9,
     paddingRight: 17,
   },
 });
