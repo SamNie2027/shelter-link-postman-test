@@ -93,6 +93,7 @@ let shelterAddressDistanceLineHeight = 18.15;
 let buttonTextLineHeight = 15.73;
 let buttonBorderWidth = 1;
 let shelterNameMarginTop = 7;
+let iconWidth = 10;
 if (screenWidth > 500) {
   panelBorderWidth = panelBorderWidth * (screenWidth / 500);
   shelterNameFontSize = shelterNameFontSize * (screenHeight / 500);
@@ -103,14 +104,15 @@ if (screenWidth > 500) {
   buttonTextLineHeight = buttonTextLineHeight * (screenHeight / 500);
   buttonBorderWidth = buttonBorderWidth * (screenWidth / 500);
   shelterNameMarginTop = shelterNameMarginTop * (screenHeight / 500);
+  iconWidth = iconWidth * (screenWidth / 500)
 }
 
 const styles = StyleSheet.create({
   starIcon: {
     marginTop: 'auto',
     marginBottom: 'auto',
-    width: 10,
-    height: 10,
+    width: iconWidth,
+    height: iconWidth,
     tintColor: darkMainColor,
   },
   panel: {

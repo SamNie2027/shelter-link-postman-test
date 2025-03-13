@@ -37,20 +37,22 @@ let searchBarBorderWidth = 1;
 let searchBarPaddingTop = 1;
 let searchInputFontSize = 13
 let searchInputPaddingTop = 2;
+let iconWidth = 11;
 if (screenWidth > 500) {
   searchBarHeight = searchBarHeight * (screenWidth / 500);
   searchBarBorderWidth = searchBarBorderWidth * (screenWidth / 500);
   searchBarPaddingTop = searchBarBorderWidth * (screenWidth / 500);
   searchInputFontSize = searchInputFontSize * (screenWidth / 500);
   searchInputPaddingTop = searchInputPaddingTop * (screenWidth / 500);
+  iconWidth = iconWidth * (screenWidth / 500)
 }
 
 const styles = StyleSheet.create({
   searchIcon: {
     marginTop: 'auto',
     marginBottom: 'auto',
-    width: 11,
-    height: 11,
+    width: iconWidth,
+    height: iconWidth,
     tintColor: darkMainColor,
     marginLeft: 10,
   },
