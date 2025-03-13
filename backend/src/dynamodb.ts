@@ -338,9 +338,9 @@ export class DynamoDbService {
       }
 
       // Delete the existing item
-      await this.dynamoDbClient.send(
+      console.log(await this.dynamoDbClient.send(
         new DeleteItemCommand({ TableName: tableName, Key: key })
-      );
+      ));
       return true;
     } catch (error) {
       console.error('DynamoDB Delete Error:', error);
