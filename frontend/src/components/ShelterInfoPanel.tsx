@@ -23,13 +23,13 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
 
   const navigation = useNavigation<NavigationProp>();
 
   const formatAddress = (address: any) => {
-    return `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`;
+    return `${address.street}, ${address.city}, ${address.state}`;
   };
 
   return (
@@ -48,21 +48,10 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
           ))}
         </View>
       </View>
-      <View style={styles.bookmarkContainer}>
-        <Image
-          style={styles.bookmarkImage}
-          source={require('../../assets/bookmark.png')}
-        />
-      </View>
       <Text style={styles.shelterName}>{shelter.name}</Text>
-      <Text style={styles.shelterAddressDistance}>
-        {formatAddress(shelter.address)} | Distance
-      </Text>
-
-      <Text
-        style={{ ...styles.shelterRatingDescription, alignItems: 'center' }}
-      >
-        {shelter.rating}{' '}
+      <Text style={styles.shelterNameExpansion}>Expansion Name Placeholder</Text>
+      <Text style={{ ...styles.shelterAddressDistance, alignItems: 'center' }}>
+      {shelter.rating}{' '}
         <Image
           style={{
             marginTop: 'auto',
@@ -71,11 +60,9 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
             height: 10,
             tintColor: darkMainColor,
           }}
-          source={require('../../assets/teenyicons_star-solid.png')}
-        ></Image>{' '}
-        | {shelter.description}
+          source={require('../../assets/starIcon.png')}
+        ></Image> | {formatAddress(shelter.address)} | 2 mi
       </Text>
-
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.directionsButton}
@@ -101,16 +88,17 @@ const ShelterInfoPanel = ({ shelter, style }: ShelterInfoPanelProps) => {
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const panelWidth = screenWidth * 0.85;
-const panelHeight = (218 / 332) * panelWidth;
+const panelHeight = (230 / 332) * panelWidth;
 
 let panelBorderWidth = 2;
 let shelterNameFontSize = 20;
-let descriptionFontSize = 15;
+let descriptionFontSize = 12;
 let buttonFontSize = 13;
 let shelterNameLineHeight = 24.2;
 let shelterAddressDistanceLineHeight = 18.15;
 let buttonTextLineHeight = 15.73;
 let buttonBorderWidth = 1;
+let shelterNameMarginTop = 7;
 if (screenWidth > 500) {
   panelBorderWidth = panelBorderWidth * (screenWidth / 500);
   shelterNameFontSize = shelterNameFontSize * (screenHeight / 500);
@@ -120,6 +108,7 @@ if (screenWidth > 500) {
   shelterAddressDistanceLineHeight = shelterAddressDistanceLineHeight * (screenWidth / 500);
   buttonTextLineHeight = buttonTextLineHeight * (screenHeight / 500);
   buttonBorderWidth = buttonBorderWidth * (screenWidth / 500);
+  shelterNameMarginTop = shelterNameMarginTop * (screenHeight / 500);
 }
 
 const styles = StyleSheet.create({
@@ -129,6 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: panelBorderWidth,
     borderColor: darkMainColor,
+    paddingTop: 5,
     backgroundColor: 'white',
   },
   topRowItems: {
@@ -140,48 +130,35 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   shelterImage: {
-    width: panelWidth * 0.253,
-    height: panelWidth * 0.253,
-    borderRadius: 10,
-    borderWidth: panelBorderWidth,
+    width: panelWidth * 0.284,
+    height: panelWidth * 0.211,
     marginRight: panelWidth * 0.027,
-    borderColor: darkMainColor,
-    backgroundColor: '#D9D9D9',
-  },
-  bookmarkContainer: {
-    position: 'absolute',
-    top: panelHeight * 0.037,
-    right: panelWidth * 0.033,
-  },
-  bookmarkImage: {
-    tintColor: darkMainColor,
-    width: panelWidth * 0.06,
-    height: panelWidth * 0.06 * (27 / 20),
+    borderRadius: 11,
   },
   shelterName: {
+    marginTop: shelterNameMarginTop,
     paddingLeft: panelWidth * 0.045,
     paddingTop: panelHeight * 0.018,
     fontSize: shelterNameFontSize,
     fontFamily: bodyFont,
-    fontWeight: '400',
+    fontWeight: '500',
     lineHeight: shelterNameLineHeight,
     color: darkMainColor
   },
-  shelterAddressDistance: {
+  shelterNameExpansion: {
+    marginTop: shelterNameMarginTop*0.8,
     paddingLeft: panelWidth * 0.045,
+    fontWeight: '500',
     fontSize: descriptionFontSize,
-    fontFamily: bodyFont,
-    fontWeight: '400',
-    lineHeight: shelterAddressDistanceLineHeight,
-    color: darkMainColor,
   },
-  shelterRatingDescription: {
+  shelterAddressDistance: {
+    marginTop: shelterNameMarginTop*0.8,
     paddingLeft: panelWidth * 0.045,
     fontSize: descriptionFontSize,
     fontFamily: bodyFont,
     fontWeight: '400',
     lineHeight: shelterAddressDistanceLineHeight,
-    color: darkMainColor,
+    color: 'black',
   },
   buttonsContainer: {
     paddingTop: panelHeight * 0.047, // might need to change
@@ -191,18 +168,16 @@ const styles = StyleSheet.create({
   directionsButton: {
     width: panelWidth * 0.28,
     height: panelHeight * 0.13,
-    borderRadius: 4,
+    borderRadius: 5,
     borderWidth: buttonBorderWidth,
-    borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
   learnMoreButton: {
     width: panelWidth * 0.301,
     height: panelHeight * 0.131,
-    borderRadius: 4,
+    borderRadius: 5,
     borderWidth: buttonBorderWidth,
-    borderColor: darkMainColor,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,

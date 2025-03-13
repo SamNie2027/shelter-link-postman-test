@@ -38,7 +38,7 @@ export const DetailedShelterView: React.FC<Props> = ({ route }) => {
   const { shelter } = route.params; // get shelter from route params
 
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
   
   // for now, this redirects to google maps based on lat and long

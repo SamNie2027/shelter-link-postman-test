@@ -15,7 +15,7 @@ import FiltersDropdown from '../components/FiltersDropdown';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import ShelterInfoPanel from '../components/ShelterInfoPanel';
 import { Shelter } from '../types';
-import { darkMainColor } from '../../constants';
+import { backgroundColor, darkMainColor } from '../../constants';
 import getShelters from '../services/mapService';
 import { useFonts } from 'expo-font';
 
@@ -39,7 +39,7 @@ export const CompleteMap = () => {
   };
 
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
 
   useEffect(() => {
@@ -66,14 +66,12 @@ export const CompleteMap = () => {
   <View> */
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.searchBarContainer}>
-        <SearchBar />
-      </View>
       <View style={styles.headerContainer}>
         <Header />
       </View>
       <View style={styles.filtersDropdownContainer}>
         <FiltersDropdown />
+        <SearchBar />
       </View>
       <Map onMarkerPress={handleMarkerPress} />
       <BottomSheet
@@ -103,7 +101,7 @@ export const CompleteMap = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#E2E2F0',
+    backgroundColor: backgroundColor,
   },
   container: {
     flex: 1,
@@ -127,12 +125,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: '10%',
     paddingBottom: '7%',
-    paddingTop: '3%',
   },
   filtersDropdownContainer: {
-    alignItems: 'flex-start',
+    width: '100%', 
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: '3%',
-    paddingBottom: '3%',
+    paddingBottom: '6%',
     borderStyle: 'solid',
     borderBottomWidth: 4,
     borderColor: darkMainColor,

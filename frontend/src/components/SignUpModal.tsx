@@ -15,7 +15,7 @@ import {
 
 const SignUpWizard = () => {
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
 
   const [formData, setFormData] = useState<{

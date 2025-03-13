@@ -20,7 +20,7 @@ export const HoursDropdown = ({
   hoursData,
 }: HoursDropdownProps) => {
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
 
   const [isOpen, setIsOpen] = useState(false);

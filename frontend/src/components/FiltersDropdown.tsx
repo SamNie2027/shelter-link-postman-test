@@ -15,7 +15,7 @@ const data = [
 // need to add some sort of indication of what is currently selected in dropdown list
 const DropdownComponent = () => {
   useFonts({
-    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNext': require('../../assets/fonts/AvenirNextLTPro-Bold.otf'),
   });
 
   const [selected, setSelected] = useState([]);
@@ -69,9 +69,8 @@ const styles = StyleSheet.create({
     height: dropdownHeight,
     paddingRight: 9,
     backgroundColor: '#FFFFFF',
-    borderRadius: 4,
+    borderRadius: 6,
     borderWidth: dropdownBorderWidth,
-    borderColor: darkMainColor,
   },
   placeholderStyle: {
     fontFamily: bodyFont,
