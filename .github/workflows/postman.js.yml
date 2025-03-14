@@ -6,12 +6,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  call_postman_api:
+  run_postman_collection:
     runs-on: ubuntu-latest
-    env:
-      POSTMAN_API_KEY: "YOUR_POSTMAN_API_KEY"
     steps:
-      - name: Call Postman API
-        run: |
-          curl --request GET "https://api.getpostman.com/collections" \
-               --header "X-Api-Key: PMAK-67d37b3e61943900016942ea-cb762242dc2db9f2bae15f22146e1c21e9"
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: newman run "https://api.getpostman.com/collections/41801404-d8337255-8d5d-42ee-bdc9-35601fadde30?apikey=${{ secrets.POSTMAN_API_KEY }}"
