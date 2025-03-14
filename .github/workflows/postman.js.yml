@@ -16,4 +16,4 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman Collection
-        run: newman run ../../Shelter_Smoke_Tests.json
+        run: newman run Shelter_Smoke_Tests.json
