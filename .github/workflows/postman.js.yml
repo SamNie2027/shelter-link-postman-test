@@ -9,6 +9,9 @@ jobs:
   run_postman_collection:
     runs-on: ubuntu-latest
     steps:
+      - name: Clear GitHub Actions Cache
+        run: rm -rf ~/.postman
+        
       - name: Install Newman
         run: npm install -g newman
 
