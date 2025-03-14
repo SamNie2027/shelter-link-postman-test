@@ -1,4 +1,4 @@
-name: ShelterLink CI
+name: Internal Backend Unit Tests
 on:
   push:
     branches: [ "main", "GithubActionsCICD" ]
