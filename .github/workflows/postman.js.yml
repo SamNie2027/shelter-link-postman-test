@@ -14,4 +14,4 @@ jobs:
       - name: Call Postman API
         run: |
           curl --request GET "https://api.getpostman.com/collections" \
-               --header "X-Api-Key: $POSTMAN_API_KEY"
+               --header "X-Api-Key: PMAK-67d37b3e61943900016942ea-cb762242dc2db9f2bae15f22146e1c21e9"
