@@ -7,7 +7,6 @@ import {
 } from './shelter.model';
 import { DynamoDbService } from '../dynamodb';
 import { NewShelterInput } from '../dtos/newShelterDTO';
-import { EmptyError } from 'rxjs';
 
 @Injectable()
 export class ShelterService {
@@ -95,20 +94,6 @@ export class ShelterService {
       return { result };
     } catch (e) {
       this.updateShelterHandleCatch(e);
-    }
-  }
-
-  private validateExistenceOfAllShelterFields(shelterData: NewShelterInput) {
-    for (let key in shelterData) {
-      if (shelterData[key] === null) {
-        throw new Error("Required fields must not be null");
-      }
-    }
-    if (shelterData.address.city === null
-      || shelterData.address.state === null
-      || shelterData.address.street === null
-      || shelterData.address.zipCode === null) {
-        throw new Error("Required fields must not be null");
     }
   }
 
