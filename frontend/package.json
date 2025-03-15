@@ -9,11 +9,9 @@
     "metro-config": "*",
     "react-native": "^0.76.7",
     "react-native-svg": "*",
-    "react-native-web": "*",
-    "expo-modules-core": "~2.2.2"
+    "react-native-web": "*"
   },
   "scripts": {
     "eas-build-post-install": "cd ../ && node tools/scripts/eas-build-post-install.mjs . frontend"
-  },
-  "devDependencies": {}
+  }
 }
